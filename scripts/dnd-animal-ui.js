@@ -425,6 +425,7 @@ document.addEventListener(
 
     const target = event.target.closest(PRESSABLE_SELECTOR);
     if (!target) return;
+    if (target.closest(".dnd5e2.sheet, .window-app.dnd5e2, .application.dnd5e2")) return;
 
     target.classList.remove("dnd-animal-ui-pressing");
     void target.offsetWidth;

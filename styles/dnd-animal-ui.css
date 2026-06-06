@@ -252,7 +252,7 @@ body.dnd-animal-ui-enabled .sidebar-popout .window-content {
 }
 
 /* Inputs and forms */
-body.dnd-animal-ui-enabled :is(input[type="text"], input[type="number"], input[type="password"], input[type="search"], input[type="date"], input[type="time"], input[type="url"], input[type="email"], textarea, select) {
+body.dnd-animal-ui-enabled :is(input[type="text"], input[type="number"], input[type="password"], input[type="search"], input[type="date"], input[type="time"], input[type="url"], input[type="email"], textarea, select):not(.dnd5e2 *) {
   min-height: 32px;
   color: var(--dnd-animal-text-body) !important;
   background: var(--dnd-animal-content) !important;
@@ -264,17 +264,17 @@ body.dnd-animal-ui-enabled :is(input[type="text"], input[type="number"], input[t
   transition: border-color var(--dnd-animal-transition), box-shadow var(--dnd-animal-transition), transform var(--dnd-animal-transition);
 }
 
-body.dnd-animal-ui-enabled textarea {
+body.dnd-animal-ui-enabled textarea:not(.dnd5e2 *) {
   border-radius: var(--dnd-animal-radius) !important;
   padding: 0.65rem 0.8rem;
 }
 
-body.dnd-animal-ui-enabled :is(input, textarea, select):hover:not(:disabled) {
+body.dnd-animal-ui-enabled :is(input, textarea, select):not(.dnd5e2 *):hover:not(:disabled) {
   border-color: #a89878 !important;
   box-shadow: 0 3px 0 0 #c4b89e !important;
 }
 
-body.dnd-animal-ui-enabled :is(input, textarea, select):focus {
+body.dnd-animal-ui-enabled :is(input, textarea, select):not(.dnd5e2 *):focus {
   border-color: var(--dnd-animal-focus) !important;
   outline: none !important;
   box-shadow:
@@ -287,8 +287,8 @@ body.dnd-animal-ui-enabled ::placeholder {
   opacity: 1;
 }
 
-body.dnd-animal-ui-enabled select option,
-body.dnd-animal-ui-enabled select optgroup {
+body.dnd-animal-ui-enabled select:not(.dnd5e2 *) option,
+body.dnd-animal-ui-enabled select:not(.dnd5e2 *) optgroup {
   color: var(--dnd-animal-text-body) !important;
   background: var(--dnd-animal-bg) !important;
 }
@@ -299,7 +299,7 @@ body.dnd-animal-ui-enabled input[type="radio"] {
 }
 
 /* Animal button language */
-body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .playlist-control, .tabs .item, #sidebar-tabs .item):not(#hotbar button):not(#bg3-hotbar-container button):not(.dnd5e2.sheet.actor button:is(.inspiration, .death-save, .pip)) {
+body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .playlist-control, .tabs .item, #sidebar-tabs .item):not(.dnd5e2 *):not(#hotbar button):not(#bg3-hotbar-container button) {
   position: relative;
   overflow: visible;
   color: var(--dnd-animal-text) !important;
@@ -318,8 +318,8 @@ body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .
     color var(--dnd-animal-transition);
 }
 
-body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .playlist-control, .tabs .item, #sidebar-tabs .item):not(:disabled):not(#hotbar button):not(#bg3-hotbar-container button):hover,
-body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .playlist-control, .tabs .item, #sidebar-tabs .item):not(:disabled):not(#hotbar button):not(#bg3-hotbar-container button):focus-visible {
+body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .playlist-control, .tabs .item, #sidebar-tabs .item):not(.dnd5e2 *):not(:disabled):not(#hotbar button):not(#bg3-hotbar-container button):hover,
+body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .playlist-control, .tabs .item, #sidebar-tabs .item):not(.dnd5e2 *):not(:disabled):not(#hotbar button):not(#bg3-hotbar-container button):focus-visible {
   color: var(--dnd-animal-text) !important;
   background: #fffdf2 !important;
   border-color: var(--dnd-animal-primary) !important;
@@ -327,13 +327,13 @@ body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .
   box-shadow: 0 6px 0 0 var(--dnd-animal-shadow) !important;
 }
 
-body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .playlist-control, .tabs .item, #sidebar-tabs .item):not(:disabled):not(#hotbar button):not(#bg3-hotbar-container button):active,
+body.dnd-animal-ui-enabled :is(button, .button, .control-tool, .scene-control, .playlist-control, .tabs .item, #sidebar-tabs .item):not(.dnd5e2 *):not(:disabled):not(#hotbar button):not(#bg3-hotbar-container button):active,
 body.dnd-animal-ui-enabled .dnd-animal-ui-pressing {
   transform: translateY(2px) !important;
   box-shadow: 0 1px 0 0 var(--dnd-animal-shadow) !important;
 }
 
-body.dnd-animal-ui-enabled :is(button.active, button.selected, button[aria-pressed="true"], button[aria-selected="true"], .button.active, .control-tool.active, .scene-control.active, .tabs .item.active, .tabs .item.selected, #sidebar-tabs .item.active, #sidebar-tabs .item[aria-selected="true"]) {
+body.dnd-animal-ui-enabled :is(button.active, button.selected, button[aria-pressed="true"], button[aria-selected="true"], .button.active, .control-tool.active, .scene-control.active, .tabs .item.active, .tabs .item.selected, #sidebar-tabs .item.active, #sidebar-tabs .item[aria-selected="true"]):not(.dnd5e2 *) {
   color: #fff9e3 !important;
   background: var(--dnd-animal-primary) !important;
   border-color: var(--dnd-animal-primary-active) !important;
@@ -504,7 +504,7 @@ body.dnd-animal-ui-enabled #pause figcaption {
 }
 
 /* NookPhone colored shortcuts and cards */
-body.dnd-animal-ui-enabled :is(.card, .cards .card, .item-card, .dnd5e2 .card, filigree-box, .pills-group, .meter, .journal-entry-page) {
+body.dnd-animal-ui-enabled :is(.card, .cards .card, .item-card, .journal-entry-page):not(.dnd5e2 *) {
   color: var(--dnd-animal-text-body) !important;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(247, 243, 223, 0.92)),
@@ -514,7 +514,7 @@ body.dnd-animal-ui-enabled :is(.card, .cards .card, .item-card, .dnd5e2 .card, f
   box-shadow: 0 4px 10px rgba(107, 92, 67, 0.18) !important;
 }
 
-body.dnd-animal-ui-enabled :is(.card, .cards .card, .item-card, .dnd5e2 .card, filigree-box, .pills-group):hover {
+body.dnd-animal-ui-enabled :is(.card, .cards .card, .item-card):not(.dnd5e2 *):hover {
   transform: translateY(-1px);
 }
 
@@ -579,35 +579,6 @@ body.dnd-animal-ui-enabled .dnd5e2.sheet.item .document-name {
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor.character .ability-scores,
-body.dnd-animal-ui-enabled .window-app.dnd5e2.sheet.actor.character .ability-scores {
-  gap: 8px !important;
-}
-
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor.character .ability-score,
-body.dnd-animal-ui-enabled .window-app.dnd5e2.sheet.actor.character .ability-score {
-  overflow: visible !important;
-  color: var(--dnd-animal-text) !important;
-  background:
-    url("../assets/icons/icon-leaf.png") calc(100% - 8px) 8px / 16px 16px no-repeat,
-    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(247, 243, 223, 0.96)) !important;
-  border: 2px solid rgba(159, 146, 125, 0.55) !important;
-  border-radius: 22px 18px 24px 19px / 18px 24px 19px 22px !important;
-  box-shadow: 0 4px 0 0 rgba(189, 174, 160, 0.76) !important;
-}
-
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor.character .ability-score :is(.label, .mod, .score),
-body.dnd-animal-ui-enabled .window-app.dnd5e2.sheet.actor.character .ability-score :is(.label, .mod, .score) {
-  color: var(--dnd-animal-text) !important;
-  text-shadow: none !important;
-}
-
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor.character .ability-score .mod,
-body.dnd-animal-ui-enabled .window-app.dnd5e2.sheet.actor.character .ability-score .mod {
-  color: var(--dnd-animal-primary-active) !important;
-  font-weight: 900 !important;
-}
-
 body.dnd-animal-ui-enabled .dnd5e2.sheet.actor.character.vertical-tabs nav.tabs.tabs-right > .item,
 body.dnd-animal-ui-enabled .window-app.dnd5e2.sheet.actor.character.vertical-tabs nav.tabs.tabs-right > .item,
 body.dnd-animal-ui-enabled .application.dnd5e2.sheet.actor.character.vertical-tabs nav.tabs.tabs-right > .item {
@@ -632,30 +603,6 @@ body.dnd-animal-ui-enabled .dnd5e2.sheet.item :is(.activities, .items-list) .ite
 body.dnd-animal-ui-enabled .dnd5e2.sheet.actor :is(.inventory-list, .items-list, .effects-list) .item:hover,
 body.dnd-animal-ui-enabled .dnd5e2.sheet.item :is(.activities, .items-list) .item:hover {
   background: rgba(25, 200, 185, 0.11) !important;
-}
-
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor .meter,
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor .meter .progress,
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor .meter.hit-points,
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor .meter.hit-dice {
-  border-radius: var(--dnd-animal-pill) !important;
-}
-
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor .meter .progress {
-  background: linear-gradient(90deg, #86d67a, var(--dnd-animal-primary)) !important;
-}
-
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor .pips .pip,
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor.character .death-tray .pip {
-  border-radius: 50% !important;
-  border-color: var(--dnd-animal-yellow) !important;
-  background: var(--dnd-animal-bg) !important;
-  box-shadow: 0 2px 0 0 rgba(189, 174, 160, 0.75) !important;
-}
-
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor .pips .pip.filled,
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor.character .death-tray .pip.filled {
-  background: var(--dnd-animal-yellow) !important;
 }
 
 body.dnd-animal-ui-enabled .dnd5e2.sheet.actor.npc,
@@ -807,4 +754,60 @@ body.dnd-animal-ui-enabled #bg3-hotbar-container {
 body.dnd-animal-ui-assets-off::before,
 body.dnd-animal-ui-assets-off :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout)::before {
   background-image: none !important;
+}
+
+/* 0.1.1 - remove the extra lower-left backing plate around the native players widget. */
+body.dnd-animal-ui-enabled #players {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.dnd-animal-ui-enabled #players :is(h3, ol) {
+  border: 1px solid rgba(159, 146, 125, 0.32) !important;
+  background: rgba(12, 14, 18, 0.76) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* 0.1.1 - soften folder color blocks so user folder colors do not fight the theme. */
+body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder,
+body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder > .folder-header,
+body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder-header,
+body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder .folder-header {
+  color: var(--dnd-animal-text) !important;
+  background:
+    linear-gradient(90deg, rgba(247, 243, 223, 0.94), rgba(248, 248, 240, 0.84)) !important;
+  border: 1px solid rgba(159, 146, 125, 0.42) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    inset 4px 0 0 rgba(25, 200, 185, 0.32),
+    0 2px 0 rgba(189, 174, 160, 0.36) !important;
+}
+
+body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder > .folder-header :is(h3, h4, .name, span),
+body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder-header :is(h3, h4, .name, span) {
+  color: var(--dnd-animal-text) !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder.expanded > .folder-header,
+body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder.open > .folder-header {
+  background:
+    url("../assets/dividers/divider-line-yellow.svg") center bottom / 100% 10px no-repeat,
+    linear-gradient(90deg, rgba(230, 249, 246, 0.98), rgba(247, 243, 223, 0.9)) !important;
+  box-shadow:
+    inset 4px 0 0 var(--dnd-animal-primary),
+    0 2px 0 rgba(189, 174, 160, 0.42) !important;
+}
+
+/* 0.1.1 - dnd5e sheets keep their own internal controls and geometry. */
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.card, filigree-box, .pills-group) {
+  transform: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
+  overflow: auto !important;
 }
