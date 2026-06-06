@@ -1,0 +1,89 @@
+<form class="dnd-animal-ui-config">
+  <section class="dnd-animal-ui-config-section">
+    <h3><i class="fas fa-leaf"></i> 主题</h3>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>启用主题</strong>
+        <small>关闭后移除动物岛主题覆盖。</small>
+      </span>
+      <input type="checkbox" name="enableTheme" {{#if enableTheme}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>动物岛光标</strong>
+        <small>使用本地打包的游戏风格指针。</small>
+      </span>
+      <input type="checkbox" name="enableCursor" {{#if enableCursor}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>按钮按压动效</strong>
+        <small>点击按钮时播放轻微弹跳和叶片光点。</small>
+      </span>
+      <input type="checkbox" name="enableButtonPressFx" {{#if enableButtonPressFx}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>素材强度</strong>
+        <small>控制背景纹理和装饰素材的存在感。</small>
+      </span>
+      <select name="assetIntensity">
+        {{#each assetIntensityOptions}}
+          <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+        {{/each}}
+      </select>
+    </label>
+  </section>
+
+  <section class="dnd-animal-ui-config-section">
+    <h3><i class="fas fa-columns"></i> 玩家右侧栏</h3>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>启用玩家右侧栏控制</strong>
+        <small>只影响非 GM 玩家。GM 不受隐藏规则影响。</small>
+      </span>
+      <input type="checkbox" name="enableSidebarVisibility" {{#if enableSidebarVisibility}}checked{{/if}}>
+    </label>
+
+    <div class="dnd-animal-ui-sidebar-tabs-list">
+      <div class="dnd-animal-ui-sidebar-tab-row header-row">
+        <span class="tab-icon"></span>
+        <span class="tab-name">右侧栏</span>
+        <span class="tab-visible">玩家可见</span>
+      </div>
+      {{#each tabs}}
+        <label class="dnd-animal-ui-sidebar-tab-row" data-tab-id="{{id}}">
+          <span class="tab-icon"><i class="{{icon}}"></i></span>
+          <span class="tab-name">{{label}}</span>
+          <span class="tab-visible">
+            <input type="checkbox" name="visible-{{id}}" data-sidebar-tab-id="{{id}}" {{#if checked}}checked{{/if}}>
+          </span>
+        </label>
+      {{/each}}
+    </div>
+  </section>
+
+  <footer class="sheet-footer flexrow">
+    <button type="submit">
+      <i class="fas fa-save"></i>
+      保存
+    </button>
+    <button type="button" data-action="select-all">
+      <i class="fas fa-check-double"></i>
+      全选
+    </button>
+    <button type="button" data-action="hide-compendium">
+      <i class="fas fa-atlas"></i>
+      只隐藏合集包
+    </button>
+    <button type="button" data-action="select-none">
+      <i class="fas fa-ban"></i>
+      全不选
+    </button>
+  </footer>
+</form>
