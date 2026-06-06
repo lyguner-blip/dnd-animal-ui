@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3 - 2026-06-06
+
+- Removed remaining dnd5e sheet interior theme overrides so character, monster, and item cards keep native layout.
+- Disabled decorative sheet-header dividers inside dnd5e sheets.
+- Increased right sidebar settings text contrast.
+
 ## 0.1.2 - 2026-06-06
 
 - Added journal-specific readability rules.
