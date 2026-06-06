@@ -811,3 +811,62 @@ body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .applica
 body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
   overflow: auto !important;
 }
+
+/* 0.1.2 - journal readability: keep pages paper-light and text high contrast. */
+body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) {
+  color: var(--dnd-animal-text-body) !important;
+}
+
+body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) .window-content {
+  color: var(--dnd-animal-text-body) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(247, 243, 223, 0.96)),
+    var(--dnd-animal-content) !important;
+}
+
+body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.journal-entry-content, .journal-page-content, .editor-content, .prosemirror, .ProseMirror, article, section) {
+  color: var(--dnd-animal-text-body) !important;
+  background: rgba(255, 253, 242, 0.92) !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(h1, h2, h3, h4, h5, h6, p, li, span, label, blockquote, td, th) {
+  color: var(--dnd-animal-text-body) !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(h1, h2, h3) {
+  color: var(--dnd-animal-text) !important;
+  font-weight: 900 !important;
+}
+
+body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.journal-sidebar, .pages-list, .toc, .table-of-contents, .directory-list) {
+  background:
+    linear-gradient(180deg, rgba(230, 249, 246, 0.95), rgba(248, 248, 240, 0.92)) !important;
+  color: var(--dnd-animal-text) !important;
+}
+
+body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.pages-list, .toc, .table-of-contents, .directory-list) :is(.page-heading, .heading, .item, li, a) {
+  color: var(--dnd-animal-text) !important;
+  background: rgba(255, 253, 242, 0.68) !important;
+  border-color: rgba(159, 146, 125, 0.42) !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.pages-list, .toc, .table-of-contents, .directory-list) :is(.active, .selected, [aria-selected="true"]) {
+  color: #fff9e3 !important;
+  background: rgba(25, 200, 185, 0.92) !important;
+  font-weight: 800 !important;
+}
+
+body.dnd-animal-ui-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item, .folder-header),
+body.dnd-animal-ui-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item, .folder-header) :is(h3, h4, .name, span, a) {
+  color: var(--dnd-animal-text) !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item.active, .item.selected, .folder-header.active, .folder-header.selected),
+body.dnd-animal-ui-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item.active, .item.selected, .folder-header.active, .folder-header.selected) :is(h3, h4, .name, span, a) {
+  color: #fff9e3 !important;
+  background: var(--dnd-animal-primary) !important;
+}

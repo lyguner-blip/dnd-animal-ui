@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 - 2026-06-06
+
+- Added journal-specific readability rules.
+- Kept journal page content on a light paper background with warm dark text.
+- Improved journal table-of-contents and sidebar journal item contrast.
+
 ## 0.1.1 - 2026-06-06
 
 - Removed the extra themed backing plate behind the lower-left players widget.
