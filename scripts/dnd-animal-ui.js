@@ -35,6 +35,15 @@ const PRESSABLE_SELECTOR = [
   "#sidebar-tabs .item"
 ].join(",");
 
+const STICKERS = [
+  { id: "duck", label: "法师鸭", path: "modules/dnd-animal-ui/assets/stickers/duck.svg" },
+  { id: "bear", label: "抱抱熊", path: "modules/dnd-animal-ui/assets/stickers/bear.svg" },
+  { id: "cat", label: "粉粉猫", path: "modules/dnd-animal-ui/assets/stickers/cat.svg" },
+  { id: "frog", label: "薄荷蛙", path: "modules/dnd-animal-ui/assets/stickers/frog.svg" },
+  { id: "rabbit", label: "奶油兔", path: "modules/dnd-animal-ui/assets/stickers/rabbit.svg" },
+  { id: "owl", label: "星星猫头鹰", path: "modules/dnd-animal-ui/assets/stickers/owl.svg" }
+];
+
 const SIDEBAR_TABS = [
   { id: "chat", label: "聊天", icon: () => CONFIG.ChatMessage?.sidebarIcon || "fas fa-comments" },
   { id: "combat", label: "战斗", icon: () => CONFIG.Combat?.sidebarIcon || "fas fa-swords" },
@@ -246,6 +255,7 @@ function applyThemeState() {
   body.classList.add(`dnd-animal-ui-assets-${intensity}`);
 
   applyPlayerSidebarTabVisibility();
+  injectStickerButton();
 }
 
 function createLeafPop(target) {
@@ -261,6 +271,79 @@ function createLeafPop(target) {
   document.body.append(pop);
 
   window.setTimeout(() => pop.remove(), 700);
+}
+
+function getChatForm() {
+  return document.querySelector("#chat-form") || document.querySelector("#chat-controls")?.closest("form");
+}
+
+function closeStickerPanels(exceptPanel = null) {
+  document.querySelectorAll(".dnd-animal-ui-sticker-panel").forEach((panel) => {
+    if (panel !== exceptPanel) panel.classList.remove("open");
+  });
+}
+
+async function sendSticker(sticker) {
+  const content = `
+    <div class="dnd-animal-ui-chat-sticker-card" data-sticker-id="${sticker.id}">
+      <img src="${sticker.path}" alt="${sticker.label}">
+      <span>${sticker.label}</span>
+    </div>
+  `;
+
+  await ChatMessage.create({
+    user: game.user.id,
+    speaker: ChatMessage.getSpeaker({ actor: game.user.character }),
+    content
+  });
+}
+
+function buildStickerPanel() {
+  const panel = document.createElement("div");
+  panel.className = "dnd-animal-ui-sticker-panel";
+
+  for (const sticker of STICKERS) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "dnd-animal-ui-sticker-option";
+    button.dataset.stickerId = sticker.id;
+    button.title = sticker.label;
+    button.innerHTML = `<img src="${sticker.path}" alt=""><span>${sticker.label}</span>`;
+    button.addEventListener("click", async () => {
+      panel.classList.remove("open");
+      await sendSticker(sticker);
+    });
+    panel.append(button);
+  }
+
+  return panel;
+}
+
+function injectStickerButton() {
+  if (!game.ready || !getSetting(SETTINGS.enableTheme)) return;
+
+  const chatForm = getChatForm();
+  if (!chatForm || chatForm.querySelector(".dnd-animal-ui-sticker-button")) return;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "dnd-animal-ui-sticker-dock";
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "dnd-animal-ui-sticker-button";
+  button.title = "发送动物表情";
+  button.innerHTML = `<img src="modules/dnd-animal-ui/assets/stickers/duck.svg" alt="">`;
+
+  const panel = buildStickerPanel();
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    panel.classList.toggle("open");
+    closeStickerPanels(panel);
+  });
+
+  wrapper.append(button, panel);
+  chatForm.append(wrapper);
 }
 
 class DndAnimalThemeConfig extends FormApplication {
@@ -409,8 +492,12 @@ function registerSettings() {
 }
 
 Hooks.once("init", registerSettings);
-Hooks.once("ready", applyThemeState);
+Hooks.once("ready", () => {
+  applyThemeState();
+  injectStickerButton();
+});
 Hooks.on("renderSidebar", applyPlayerSidebarTabVisibility);
+Hooks.on("renderChatLog", injectStickerButton);
 Hooks.on("collapseSidebar", applyPlayerSidebarTabVisibility);
 Hooks.on("updateSetting", (setting) => {
   const key = setting?.key || setting?.id;
@@ -438,3 +525,8 @@ document.addEventListener(
   },
   true
 );
+
+document.addEventListener("click", (event) => {
+  if (event.target.closest(".dnd-animal-ui-sticker-dock")) return;
+  closeStickerPanels();
+});

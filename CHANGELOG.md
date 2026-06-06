@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4 - 2026-06-06
+
+- Added a chat sticker button and six bundled cute animal stickers.
+- Sticker messages are sent as local module images through Foundry chat.
+- Improved dnd5e dark list/panel text contrast with softer light text and gold accents.
+
 ## 0.1.3 - 2026-06-06
 
 - Removed remaining dnd5e sheet interior theme overrides so character, monster, and item cards keep native layout.

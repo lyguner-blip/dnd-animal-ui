@@ -88,6 +88,10 @@
   --dnd-animal-blue: #889df0;
   --dnd-animal-purple: #b77dee;
   --dnd-animal-yellow: #f7cd67;
+  --dnd-animal-dark-panel: #262a33;
+  --dnd-animal-dark-panel-2: #30343e;
+  --dnd-animal-dark-text: #efe7cf;
+  --dnd-animal-dark-muted: #c9b894;
   --dnd-animal-radius-sm: 12px;
   --dnd-animal-radius: 18px;
   --dnd-animal-radius-lg: 24px;
@@ -459,6 +463,103 @@ body.dnd-animal-ui-enabled .chat-message .message-metadata {
   color: var(--dnd-animal-text) !important;
 }
 
+body.dnd-animal-ui-enabled #chat-form {
+  position: relative;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-dock {
+  position: absolute;
+  right: 8px;
+  bottom: calc(100% + 8px);
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-button {
+  display: grid !important;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  padding: 2px !important;
+  border-radius: 50% !important;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-button img {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-panel {
+  position: absolute;
+  right: 0;
+  bottom: 46px;
+  display: none;
+  grid-template-columns: repeat(3, 64px);
+  gap: 8px;
+  padding: 10px;
+  border: 2px solid rgba(159, 146, 125, 0.68);
+  border-radius: 22px 18px 24px 20px / 20px 24px 18px 22px;
+  background:
+    url("../assets/dividers/wave-yellow.svg") center bottom / 100% 12px no-repeat,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 243, 223, 0.98)),
+    var(--dnd-animal-content);
+  box-shadow: 0 5px 0 var(--dnd-animal-shadow), 0 10px 24px rgba(61, 52, 40, 0.18);
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-panel.open {
+  display: grid;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-option {
+  display: grid !important;
+  grid-template-rows: 44px auto;
+  place-items: center;
+  width: 64px;
+  min-width: 64px;
+  height: 72px;
+  min-height: 72px;
+  padding: 4px !important;
+  border-radius: 18px !important;
+  font-size: 11px;
+  line-height: 1.1;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-option img {
+  width: 42px;
+  height: 42px;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-option span {
+  color: var(--dnd-animal-text);
+  white-space: nowrap;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-chat-sticker-card {
+  display: inline-grid;
+  place-items: center;
+  gap: 0.25rem;
+  min-width: 96px;
+  padding: 0.45rem 0.65rem;
+  border: 2px solid rgba(159, 146, 125, 0.46);
+  border-radius: 22px;
+  background: rgba(255, 253, 242, 0.82);
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-chat-sticker-card img {
+  width: 86px;
+  height: 86px;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-chat-sticker-card span {
+  color: var(--dnd-animal-text);
+  font-weight: 800;
+}
+
 body.dnd-animal-ui-enabled #ui-left,
 body.dnd-animal-ui-enabled #controls,
 body.dnd-animal-ui-enabled #scene-controls,
@@ -557,6 +658,64 @@ body.dnd-animal-ui-enabled .item[data-document-id]:nth-child(8n + 3) .name {
 }
 
 /* dnd5e2 sheets */
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
+  .items-section,
+  .items-header,
+  .item-list,
+  .items-list,
+  .activities,
+  .activity,
+  .item,
+  .favorites,
+  .search,
+  .filter-list,
+  .pills,
+  .pills-group
+) {
+  --color-text-primary: var(--dnd-animal-dark-text);
+  --color-text-secondary: var(--dnd-animal-dark-muted);
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
+  .items-section,
+  .items-header,
+  .item-list .item,
+  .items-list .item,
+  .activities .item,
+  .activity,
+  .search,
+  .filter-list
+) {
+  color: var(--dnd-animal-dark-text) !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
+  .items-section,
+  .items-header,
+  .item-list .item,
+  .items-list .item,
+  .activities .item,
+  .activity,
+  .search,
+  .filter-list
+) :is(.name, .item-name, .title, .label, .item-summary, .subtitle, span, a, p, h3, h4, td, th) {
+  color: var(--dnd-animal-dark-text) !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.items-header, .section-header, .items-section > .header) {
+  background: #4b1721 !important;
+  color: #fff7df !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.item .tags, .item .tag, .item .uses, .item .formula, .item .to-hit, .item .damage, .item .quantity) {
+  color: #e2c779 !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.search input, input[type="search"]) {
+  color: var(--dnd-animal-dark-text) !important;
+}
+
 body.dnd-animal-ui-enabled .dnd5e2.compendium-browser .sidebar,
 body.dnd-animal-ui-enabled .dnd5e2.compendium-browser .filter,
 body.dnd-animal-ui-enabled .dnd5e2.compendium-browser .content {

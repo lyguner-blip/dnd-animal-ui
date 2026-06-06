@@ -6,7 +6,7 @@ Manifest:
 https://raw.githubusercontent.com/lyguner-blip/dnd-animal-ui/main/module.json
 
 Download:
-https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.1.3/dnd-animal-ui-0.1.3.zip
+https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.1.4/dnd-animal-ui-0.1.4.zip
 
 ## Features
 
@@ -15,6 +15,7 @@ https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.1.3/dnd-anima
 - 高还原素材：背景、分割线、光标、NookPhone 图标和 footer 装饰。
 - GM 设置窗口：主题总开关、光标、素材强度、按钮动效、玩家右侧栏可见项。
 - 覆盖 Foundry 外层 UI、窗口、表单、聊天、sidebar、controls、players、navigation 和 dnd5e2 常见 sheet。
+- 聊天输入栏动物表情按钮，可发送本地打包的萌系动物 SVG 表情。
 
 ## Install
 
