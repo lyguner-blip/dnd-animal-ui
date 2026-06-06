@@ -676,6 +676,37 @@ body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .applica
   --color-text-secondary: var(--dnd-animal-dark-muted);
 }
 
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) {
+  background:
+    linear-gradient(180deg, rgba(157, 220, 231, 0.7), rgba(248, 248, 240, 0.86) 72%),
+    url("../assets/backgrounds/animalisland_1440_2560.jpg") center 18% / cover no-repeat !important;
+  border-bottom: 3px solid rgba(247, 205, 103, 0.74) !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header)::before {
+  opacity: 0.18 !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) :is(.document-name, input.document-name, .subtitle, .class, .race, .type, .level, .level-badge, .labels, .label, span, h1, h2) {
+  color: #fff9e3 !important;
+  text-shadow:
+    0 2px 0 rgba(114, 93, 66, 0.75),
+    0 0 5px rgba(61, 52, 40, 0.82) !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, .pills-group, filigree-box) {
+  color: var(--dnd-animal-dark-text) !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, .pills-group, filigree-box) :is(.label, .name, .mod, .score, .sign, .bonus, .value, .total, span, h3, h4) {
+  color: var(--dnd-animal-dark-text) !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .skills, .saves, .items-section) :is(.label, .ability, .name strong, .item-name strong, h3, h4) {
+  color: #f7d77d !important;
+}
+
 body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
   .items-section,
   .items-header,
@@ -704,7 +735,7 @@ body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .applica
 }
 
 body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.items-header, .section-header, .items-section > .header) {
-  background: #4b1721 !important;
+  background: #3a2025 !important;
   color: #fff7df !important;
 }
 

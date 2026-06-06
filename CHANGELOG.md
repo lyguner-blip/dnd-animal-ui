@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.5 - 2026-06-06
+
+- Replaced dnd5e actor header backgrounds with a lighter Animal Island village/sky treatment.
+- Improved actor sheet dark panel text contrast for abilities, skills, saves, tags, and item lists.
+- Softened the dark red dnd5e section header color.
+
 ## 0.1.4 - 2026-06-06
 
 - Added a chat sticker button and six bundled cute animal stickers.
