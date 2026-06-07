@@ -6,16 +6,17 @@ Manifest:
 https://raw.githubusercontent.com/lyguner-blip/dnd-animal-ui/main/module.json
 
 Download:
-https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.1.5/dnd-animal-ui-0.1.5.zip
+https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.2.0/dnd-animal-ui-0.2.0.zip
 
 ## Features
 
 - 米白、暖棕、薄荷青绿的动物岛风格主题。
 - 本地打包 Nunito、Noto Sans SC、Zen Maru Gothic 字体。
 - 高还原素材：背景、分割线、光标、NookPhone 图标和 footer 装饰。
-- GM 设置窗口：主题总开关、光标、素材强度、按钮动效、玩家右侧栏可见项。
+- GM 设置窗口：主题总开关、光标、素材强度、按钮动效、聊天表情、兼容修正、玩家右侧栏可见项。
 - 覆盖 Foundry 外层 UI、窗口、表单、聊天、sidebar、controls、players、navigation 和 dnd5e2 常见 sheet。
-- 聊天输入栏动物表情按钮，可发送本地打包的萌系动物 SVG 表情。
+- 聊天输入栏内嵌动物表情按钮，可发送本地打包的萌系动物 SVG 表情。
+- 可单独开关右侧栏文件夹柔化、journal 可读性、DnD5e sheet 兼容保护和角色卡动物背景。
 
 ## Install
 

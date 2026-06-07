@@ -467,25 +467,39 @@ body.dnd-animal-ui-enabled #chat-form {
   position: relative;
 }
 
+body.dnd-animal-ui-enabled .dnd-animal-ui-chat-input-wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42px;
+  align-items: stretch;
+  gap: 6px;
+  width: 100%;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-chat-input-wrap :is(#chat-message, textarea, input[type="text"], [contenteditable="true"]) {
+  width: 100% !important;
+  min-width: 0;
+  margin: 0 !important;
+}
+
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-dock {
-  position: absolute;
-  right: 8px;
-  bottom: calc(100% + 8px);
+  position: relative;
   z-index: 50;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  min-width: 42px;
 }
 
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-button {
   display: grid !important;
   place-items: center;
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
+  width: 42px;
+  height: 100%;
+  min-width: 42px;
   min-height: 38px;
   padding: 2px !important;
-  border-radius: 50% !important;
+  border-radius: 16px !important;
 }
 
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-button img {
@@ -497,7 +511,7 @@ body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-button img {
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-panel {
   position: absolute;
   right: 0;
-  bottom: 46px;
+  bottom: calc(100% + 8px);
   display: none;
   grid-template-columns: repeat(3, 64px);
   gap: 8px;
@@ -658,7 +672,7 @@ body.dnd-animal-ui-enabled .item[data-document-id]:nth-child(8n + 3) .name {
 }
 
 /* dnd5e2 sheets */
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
   .items-section,
   .items-header,
   .item-list,
@@ -676,38 +690,42 @@ body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .applica
   --color-text-secondary: var(--dnd-animal-dark-muted);
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header),
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
   background:
     linear-gradient(180deg, rgba(157, 220, 231, 0.7), rgba(248, 248, 240, 0.86) 72%),
     url("../assets/backgrounds/animalisland_1440_2560.jpg") center 18% / cover no-repeat !important;
+}
+
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) {
   border-bottom: 3px solid rgba(247, 205, 103, 0.74) !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header)::before {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header)::before {
   opacity: 0.18 !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) :is(.document-name, input.document-name, .subtitle, .class, .race, .type, .level, .level-badge, .labels, .label, span, h1, h2) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) :is(.document-name, input.document-name, .subtitle, .class, .race, .type, .level, .level-badge, .labels, .label, span, h1, h2) {
   color: #fff9e3 !important;
   text-shadow:
     0 2px 0 rgba(114, 93, 66, 0.75),
     0 0 5px rgba(61, 52, 40, 0.82) !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, .pills-group, filigree-box) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, .pills-group, filigree-box) {
   color: var(--dnd-animal-dark-text) !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, .pills-group, filigree-box) :is(.label, .name, .mod, .score, .sign, .bonus, .value, .total, span, h3, h4) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, .pills-group, filigree-box) :is(.label, .name, .mod, .score, .sign, .bonus, .value, .total, span, h3, h4) {
   color: var(--dnd-animal-dark-text) !important;
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .skills, .saves, .items-section) :is(.label, .ability, .name strong, .item-name strong, h3, h4) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .skills, .saves, .items-section) :is(.label, .ability, .name strong, .item-name strong, h3, h4) {
   color: #f7d77d !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
   .items-section,
   .items-header,
   .item-list .item,
@@ -720,7 +738,7 @@ body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .applica
   color: var(--dnd-animal-dark-text) !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
   .items-section,
   .items-header,
   .item-list .item,
@@ -734,22 +752,22 @@ body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .applica
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.items-header, .section-header, .items-section > .header) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.items-header, .section-header, .items-section > .header) {
   background: #3a2025 !important;
   color: #fff7df !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.item .tags, .item .tag, .item .uses, .item .formula, .item .to-hit, .item .damage, .item .quantity) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.item .tags, .item .tag, .item .uses, .item .formula, .item .to-hit, .item .damage, .item .quantity) {
   color: #e2c779 !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.search input, input[type="search"]) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.search input, input[type="search"]) {
   color: var(--dnd-animal-dark-text) !important;
 }
 
-body.dnd-animal-ui-enabled .dnd5e2.compendium-browser .sidebar,
-body.dnd-animal-ui-enabled .dnd5e2.compendium-browser .filter,
-body.dnd-animal-ui-enabled .dnd5e2.compendium-browser .content {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .dnd5e2.compendium-browser .sidebar,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .dnd5e2.compendium-browser .filter,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .dnd5e2.compendium-browser .content {
   color: var(--dnd-animal-text-body) !important;
   background: rgba(247, 243, 223, 0.88) !important;
   border-color: rgba(216, 208, 195, 0.82) !important;
@@ -850,9 +868,9 @@ body.dnd-animal-ui-enabled :is(.app, .application, .window-app, .sheet):is(.mini
   overflow: hidden !important;
 }
 
-body.dnd-animal-ui-enabled .dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing),
-body.dnd-animal-ui-enabled .window-app.dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing),
-body.dnd-animal-ui-enabled .application.dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing),
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .window-app.dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing),
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .application.dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing) {
   min-width: 250px !important;
   min-height: 0 !important;
   overflow: hidden !important;
@@ -893,10 +911,10 @@ body.dnd-animal-ui-enabled #players :is(h3, ol) {
 }
 
 /* 0.1.1 - soften folder color blocks so user folder colors do not fight the theme. */
-body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder,
-body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder > .folder-header,
-body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder-header,
-body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder .folder-header {
+body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .directory .directory-list .folder,
+body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .directory .directory-list .folder > .folder-header,
+body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .directory .directory-list .folder-header,
+body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .directory .directory-list .folder .folder-header {
   color: var(--dnd-animal-text) !important;
   background:
     linear-gradient(90deg, rgba(247, 243, 223, 0.94), rgba(248, 248, 240, 0.84)) !important;
@@ -907,14 +925,14 @@ body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder .folder-h
     0 2px 0 rgba(189, 174, 160, 0.36) !important;
 }
 
-body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder > .folder-header :is(h3, h4, .name, span),
-body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder-header :is(h3, h4, .name, span) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .directory .directory-list .folder > .folder-header :is(h3, h4, .name, span),
+body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .directory .directory-list .folder-header :is(h3, h4, .name, span) {
   color: var(--dnd-animal-text) !important;
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder.expanded > .folder-header,
-body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder.open > .folder-header {
+body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .directory .directory-list .folder.expanded > .folder-header,
+body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .directory .directory-list .folder.open > .folder-header {
   background:
     url("../assets/dividers/divider-line-yellow.svg") center bottom / 100% 10px no-repeat,
     linear-gradient(90deg, rgba(230, 249, 246, 0.98), rgba(247, 243, 223, 0.9)) !important;
@@ -924,74 +942,78 @@ body.dnd-animal-ui-enabled #sidebar .directory .directory-list .folder.open > .f
 }
 
 /* 0.1.1 - dnd5e sheets keep their own internal controls and geometry. */
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.card, filigree-box, .pills-group) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.card, filigree-box, .pills-group) {
   transform: none !important;
 }
 
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
   overflow: auto !important;
 }
 
 /* 0.1.3 - keep dnd5e sheets native; only the outer Foundry shell is themed. */
-body.dnd-animal-ui-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.window-content, .sheet-header, .sheet-body, nav.tabs, .tabs) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.sheet-body, nav.tabs, .tabs) {
+  background-image: unset !important;
+}
+
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled:not(.dnd-animal-ui-dnd5e-animal-background-enabled) :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.window-content, .sheet-header) {
   background-image: unset !important;
 }
 
 /* 0.1.2 - journal readability: keep pages paper-light and text high contrast. */
-body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) {
   color: var(--dnd-animal-text-body) !important;
 }
 
-body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) .window-content {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) .window-content {
   color: var(--dnd-animal-text-body) !important;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(247, 243, 223, 0.96)),
     var(--dnd-animal-content) !important;
 }
 
-body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.journal-entry-content, .journal-page-content, .editor-content, .prosemirror, .ProseMirror, article, section) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.journal-entry-content, .journal-page-content, .editor-content, .prosemirror, .ProseMirror, article, section) {
   color: var(--dnd-animal-text-body) !important;
   background: rgba(255, 253, 242, 0.92) !important;
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(h1, h2, h3, h4, h5, h6, p, li, span, label, blockquote, td, th) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(h1, h2, h3, h4, h5, h6, p, li, span, label, blockquote, td, th) {
   color: var(--dnd-animal-text-body) !important;
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(h1, h2, h3) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(h1, h2, h3) {
   color: var(--dnd-animal-text) !important;
   font-weight: 900 !important;
 }
 
-body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.journal-sidebar, .pages-list, .toc, .table-of-contents, .directory-list) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.journal-sidebar, .pages-list, .toc, .table-of-contents, .directory-list) {
   background:
     linear-gradient(180deg, rgba(230, 249, 246, 0.95), rgba(248, 248, 240, 0.92)) !important;
   color: var(--dnd-animal-text) !important;
 }
 
-body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.pages-list, .toc, .table-of-contents, .directory-list) :is(.page-heading, .heading, .item, li, a) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.pages-list, .toc, .table-of-contents, .directory-list) :is(.page-heading, .heading, .item, li, a) {
   color: var(--dnd-animal-text) !important;
   background: rgba(255, 253, 242, 0.68) !important;
   border-color: rgba(159, 146, 125, 0.42) !important;
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.pages-list, .toc, .table-of-contents, .directory-list) :is(.active, .selected, [aria-selected="true"]) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled :is(.journal-entry, .journal-sheet, .journal-entry-sheet, .sheet.journal-entry) :is(.pages-list, .toc, .table-of-contents, .directory-list) :is(.active, .selected, [aria-selected="true"]) {
   color: #fff9e3 !important;
   background: rgba(25, 200, 185, 0.92) !important;
   font-weight: 800 !important;
 }
 
-body.dnd-animal-ui-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item, .folder-header),
-body.dnd-animal-ui-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item, .folder-header) :is(h3, h4, .name, span, a) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item, .folder-header),
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item, .folder-header) :is(h3, h4, .name, span, a) {
   color: var(--dnd-animal-text) !important;
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item.active, .item.selected, .folder-header.active, .folder-header.selected),
-body.dnd-animal-ui-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item.active, .item.selected, .folder-header.active, .folder-header.selected) :is(h3, h4, .name, span, a) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item.active, .item.selected, .folder-header.active, .folder-header.selected),
+body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item.active, .item.selected, .folder-header.active, .folder-header.selected) :is(h3, h4, .name, span, a) {
   color: #fff9e3 !important;
   background: var(--dnd-animal-primary) !important;
 }

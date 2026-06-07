@@ -5,6 +5,11 @@ const SETTINGS = {
   enableCursor: "enableCursor",
   assetIntensity: "assetIntensity",
   enableButtonPressFx: "enableButtonPressFx",
+  enableStickers: "enableStickers",
+  enableFolderSoftening: "enableFolderSoftening",
+  enableJournalReadability: "enableJournalReadability",
+  enableDnd5eSheetSafety: "enableDnd5eSheetSafety",
+  enableDnd5eAnimalBackground: "enableDnd5eAnimalBackground",
   enableSidebarVisibility: "enableSidebarVisibility",
   playerSidebarTabs: "playerSidebarTabs"
 };
@@ -13,6 +18,11 @@ const BODY_CLASSES = [
   "dnd-animal-ui-enabled",
   "dnd-animal-ui-cursor-enabled",
   "dnd-animal-ui-button-fx-enabled",
+  "dnd-animal-ui-stickers-enabled",
+  "dnd-animal-ui-folder-softening-enabled",
+  "dnd-animal-ui-journal-readability-enabled",
+  "dnd-animal-ui-dnd5e-sheet-safety-enabled",
+  "dnd-animal-ui-dnd5e-animal-background-enabled",
   "dnd-animal-ui-assets-low",
   "dnd-animal-ui-assets-high",
   "dnd-animal-ui-assets-off"
@@ -250,6 +260,11 @@ function applyThemeState() {
 
   if (getSetting(SETTINGS.enableCursor)) body.classList.add("dnd-animal-ui-cursor-enabled");
   if (getSetting(SETTINGS.enableButtonPressFx)) body.classList.add("dnd-animal-ui-button-fx-enabled");
+  if (getSetting(SETTINGS.enableStickers)) body.classList.add("dnd-animal-ui-stickers-enabled");
+  if (getSetting(SETTINGS.enableFolderSoftening)) body.classList.add("dnd-animal-ui-folder-softening-enabled");
+  if (getSetting(SETTINGS.enableJournalReadability)) body.classList.add("dnd-animal-ui-journal-readability-enabled");
+  if (getSetting(SETTINGS.enableDnd5eSheetSafety)) body.classList.add("dnd-animal-ui-dnd5e-sheet-safety-enabled");
+  if (getSetting(SETTINGS.enableDnd5eAnimalBackground)) body.classList.add("dnd-animal-ui-dnd5e-animal-background-enabled");
 
   const intensity = getSetting(SETTINGS.assetIntensity) || "high";
   body.classList.add(`dnd-animal-ui-assets-${intensity}`);
@@ -280,6 +295,19 @@ function getChatForm() {
 function closeStickerPanels(exceptPanel = null) {
   document.querySelectorAll(".dnd-animal-ui-sticker-panel").forEach((panel) => {
     if (panel !== exceptPanel) panel.classList.remove("open");
+  });
+}
+
+function removeStickerButton() {
+  document.querySelectorAll(".dnd-animal-ui-sticker-dock").forEach((dock) => {
+    const host = dock.closest(".dnd-animal-ui-chat-input-wrap");
+    dock.remove();
+
+    if (!host) return;
+    host.querySelectorAll("textarea, input[type='text'], [contenteditable='true']").forEach((input) => {
+      host.parentElement?.insertBefore(input, host);
+    });
+    host.remove();
   });
 }
 
@@ -320,10 +348,14 @@ function buildStickerPanel() {
 }
 
 function injectStickerButton() {
-  if (!game.ready || !getSetting(SETTINGS.enableTheme)) return;
+  if (!game.ready || !getSetting(SETTINGS.enableTheme) || !getSetting(SETTINGS.enableStickers)) {
+    removeStickerButton();
+    return;
+  }
 
   const chatForm = getChatForm();
   if (!chatForm || chatForm.querySelector(".dnd-animal-ui-sticker-button")) return;
+  const chatInput = chatForm.querySelector("#chat-message, textarea, input[type='text'], [contenteditable='true']");
 
   const wrapper = document.createElement("div");
   wrapper.className = "dnd-animal-ui-sticker-dock";
@@ -343,6 +375,20 @@ function injectStickerButton() {
   });
 
   wrapper.append(button, panel);
+
+  if (chatInput && !chatInput.closest(".dnd-animal-ui-chat-input-wrap")) {
+    const inputWrap = document.createElement("div");
+    inputWrap.className = "dnd-animal-ui-chat-input-wrap";
+    chatInput.parentElement.insertBefore(inputWrap, chatInput);
+    inputWrap.append(chatInput, wrapper);
+    return;
+  }
+
+  if (chatInput?.closest(".dnd-animal-ui-chat-input-wrap")) {
+    chatInput.closest(".dnd-animal-ui-chat-input-wrap").append(wrapper);
+    return;
+  }
+
   chatForm.append(wrapper);
 }
 
@@ -365,6 +411,11 @@ class DndAnimalThemeConfig extends FormApplication {
       enableTheme: getSetting(SETTINGS.enableTheme),
       enableCursor: getSetting(SETTINGS.enableCursor),
       enableButtonPressFx: getSetting(SETTINGS.enableButtonPressFx),
+      enableStickers: getSetting(SETTINGS.enableStickers),
+      enableFolderSoftening: getSetting(SETTINGS.enableFolderSoftening),
+      enableJournalReadability: getSetting(SETTINGS.enableJournalReadability),
+      enableDnd5eSheetSafety: getSetting(SETTINGS.enableDnd5eSheetSafety),
+      enableDnd5eAnimalBackground: getSetting(SETTINGS.enableDnd5eAnimalBackground),
       enableSidebarVisibility: getSetting(SETTINGS.enableSidebarVisibility),
       assetIntensityOptions: [
         { value: "high", label: "高还原", selected: assetIntensity === "high" },
@@ -412,6 +463,11 @@ class DndAnimalThemeConfig extends FormApplication {
     await game.settings.set(MODULE_ID, SETTINGS.enableTheme, form.enableTheme.checked);
     await game.settings.set(MODULE_ID, SETTINGS.enableCursor, form.enableCursor.checked);
     await game.settings.set(MODULE_ID, SETTINGS.enableButtonPressFx, form.enableButtonPressFx.checked);
+    await game.settings.set(MODULE_ID, SETTINGS.enableStickers, form.enableStickers.checked);
+    await game.settings.set(MODULE_ID, SETTINGS.enableFolderSoftening, form.enableFolderSoftening.checked);
+    await game.settings.set(MODULE_ID, SETTINGS.enableJournalReadability, form.enableJournalReadability.checked);
+    await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eSheetSafety, form.enableDnd5eSheetSafety.checked);
+    await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eAnimalBackground, form.enableDnd5eAnimalBackground.checked);
     await game.settings.set(MODULE_ID, SETTINGS.enableSidebarVisibility, form.enableSidebarVisibility.checked);
     await game.settings.set(MODULE_ID, SETTINGS.assetIntensity, form.assetIntensity.value);
     await game.settings.set(MODULE_ID, SETTINGS.playerSidebarTabs, visibleTabs);
@@ -456,6 +512,51 @@ function registerSettings() {
 
   game.settings.register(MODULE_ID, SETTINGS.enableButtonPressFx, {
     name: "按钮按压动效",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: true,
+    onChange: applyThemeState
+  });
+
+  game.settings.register(MODULE_ID, SETTINGS.enableStickers, {
+    name: "聊天动物表情",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: true,
+    onChange: applyThemeState
+  });
+
+  game.settings.register(MODULE_ID, SETTINGS.enableFolderSoftening, {
+    name: "柔化右侧栏文件夹颜色",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: true,
+    onChange: applyThemeState
+  });
+
+  game.settings.register(MODULE_ID, SETTINGS.enableJournalReadability, {
+    name: "日志可读性修正",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: true,
+    onChange: applyThemeState
+  });
+
+  game.settings.register(MODULE_ID, SETTINGS.enableDnd5eSheetSafety, {
+    name: "DnD5e 角色卡兼容保护",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: true,
+    onChange: applyThemeState
+  });
+
+  game.settings.register(MODULE_ID, SETTINGS.enableDnd5eAnimalBackground, {
+    name: "DnD5e 角色卡动物背景",
     scope: "world",
     config: false,
     type: Boolean,

@@ -28,6 +28,14 @@
 
     <label class="dnd-animal-ui-config-row">
       <span>
+        <strong>聊天动物表情</strong>
+        <small>在聊天输入栏内加入动物表情按钮，可发送本地 SVG 表情。</small>
+      </span>
+      <input type="checkbox" name="enableStickers" {{#if enableStickers}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
         <strong>素材强度</strong>
         <small>控制背景纹理和装饰素材的存在感。</small>
       </span>
@@ -36,6 +44,42 @@
           <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
         {{/each}}
       </select>
+    </label>
+  </section>
+
+  <section class="dnd-animal-ui-config-section">
+    <h3><i class="fas fa-palette"></i> 兼容修正</h3>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>柔化右侧栏文件夹颜色</strong>
+        <small>压低 Foundry 文件夹自定义色，避免和动物岛配色打架。</small>
+      </span>
+      <input type="checkbox" name="enableFolderSoftening" {{#if enableFolderSoftening}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>日志可读性修正</strong>
+        <small>强制日志正文保持纸面浅底和高对比文字。</small>
+      </span>
+      <input type="checkbox" name="enableJournalReadability" {{#if enableJournalReadability}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>DnD5e 角色卡兼容保护</strong>
+        <small>保留系统原生布局，限制主题只改外壳和可读性。</small>
+      </span>
+      <input type="checkbox" name="enableDnd5eSheetSafety" {{#if enableDnd5eSheetSafety}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>DnD5e 角色卡动物背景</strong>
+        <small>给角色/NPC/物品卡加入柔和动物岛纸面背景。</small>
+      </span>
+      <input type="checkbox" name="enableDnd5eAnimalBackground" {{#if enableDnd5eAnimalBackground}}checked{{/if}}>
     </label>
   </section>
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 - 2026-06-07
+
+- Moved the animal sticker entry into the chat input bar instead of floating it above chat.
+- Added GM toggles for chat stickers, sidebar folder color softening, journal readability, DnD5e sheet safety, and DnD5e animal sheet backgrounds.
+- Split DnD5e sheet rules into safer optional layers so actor, NPC, and item sheets can keep native layout while still receiving readable theme colors.
+- Added a QA checklist for Foundry runtime checks across chat, journal, sidebar, DnD5e sheets, settings, and player sidebar visibility.
+
 ## 0.1.5 - 2026-06-06
 
 - Replaced dnd5e actor header backgrounds with a lighter Animal Island village/sky treatment.
