@@ -2,6 +2,7 @@ const MODULE_ID = "dnd-animal-ui";
 
 const SETTINGS = {
   enableTheme: "enableTheme",
+  compatMode: "compatMode",
   enableCursor: "enableCursor",
   assetIntensity: "assetIntensity",
   enableButtonPressFx: "enableButtonPressFx",
@@ -16,6 +17,7 @@ const SETTINGS = {
 
 const BODY_CLASSES = [
   "dnd-animal-ui-enabled",
+  "dnd-animal-ui-compat-mode",
   "dnd-animal-ui-cursor-enabled",
   "dnd-animal-ui-button-fx-enabled",
   "dnd-animal-ui-stickers-enabled",
@@ -45,14 +47,27 @@ const PRESSABLE_SELECTOR = [
   "#sidebar-tabs .item"
 ].join(",");
 
-const STICKERS = [
-  { id: "duck", label: "法师鸭", path: "modules/dnd-animal-ui/assets/stickers/duck.svg" },
-  { id: "bear", label: "抱抱熊", path: "modules/dnd-animal-ui/assets/stickers/bear.svg" },
-  { id: "cat", label: "粉粉猫", path: "modules/dnd-animal-ui/assets/stickers/cat.svg" },
-  { id: "frog", label: "薄荷蛙", path: "modules/dnd-animal-ui/assets/stickers/frog.svg" },
-  { id: "rabbit", label: "奶油兔", path: "modules/dnd-animal-ui/assets/stickers/rabbit.svg" },
-  { id: "owl", label: "星星猫头鹰", path: "modules/dnd-animal-ui/assets/stickers/owl.svg" }
+const STICKER_CATEGORIES = [
+  { id: "all", label: "全部" },
+  { id: "emotion", label: "情绪" },
+  { id: "adventure", label: "冒险" },
+  { id: "animal", label: "动物" }
 ];
+
+const STICKERS = [
+  { id: "duck", label: "法师鸭", command: "duck", category: "adventure", path: "modules/dnd-animal-ui/assets/stickers/duck.svg" },
+  { id: "bear", label: "抱抱熊", command: "hug", category: "emotion", path: "modules/dnd-animal-ui/assets/stickers/bear.svg" },
+  { id: "cat", label: "粉粉猫", command: "cat", category: "emotion", path: "modules/dnd-animal-ui/assets/stickers/cat.svg" },
+  { id: "frog", label: "薄荷蛙", command: "frog", category: "animal", path: "modules/dnd-animal-ui/assets/stickers/frog.svg" },
+  { id: "rabbit", label: "奶油兔", command: "rabbit", category: "animal", path: "modules/dnd-animal-ui/assets/stickers/rabbit.svg" },
+  { id: "owl", label: "星星猫头鹰", command: "owl", category: "adventure", path: "modules/dnd-animal-ui/assets/stickers/owl.svg" }
+];
+
+const STICKERS_BY_COMMAND = new Map(STICKERS.flatMap((sticker) => [
+  [sticker.id.toLowerCase(), sticker],
+  [sticker.command.toLowerCase(), sticker],
+  [sticker.label.toLowerCase(), sticker]
+]));
 
 const SIDEBAR_TABS = [
   { id: "chat", label: "聊天", icon: () => CONFIG.ChatMessage?.sidebarIcon || "fas fa-comments" },
@@ -253,20 +268,24 @@ function applyThemeState() {
 
   if (!getSetting(SETTINGS.enableTheme)) {
     clearPlayerSidebarTabVisibility();
+    removeStickerButton();
     return;
   }
 
   body.classList.add("dnd-animal-ui-enabled");
 
-  if (getSetting(SETTINGS.enableCursor)) body.classList.add("dnd-animal-ui-cursor-enabled");
-  if (getSetting(SETTINGS.enableButtonPressFx)) body.classList.add("dnd-animal-ui-button-fx-enabled");
-  if (getSetting(SETTINGS.enableStickers)) body.classList.add("dnd-animal-ui-stickers-enabled");
-  if (getSetting(SETTINGS.enableFolderSoftening)) body.classList.add("dnd-animal-ui-folder-softening-enabled");
-  if (getSetting(SETTINGS.enableJournalReadability)) body.classList.add("dnd-animal-ui-journal-readability-enabled");
-  if (getSetting(SETTINGS.enableDnd5eSheetSafety)) body.classList.add("dnd-animal-ui-dnd5e-sheet-safety-enabled");
-  if (getSetting(SETTINGS.enableDnd5eAnimalBackground)) body.classList.add("dnd-animal-ui-dnd5e-animal-background-enabled");
+  const compatMode = getSetting(SETTINGS.compatMode);
+  if (compatMode) body.classList.add("dnd-animal-ui-compat-mode");
 
-  const intensity = getSetting(SETTINGS.assetIntensity) || "high";
+  if (getSetting(SETTINGS.enableCursor)) body.classList.add("dnd-animal-ui-cursor-enabled");
+  if (!compatMode && getSetting(SETTINGS.enableButtonPressFx)) body.classList.add("dnd-animal-ui-button-fx-enabled");
+  if (getSetting(SETTINGS.enableStickers)) body.classList.add("dnd-animal-ui-stickers-enabled");
+  if (!compatMode && getSetting(SETTINGS.enableFolderSoftening)) body.classList.add("dnd-animal-ui-folder-softening-enabled");
+  if (!compatMode && getSetting(SETTINGS.enableJournalReadability)) body.classList.add("dnd-animal-ui-journal-readability-enabled");
+  if (getSetting(SETTINGS.enableDnd5eSheetSafety)) body.classList.add("dnd-animal-ui-dnd5e-sheet-safety-enabled");
+  if (!compatMode && getSetting(SETTINGS.enableDnd5eAnimalBackground)) body.classList.add("dnd-animal-ui-dnd5e-animal-background-enabled");
+
+  const intensity = compatMode ? "low" : (getSetting(SETTINGS.assetIntensity) || "high");
   body.classList.add(`dnd-animal-ui-assets-${intensity}`);
 
   applyPlayerSidebarTabVisibility();
@@ -344,6 +363,7 @@ function removeStickerButton() {
 async function sendSticker(sticker) {
   const content = `
     <div class="dnd-animal-ui-chat-sticker-card" data-sticker-id="${sticker.id}">
+      <span class="dnd-animal-ui-chat-sticker-chip">${getStickerCategoryLabel(sticker.category)}</span>
       <img src="${sticker.path}" alt="${sticker.label}">
       <span>${sticker.label}</span>
     </div>
@@ -356,25 +376,92 @@ async function sendSticker(sticker) {
   });
 }
 
+function getStickerCategoryLabel(categoryId) {
+  return STICKER_CATEGORIES.find((category) => category.id === categoryId)?.label || "全部";
+}
+
+function filterStickerPanel(panel, categoryId) {
+  panel.dataset.activeCategory = categoryId;
+
+  panel.querySelectorAll(".dnd-animal-ui-sticker-tab").forEach((tab) => {
+    const active = tab.dataset.categoryId === categoryId;
+    tab.classList.toggle("active", active);
+    tab.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+
+  panel.querySelectorAll(".dnd-animal-ui-sticker-option").forEach((option) => {
+    const visible = categoryId === "all" || option.dataset.categoryId === categoryId;
+    option.hidden = !visible;
+  });
+}
+
 function buildStickerPanel() {
   const panel = document.createElement("div");
   panel.className = "dnd-animal-ui-sticker-panel";
+  panel.dataset.activeCategory = "all";
+
+  const tabs = document.createElement("div");
+  tabs.className = "dnd-animal-ui-sticker-tabs";
+
+  for (const category of STICKER_CATEGORIES) {
+    const tab = document.createElement("button");
+    tab.type = "button";
+    tab.className = "dnd-animal-ui-sticker-tab";
+    tab.dataset.categoryId = category.id;
+    tab.textContent = category.label;
+    tab.setAttribute("aria-pressed", category.id === "all" ? "true" : "false");
+    tab.addEventListener("click", () => filterStickerPanel(panel, category.id));
+    tabs.append(tab);
+  }
+
+  const grid = document.createElement("div");
+  grid.className = "dnd-animal-ui-sticker-grid";
 
   for (const sticker of STICKERS) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "dnd-animal-ui-sticker-option";
     button.dataset.stickerId = sticker.id;
+    button.dataset.categoryId = sticker.category;
     button.title = sticker.label;
-    button.innerHTML = `<img src="${sticker.path}" alt=""><span>${sticker.label}</span>`;
+    button.innerHTML = `<img src="${sticker.path}" alt=""><span>${sticker.label}</span><small>/${sticker.command}</small>`;
     button.addEventListener("click", async () => {
       panel.classList.remove("open");
       await sendSticker(sticker);
     });
-    panel.append(button);
+    grid.append(button);
   }
 
+  panel.append(tabs, grid);
+  filterStickerPanel(panel, "all");
   return panel;
+}
+
+function parseStickerCommand(content) {
+  const match = String(content || "").trim().match(/^\/(?:sticker|表情)\s+(.+)$/i);
+  if (!match) return null;
+
+  const query = match[1].trim();
+  return {
+    query,
+    sticker: STICKERS_BY_COMMAND.get(query.toLowerCase())
+  };
+}
+
+function handleStickerCommand(_chatLog, content) {
+  if (!getSetting(SETTINGS.enableTheme) || !getSetting(SETTINGS.enableStickers)) return true;
+
+  const command = parseStickerCommand(content);
+  if (!command) return true;
+
+  if (!command.sticker) {
+    const options = STICKERS.map((sticker) => `/${sticker.command}`).join(" ");
+    ui.notifications?.warn(`没有找到动物表情：${command.query}。可用：${options}`);
+    return false;
+  }
+
+  void sendSticker(command.sticker);
+  return false;
 }
 
 function injectStickerButton() {
@@ -440,6 +527,7 @@ class DndAnimalThemeConfig extends FormApplication {
 
     return {
       enableTheme: getSetting(SETTINGS.enableTheme),
+      compatMode: getSetting(SETTINGS.compatMode),
       enableCursor: getSetting(SETTINGS.enableCursor),
       enableButtonPressFx: getSetting(SETTINGS.enableButtonPressFx),
       enableStickers: getSetting(SETTINGS.enableStickers),
@@ -492,6 +580,7 @@ class DndAnimalThemeConfig extends FormApplication {
     }
 
     await game.settings.set(MODULE_ID, SETTINGS.enableTheme, form.enableTheme.checked);
+    await game.settings.set(MODULE_ID, SETTINGS.compatMode, form.compatMode.checked);
     await game.settings.set(MODULE_ID, SETTINGS.enableCursor, form.enableCursor.checked);
     await game.settings.set(MODULE_ID, SETTINGS.enableButtonPressFx, form.enableButtonPressFx.checked);
     await game.settings.set(MODULE_ID, SETTINGS.enableStickers, form.enableStickers.checked);
@@ -515,6 +604,16 @@ function registerSettings() {
     config: false,
     type: Boolean,
     default: true,
+    onChange: applyThemeState
+  });
+
+  game.settings.register(MODULE_ID, SETTINGS.compatMode, {
+    name: "兼容模式",
+    hint: "保留主题基础外观，但临时关闭高风险装饰层：按钮动效、文件夹柔化、journal 强修正和 DnD5e 动物背景。",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: false,
     onChange: applyThemeState
   });
 
@@ -630,6 +729,7 @@ Hooks.once("ready", () => {
 });
 Hooks.on("renderSidebar", applyPlayerSidebarTabVisibility);
 Hooks.on("renderChatLog", injectStickerButton);
+Hooks.on("chatMessage", handleStickerCommand);
 Hooks.on("collapseSidebar", applyPlayerSidebarTabVisibility);
 Hooks.on("updateSetting", (setting) => {
   const key = setting?.key || setting?.id;

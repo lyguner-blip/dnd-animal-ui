@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 - 2026-06-07
+
+- Added compatibility mode to temporarily suppress high-risk decorative layers while keeping the base theme active.
+- Added sticker categories for the chat sticker panel: all, emotion, adventure, and animal.
+- Added `/sticker <name>` and `/表情 <name>` chat commands for sending bundled animal stickers.
+- Improved sticker chat cards with category chips and compact command labels in the picker.
+
 ## 0.2.3 - 2026-06-07
 
 - Fixed the chat sticker button layout so it no longer shifts or overlaps native chat controls.

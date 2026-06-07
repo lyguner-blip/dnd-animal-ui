@@ -12,6 +12,14 @@
 
     <label class="dnd-animal-ui-config-row">
       <span>
+        <strong>兼容模式</strong>
+        <small>保留基础主题，临时关闭高风险装饰层，适合排查 UI 冲突。</small>
+      </span>
+      <input type="checkbox" name="compatMode" {{#if compatMode}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
         <strong>动物岛光标</strong>
         <small>使用本地打包的游戏风格指针。</small>
       </span>

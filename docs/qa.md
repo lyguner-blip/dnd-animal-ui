@@ -17,12 +17,16 @@ Use this checklist after enabling the module in a Foundry VTT world.
   - Cursor
   - Button press effects
   - Chat animal stickers
+  - Compatibility mode
   - Sidebar folder softening
   - Journal readability
   - DnD5e sheet safety
   - DnD5e animal sheet background
 - Open chat and confirm the animal sticker button is inside the chat input bar.
+- Open the sticker panel and confirm the category tabs filter stickers without moving native chat controls.
 - Send each sticker and confirm the message uses a local `modules/dnd-animal-ui/assets/stickers/*.svg` image.
+- Type `/sticker duck` and `/表情 duck` in chat and confirm a sticker message is sent.
+- Type an unknown sticker command and confirm a warning appears without sending a normal chat message.
 - Open player character, NPC/monster, and item sheets. Confirm values, attributes, death saves, resources, item lists, and action buttons remain readable and clickable.
 - Open a journal entry with sidebar/page navigation. Confirm headings, body text, links, tables, and selected page rows have enough contrast.
 - Check actor, item, journal, scene, compendium, and settings sidebars. Folder colors should feel softened when the option is enabled.
