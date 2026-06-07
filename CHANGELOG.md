@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1 - 2026-06-07
+
+- Covered remaining native DnD5e actor and item sheet background textures when animal sheet backgrounds are enabled.
+- Added stronger background-image cleanup for DnD5e sheet content containers and common pseudo-elements.
+
 ## 0.2.0 - 2026-06-07
 
 - Moved the animal sticker entry into the chat input bar instead of floating it above chat.
