@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2 - 2026-06-07
+
+- Fixed low-contrast DnD5e trait/pill section labels such as weapons and languages on light Animal Island sheet backgrounds.
+- Removed `.pills-group` from the dark-panel text override and styled trait headings separately with warm brown high-contrast text.
+
 ## 0.2.1 - 2026-06-07
 
 - Covered remaining native DnD5e actor and item sheet background textures when animal sheet backgrounds are enabled.
