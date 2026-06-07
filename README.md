@@ -6,7 +6,7 @@ Manifest:
 https://raw.githubusercontent.com/lyguner-blip/dnd-animal-ui/main/module.json
 
 Download:
-https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.2.2/dnd-animal-ui-0.2.2.zip
+https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.2.3/dnd-animal-ui-0.2.3.zip
 
 ## Features
 

@@ -292,6 +292,35 @@ function getChatForm() {
   return document.querySelector("#chat-form") || document.querySelector("#chat-controls")?.closest("form");
 }
 
+function isVisibleChatInput(element) {
+  if (!element || element.closest(".dnd-animal-ui-sticker-dock")) return false;
+
+  const style = window.getComputedStyle(element);
+  if (style.display === "none" || style.visibility === "hidden") return false;
+
+  return element.getClientRects().length > 0;
+}
+
+function getChatMessageInput(chatForm) {
+  const selectors = [
+    "#chat-message",
+    "textarea[name='message']",
+    "textarea[name='content']",
+    "textarea[placeholder]",
+    "textarea",
+    "[contenteditable='true'][data-chat-input]",
+    "[contenteditable='true'][role='textbox']",
+    "[contenteditable='true'][aria-multiline='true']"
+  ];
+
+  for (const selector of selectors) {
+    const input = Array.from(chatForm.querySelectorAll(selector)).find(isVisibleChatInput);
+    if (input) return input;
+  }
+
+  return null;
+}
+
 function closeStickerPanels(exceptPanel = null) {
   document.querySelectorAll(".dnd-animal-ui-sticker-panel").forEach((panel) => {
     if (panel !== exceptPanel) panel.classList.remove("open");
@@ -305,6 +334,7 @@ function removeStickerButton() {
 
     if (!host) return;
     host.querySelectorAll("textarea, input[type='text'], [contenteditable='true']").forEach((input) => {
+      input.classList.remove("dnd-animal-ui-chat-message-input");
       host.parentElement?.insertBefore(input, host);
     });
     host.remove();
@@ -355,7 +385,8 @@ function injectStickerButton() {
 
   const chatForm = getChatForm();
   if (!chatForm || chatForm.querySelector(".dnd-animal-ui-sticker-button")) return;
-  const chatInput = chatForm.querySelector("#chat-message, textarea, input[type='text'], [contenteditable='true']");
+  const chatInput = getChatMessageInput(chatForm);
+  if (!chatInput) return;
 
   const wrapper = document.createElement("div");
   wrapper.className = "dnd-animal-ui-sticker-dock";
@@ -380,16 +411,16 @@ function injectStickerButton() {
     const inputWrap = document.createElement("div");
     inputWrap.className = "dnd-animal-ui-chat-input-wrap";
     chatInput.parentElement.insertBefore(inputWrap, chatInput);
+    chatInput.classList.add("dnd-animal-ui-chat-message-input");
     inputWrap.append(chatInput, wrapper);
     return;
   }
 
   if (chatInput?.closest(".dnd-animal-ui-chat-input-wrap")) {
+    chatInput.classList.add("dnd-animal-ui-chat-message-input");
     chatInput.closest(".dnd-animal-ui-chat-input-wrap").append(wrapper);
     return;
   }
-
-  chatForm.append(wrapper);
 }
 
 class DndAnimalThemeConfig extends FormApplication {

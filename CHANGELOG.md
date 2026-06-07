@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3 - 2026-06-07
+
+- Fixed the chat sticker button layout so it no longer shifts or overlaps native chat controls.
+- Restricted sticker injection to the real chat message input instead of generic text inputs.
+- Changed the sticker entry into an absolute overlay inside the message input wrapper.
+
 ## 0.2.2 - 2026-06-07
 
 - Fixed low-contrast DnD5e trait/pill section labels such as weapons and languages on light Animal Island sheet backgrounds.

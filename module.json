@@ -2,10 +2,10 @@
   "id": "dnd-animal-ui",
   "title": "DND 动物岛 UI",
   "description": "Animal Island 风格的 Foundry VTT / DnD5e 全量 UI 主题：圆润米白面板、暖棕文字、薄荷青绿按钮、NookPhone 色块和动物岛素材。",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "url": "https://github.com/lyguner-blip/dnd-animal-ui",
   "manifest": "https://raw.githubusercontent.com/lyguner-blip/dnd-animal-ui/main/module.json",
-  "download": "https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.2.2/dnd-animal-ui-0.2.2.zip",
+  "download": "https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.2.3/dnd-animal-ui-0.2.3.zip",
   "authors": [
     {
       "name": "法师鹅肝"
