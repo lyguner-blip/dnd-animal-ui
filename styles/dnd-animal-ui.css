@@ -477,14 +477,16 @@ body.dnd-animal-ui-enabled .dnd-animal-ui-chat-input-wrap .dnd-animal-ui-chat-me
   width: 100% !important;
   min-width: 0;
   margin: 0 !important;
-  padding-right: 48px !important;
+  padding-right: 0.8rem !important;
+  padding-left: 48px !important;
 }
 
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-dock {
   position: absolute;
-  right: 8px;
+  left: 8px;
+  right: auto;
   top: 8px;
-  z-index: 50;
+  z-index: 30;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -511,7 +513,8 @@ body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-button img {
 
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-panel {
   position: absolute;
-  right: 0;
+  left: 0;
+  right: auto;
   bottom: calc(100% + 8px);
   display: none;
   width: min(248px, calc(100vw - 32px));
@@ -1118,4 +1121,145 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled #sidebar .t
 body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled #sidebar .tab[data-tab="journal"] .directory-list :is(.item.active, .item.selected, .folder-header.active, .folder-header.selected) :is(h3, h4, .name, span, a) {
   color: #fff9e3 !important;
   background: var(--dnd-animal-primary) !important;
+}
+
+/* 0.3.1 - module activation text, chat sticker placement, and dnd5e sheet tone polish. */
+body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-configuration, .window-app.package-configuration, .application.package-configuration) {
+  color: var(--dnd-animal-text-body) !important;
+}
+
+body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-configuration, .window-app.package-configuration, .application.package-configuration) :is(.window-content, form, .package-list, .module-list) {
+  color: var(--dnd-animal-text-body) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 242, 0.72), rgba(247, 243, 223, 0.96)),
+    var(--dnd-animal-content) !important;
+}
+
+body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-configuration, .window-app.package-configuration, .application.package-configuration) :is(
+  .package,
+  li.package,
+  .package-list .package,
+  .module,
+  .module-list .module,
+  .form-group,
+  .form-fields,
+  .package-overview,
+  .package-metadata
+) {
+  color: var(--dnd-animal-text-body) !important;
+  background: rgba(255, 253, 242, 0.76) !important;
+  border-color: rgba(159, 146, 125, 0.38) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-configuration, .window-app.package-configuration, .application.package-configuration) :is(
+  h1,
+  h2,
+  h3,
+  h4,
+  label,
+  p,
+  span,
+  a,
+  li,
+  .title,
+  .package-title,
+  .module-title,
+  .package-name,
+  .module-name,
+  .entry-title,
+  .form-group label
+) {
+  color: var(--dnd-animal-text) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-configuration, .window-app.package-configuration, .application.package-configuration) :is(
+  .package-description,
+  .module-description,
+  .description,
+  .notes,
+  .hint,
+  .package-metadata,
+  .package-metadata span,
+  .version,
+  .authors,
+  .system,
+  .requirements,
+  .compatibility
+) {
+  color: var(--dnd-animal-text-body) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-configuration, .window-app.package-configuration, .application.package-configuration) :is(
+  .disabled,
+  .inactive,
+  .incompatible,
+  .unavailable,
+  [aria-disabled="true"]
+) {
+  color: var(--dnd-animal-text-muted) !important;
+  background: rgba(240, 232, 216, 0.74) !important;
+  opacity: 1 !important;
+}
+
+body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-configuration, .window-app.package-configuration, .application.package-configuration) :is(.filter, .filters, .tabs, nav.tabs, .package-tabs, .list-filters) {
+  color: var(--dnd-animal-text) !important;
+  background: rgba(230, 249, 246, 0.72) !important;
+  border-color: rgba(25, 200, 185, 0.34) !important;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-chat-input-wrap .dnd-animal-ui-chat-message-input {
+  padding-right: 0.85rem !important;
+  padding-left: 48px !important;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-dock {
+  left: 8px;
+  right: auto;
+  top: 8px;
+  z-index: 30;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-panel {
+  left: 0;
+  right: auto;
+  transform-origin: 20px 100%;
+}
+
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) .window-content,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(25, 200, 185, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(239, 232, 207, 0.98), rgba(244, 238, 219, 0.98) 42%, rgba(235, 226, 203, 0.98)),
+    var(--dnd-animal-content-2) !important;
+}
+
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) {
+  background:
+    linear-gradient(180deg, rgba(125, 202, 194, 0.48), rgba(239, 232, 207, 0.9) 74%),
+    url("../assets/backgrounds/animalisland_1440_2560.jpg") center 20% / cover no-repeat !important;
+  border-bottom-color: rgba(214, 184, 102, 0.62) !important;
+}
+
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-body, .main-content, .tab),
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) :is(.sheet-body, .main-content, .tab) {
+  background-color: rgba(239, 232, 207, 0.34) !important;
+}
+
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, filigree-box) {
+  background-color: rgba(48, 52, 60, 0.93) !important;
+  border-color: rgba(247, 205, 103, 0.22) !important;
+  box-shadow:
+    0 8px 18px rgba(61, 52, 40, 0.16),
+    inset 0 1px 0 rgba(255, 253, 242, 0.08) !important;
+}
+
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.items-header, .section-header, .items-section > .header) {
+  background: #4a2f31 !important;
+  border-color: rgba(247, 205, 103, 0.26) !important;
 }

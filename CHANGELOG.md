@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 - 2026-06-08
+
+- Fixed low-contrast text in the Foundry module activation and package configuration windows.
+- Moved the chat sticker button to the left side of the message input so it no longer covers native right-side chat controls.
+- Softened DnD5e actor and item sheet background tones and reduced the abrupt contrast between warm parchment areas and dark native panels.
+
 ## 0.3.0 - 2026-06-07
 
 - Added compatibility mode to temporarily suppress high-risk decorative layers while keeping the base theme active.
