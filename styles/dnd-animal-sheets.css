@@ -170,8 +170,11 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
 
 /* 列表行悬停：青绿 13% 高亮（与侧边栏一致）。
    5.x 物品行可见摘要是 .item-row（inventory.hbs:90），活动行是
-   .activity-row（activity.hbs:1）。 */
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
+   .activity-row（activity.hbs:1）。
+   作用域从 .sheet.actor 拓宽到 .sheet：物品卡（容器内容 contents.hbs 复用
+   inventory.hbs；activities.hbs 用 .item-row/.activity-row）同样需要此悬停，
+   两端 markup 一致，一条规则覆盖 PC/NPC/物品三类卡（Task 8 决定）。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet
   :is(.items-list .item-row, .activities .activity-row):hover {
   background: rgba(25, 200, 185, 0.13) !important;
   box-shadow: inset 4px 0 0 #19c8b9;
@@ -192,9 +195,11 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
   color: #11a89b;
 }
 /* 系统 .gold-button::after 在按钮内画 inset:3px 的金线内框（dnd5e.css:3775），
-   会透出在我们的奶油药丸里；关掉它。 */
+   会透出在我们的奶油药丸里；关掉它。
+   仅瞄准 .gold-button（短休/长休等带该伪元素的按钮），不波及其它无 ::after 的
+   头部按钮（评审建议，未来防误伤）。 */
 body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
-  .sheet-header .sheet-header-buttons button::after {
+  .sheet-header .sheet-header-buttons .gold-button::after {
   content: none;
 }
 
@@ -238,5 +243,33 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
   border: 2px solid rgba(181, 102, 54, 0.8);
   border-radius: 999px;
   text-shadow: 0 1px 0 rgba(114, 93, 66, 0.6);
+}
+
+/* ===================================================================
+   Layer 3.3 — 物品卡精修
+   选择器按 dnd5e 5.3.3 源核对（dnd5e.css / templates/items/*.hbs）。
+   多数视觉已被 Layer 1/2 变量覆盖；本层只补变量够不着的定向项。
+   =================================================================== */
+
+/* 卡头横幅：系统 ::before 默认 opacity:0.2（dnd5e.css:8044-8053，第 8051 行），
+   挂在 .dnd5e2.sheet.item:not(.minimized) 上。Layer 2 给它喂了岛景渐变并强制
+   白色标题文字，但 0.2 太淡、衬不住白字。提到 0.6（与 NPC 修复同思路，
+   见上方 Layer 3.2 及提交 5ebaabe）。
+   系统选择器特异性 0,4,1；本规则加 body.X.Y 前缀 → 0,6,1，无需 !important。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .dnd5e2.sheet.item:not(.minimized)::before {
+  opacity: 0.6;
+}
+
+/* 配置区嵌入面板：详情/活动页大量使用 <fieldset>（details.hbs 装配各 details-*
+   分部；base 样式 dnd5e.css:5705）。系统 fieldset 自身无背景填充，只有
+   var(--color-fieldset-border) 边框（亮色 → --dnd5e-color-blue-gray-3，Layer 1
+   已奶油化）与 legend 颜色（→ --dnd5e-color-gold = 青绿，Layer 1 已覆盖）。
+   故此处只补变量够不着的「淡奶杏底色 + 圆角」，让面板成形；边框/legend 交给变量。
+   注：fieldset.card 的 legend 底色用 --dnd5e-background-card、legend::before 外框用
+   --dnd5e-border-gold，均已被 Layer 2 重映射，不再覆写。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.item fieldset {
+  background: rgba(240, 232, 216, 0.55);
+  border-radius: 14px;
 }
 
