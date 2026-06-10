@@ -150,3 +150,60 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .application.dnd5e2
     0 2px 0 rgba(114, 93, 66, 0.75),
     0 0 5px rgba(61, 52, 40, 0.82) !important;
 }
+
+/* ===================================================================
+   Layer 3.1 — PC 角色卡精修
+   变量层（Layer 1/2）够不着的定向微调；全部挂在双开关之下。
+   选择器已按 dnd5e 5.3.3 源（dnd5e.css / inventory.hbs /
+   character-*.hbs）核对，详见提交说明。
+   =================================================================== */
+
+/* 技能/豁免列表：熟练度圆点用青绿。
+   proficiency-cycle 是 Shadow DOM 自定义元素，内部 div 用
+   --_fill: var(--proficiency-cycle-enabled-color)，外部 color/--color-fill
+   无法穿透；只能通过继承的自定义属性着色（dnd5e.mjs:65077）。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor.character
+  .sheet-body :is(.skills, .saves) {
+  --proficiency-cycle-enabled-color: #19c8b9;
+  --proficiency-cycle-disabled-color: #c4b89e;
+}
+
+/* 列表行悬停：青绿 13% 高亮（与侧边栏一致）。
+   5.x 物品行可见摘要是 .item-row（inventory.hbs:90），活动行是
+   .activity-row（activity.hbs:1）。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
+  :is(.items-list .item-row, .activities .activity-row):hover {
+  background: rgba(25, 200, 185, 0.13) !important;
+  box-shadow: inset 4px 0 0 #19c8b9;
+}
+
+/* 卡头操作按钮（短休/长休等 .gold-button）：奶油果冻微缩版。
+   markup 见 character-header.hbs:40-46，.gold-button 基样在 dnd5e.css:3759。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
+  .sheet-header .sheet-header-buttons button {
+  color: #794f27;
+  background: #f8f8f0;
+  border: 2px solid rgba(159, 146, 125, 0.72);
+  border-radius: 50px;
+  box-shadow: 0 3px 0 0 #bdaea0;
+}
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
+  .sheet-header .sheet-header-buttons button > i {
+  color: #11a89b;
+}
+
+/* 货币栏输入：section.currency > label > input.uninput（inventory.hbs:16）。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor .currency input {
+  background: #fffdf2;
+  border: 1px solid #c4b89e;
+  border-radius: 10px;
+  color: #725d42;
+}
+
+/* 负重条：填充是 .meter.progress 的 ::before 伪元素（encumbrance.hbs:2 +
+   dnd5e.css:4094 / 6389）。覆盖系统的 blue→maroon 渐变为 绿→暖黄。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
+  .encumbrance .meter.progress::before {
+  background: linear-gradient(90deg, #6fba2c, #f7cd67) !important;
+  border-right-color: #5da626 !important;
+}
