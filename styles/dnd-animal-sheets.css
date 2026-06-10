@@ -494,3 +494,96 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
   background: rgba(25, 200, 185, 0.13);
   box-shadow: inset 4px 0 0 #19c8b9;
 }
+
+/* ===================================================================
+   Layer 3.7 — 原生宏栏（核心 v13 #hotbar）果冻化
+   目标是 Foundry CORE 的宏栏，非 dnd5e。结构按 templates/ui/hotbar.hbs +
+   foundry2.css:7499-7640 核对：
+     · #hotbar：仅 --hotbar-size:60px / --button-size:24px + flex 布局，
+       无独立背景/边框/背景图/backdrop-filter（无需补容器底色）。槽位与
+       compact 行宽都依赖 --hotbar-size，故不改尺寸（草稿的 44px 会破坏
+       #hotbar.compact #action-bar 的 (--hotbar-size*5)+32px 行宽计算）。
+     · .slot 是 <li role="button">（非 button），尺寸 var(--hotbar-size)，
+       core 给 border:2px transparent / radius:10px / background:
+       var(--slot-color, --color-cool-5-90)（冷蓝）。inline style 可注入
+       --slot-color，故用 !important 背景压过。
+     · .slot:hover core 仅 border:2px var(--color-warm-1)（用 border 简写，
+       须同用 !important 让悬停色生效）；transform/阴影由本层加。
+     · .slot.drop-target core 同时改 background:var(--color-cool-4) +
+       border var(--color-warm-2)——草稿只动 border 会留冷蓝底，须一并压奶油。
+     · .key 用 --key-bg-color-{empty,full} / --key-text-color 驱动色，直接
+       写死 background/color 覆盖；core 圆角 10px 0 8px 0（贴左上角），保留形状。
+     · .slot-icon core 设 border:none，无 filter——草稿的 filter:none 是空操作，已删。
+     · 翻页/控制键是 <button class="hotbar-page-control|ui-control">，被主表
+       dnd-animal-ui.css:339/358 的 :not(#hotbar button) 排除（确认主表保留该
+       排除），全局果冻规则不命中，故此层显式果冻化。图标为 ::before FA 字形，
+       仅设色不动 content，图标照常显示。
+   特异性：body.X.Y #hotbar … = 0,2,N，稳压 core 的 0,1,N（如
+   #hotbar #action-bar .slot 为 0,1,1）。
+
+   已丢弃的草稿规则：
+   - .slot 的 width/height:44px：会破坏依赖 --hotbar-size 的 compact 行宽，删，保留 60px。
+   - .slot-icon { filter:none }：core 对图标无任何 filter，空操作，删。
+   =================================================================== */
+
+/* 动作条容器：core 已无背景/边框，仅微调间距，保持透明。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled #hotbar #action-bar {
+  gap: 6px;
+  border: 0;
+  background: transparent;
+}
+
+/* 槽位：奶油底 + 圆角 + 果冻投影；过渡定义在基态，悬停才有动画。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled #hotbar #action-bar .slot {
+  border: 2px solid rgba(159, 146, 125, 0.62) !important;
+  border-radius: 14px !important;
+  background: rgba(248, 248, 240, 0.82) !important;
+  box-shadow: 0 3px 0 0 rgba(189, 174, 160, 0.72);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s, box-shadow 0.25s;
+}
+
+/* 悬停：与 core 同用 !important（core 用 border 简写 var(--color-warm-1)），
+   边框转青绿 + 上浮 + 加深投影。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled #hotbar #action-bar .slot:hover {
+  transform: translateY(-2px);
+  border: 2px solid #19c8b9 !important;
+  box-shadow: 0 5px 0 0 rgba(189, 174, 160, 0.72);
+}
+
+/* 拖放目标：core 同时染冷蓝底，须连背景一起压成暖黄高亮。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled #hotbar #action-bar .slot.drop-target {
+  background: rgba(247, 205, 103, 0.18) !important;
+  border: 2px solid #f7cd67 !important;
+}
+
+/* 槽位编号徽章：覆盖 --key-bg/--key-text 驱动色，保留 core 左上角圆角形状。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled #hotbar #action-bar .slot .key {
+  color: #794f27;
+  background: rgba(247, 205, 103, 0.9);
+  font-weight: 800;
+  text-shadow: none;
+}
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled #hotbar #action-bar .slot.full .key {
+  background: rgba(247, 205, 103, 0.9);
+}
+
+/* 翻页 + 控制键：果冻药丸（主表已排除 #hotbar button，须此处显式上色）。
+   图标 ::before FA 字形仅靠文字色，统一棕色。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled #hotbar
+  :is(#hotbar-page-controls .hotbar-page-control, .hotbar-controls button) {
+  --button-text-color: #794f27;
+  --button-hover-text-color: #19c8b9;
+  color: #794f27 !important;
+  background: #f8f8f0 !important;
+  border: 2px solid rgba(159, 146, 125, 0.62) !important;
+  border-radius: 50px !important;
+  box-shadow: 0 3px 0 0 #bdaea0 !important;
+}
+
+/* 页码：core 用 --color-light-2（浅色，奶油底上不可见），改深棕。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled #hotbar
+  #hotbar-page-controls .hotbar-page-number {
+  color: #794f27;
+  font-weight: 900;
+  text-shadow: none;
+}
