@@ -2,3 +2,64 @@
    原生宏栏的深度奶油主题（FVTT v13）。
    全部规则挂在 body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
    之下，单开关可整体关闭，关闭后回到系统原生样式。 */
+
+/* ===================================================================
+   Layer 1 — 调色板重映射。
+   特异性 body.X.Y :is(.dnd5e2…) = 0,3,1，压过系统的
+   body.theme-light .dnd5e2 (0,2,1) 和 .themed.theme-light.dnd5e2 (0,3,0)。
+   =================================================================== */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled :is(.dnd5e2, .dnd5e2-journal),
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.chat-message {
+  /* —— 基础色板：深蓝灰 → 奶油，金 → 青绿，暗红 → 珊瑚 —— */
+  --dnd5e-color-blue-gray-1: rgb(247, 243, 223);
+  --dnd5e-color-blue-gray-2: #f7f3df;
+  --dnd5e-color-blue-gray-3: #f0e8d8;
+  --dnd5e-color-blue-gray-4: #ece2cf;
+  --dnd5e-color-blue-white: #794f27;
+  --dnd5e-color-gold: #19c8b9;
+  --dnd5e-color-card: #fffdf2;
+  --dnd5e-color-parchment: #fffdf2;
+  --dnd5e-color-groove: #f0e8d8;
+  --dnd5e-color-faint: #e8dfc8;
+  --dnd5e-color-beige: #d8d0c3;
+  --dnd5e-color-olive: #8a7b66;
+  --dnd5e-color-light-gray: #f0e8d8;
+  --dnd5e-color-iron-gray: #e8dfc8;
+  --dnd5e-color-dark-gray: #794f27;
+  --dnd5e-color-dark: #725d42;
+  --dnd5e-color-black: #5d4423;
+  --dnd5e-color-maroon: #d97583;
+  --dnd5e-color-crimson: #c2606e;
+  --dnd5e-color-tan: #c4b89e;
+
+  /* —— 表格/列表 —— */
+  --dnd5e-color-table-header-1: #f7cd67;
+  --dnd5e-color-table-header-2: #f7d77d;
+  --dnd5e-color-table-row-odd: #f7f3df;
+  --dnd5e-color-table-row-even: #fffdf2;
+  --dnd5e-color-table-border: #d8d0c3;
+  --dnd5e-color-scrollbar: #19c8b9;
+
+  /* —— 资源条：HP 亮绿、生命骰暖橙、法术位青绿 —— */
+  --dnd5e-color-hp-1: #4f8f1f;
+  --dnd5e-color-hp-2: #6fba2c;
+  --dnd5e-color-hp-3: #5da626;
+  --dnd5e-color-hd-1: #c97a4a;
+  --dnd5e-color-hd-2: #e59266;
+  --dnd5e-color-hd-3: #b56636;
+  --dnd5e-color-sc-1: #4aa9a0;
+  --dnd5e-color-sc-2: #19c8b9;
+
+  /* —— 语义色：保色相，调明度适配奶油底 —— */
+  --dnd5e-color-success: #2e7d32;
+  --dnd5e-color-success-background: #d9ecd0;
+  --dnd5e-color-failure: #b23a48;
+  --dnd5e-color-failure-background: #f8dde0;
+
+  /* —— 文字 —— */
+  --color-text-primary: #725d42;
+  --color-text-secondary: #8a7b66;
+  --color-text-tertiary: #9f927d;
+  --color-text-emphatic: #794f27;
+  --color-text-title: #794f27;
+}
