@@ -394,16 +394,16 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet t
    让它们保留原生表现。条纹挂在 tbody tr 上，特异性（双开关 body + 表 + tr + nth-child）
    稳压核心 tr.roulette/tr.drawn。 */
 body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
-  .roll-table-sheet table tbody tr:nth-child(odd):not(.roulette) {
+  .roll-table-sheet table tbody tr:nth-child(odd):not(.roulette):not(.drawn) {
   background: #f7f3df;
 }
 body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
-  .roll-table-sheet table tbody tr:nth-child(even):not(.roulette) {
+  .roll-table-sheet table tbody tr:nth-child(even):not(.roulette):not(.drawn) {
   background: #fffdf2;
 }
 
 /* 单元格文字 + 行间淡分隔线（核心 tr 边框为 transparent，这里点亮下边框）。 */
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table td {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table tr:not(.drawn) > td {
   color: #725d42;
 }
 body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
@@ -411,11 +411,21 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
   border-bottom-color: #e8dfc8;
 }
 
-/* 范围列：青绿粗体。覆盖编辑模式的 td.range input 与查看模式的 td.range 纯文本。 */
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table td.range,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table td.range input {
+/* 范围列：青绿粗体。覆盖编辑模式的 td.range input 与查看模式的 td.range 纯文本。
+   仅限未抽取行（:not(.drawn)），已抽取行交由下方变灰规则处理。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table tr:not(.drawn) > td.range,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table tr:not(.drawn) > td.range input {
   color: #11a89b;
   font-weight: 800;
+}
+
+/* 已抽取的行保持核心的变灰指示 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table tr.drawn td,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table tr.drawn td.range,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table tr.drawn td.range input {
+  color: #9f927d;
+  font-weight: 500;
+  background: rgba(240, 232, 216, 0.4);
 }
 
 /* 结果名称（无文档链接时 result-details.hbs 输出 strong.name）：深棕。 */
