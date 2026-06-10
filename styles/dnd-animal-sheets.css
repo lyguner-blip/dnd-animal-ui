@@ -452,3 +452,45 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
   color: #11a89b;
 }
 
+
+/* ===================================================================
+   Layer 3.6 — dnd5e 5.x 合集浏览器（CompendiumBrowser）结构缝隙补色。
+   DEFAULT_OPTIONS.classes = ["compendium-browser","vertical-tabs","dialog-lg"]
+   （dnd5e.mjs:32544）。窗口背景、卡片头、tab 高亮、.item.selected 左条均已
+   被 Layer 1/2 的变量重映射覆盖（金→青绿、深蓝灰→奶油），此层只补三处
+   变量碰不到的硬结构：侧栏面板底色、结果行斑马条、结果行悬停。
+   特异性 0,4,1（body.X.Y .dnd5e2.compendium-browser .…），稳压系统 0,2,x。
+
+   已丢弃的草稿规则：
+   - nav.tabs .item.active：浏览器是 vertical-tabs，激活 tab 由
+     .dnd5e2.vertical-tabs nav.tabs > .item.active（dnd5e.css:3457）的
+     var(--dnd5e-color-gold) 驱动，Layer 1 已把该变量改成青绿——与 T6 同理，删。
+   - 草稿用 :is(.results .item, .item-list .item) 过宽；结果列实际 DOM 为
+     section.browser-results > .items-section.card > ol.item-list.unlist >
+     li.item（browser-results.hbs / browser-entry.hbs），收窄到 .browser-results。
+   =================================================================== */
+
+/* 侧栏过滤面板：系统 .compendium-browser .sidebar（dnd5e.css:12232）只设了
+   布局，无独立底色，靠窗口背景透出。给它一层杏仁色面板 + 右侧细分隔线，
+   把过滤区从结果区视觉上分开。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .dnd5e2.compendium-browser .sidebar {
+  background: rgba(240, 232, 216, 0.6);
+  border-right: 2px solid rgba(159, 146, 125, 0.32);
+}
+
+/* 结果行斑马条：系统 .dnd5e2 .items-section .item（dnd5e.css:13139）只有
+   dotted 下边框，无 nth-child 底色（表格斑马用的 --dnd5e-color-table-row-*
+   属于 .card.table.items，是另一套结构，不命中浏览器结果列）。补奇数行淡奶油。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .dnd5e2.compendium-browser .browser-results .item-list > .item:nth-child(odd) {
+  background: rgba(247, 243, 223, 0.6);
+}
+
+/* 结果行悬停：系统无悬停底色。青绿淡底 + 左 4px 青绿条，与 PC/物品卡列表
+   悬停同语言。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .dnd5e2.compendium-browser .browser-results .item-list > .item:hover {
+  background: rgba(25, 200, 185, 0.13);
+  box-shadow: inset 4px 0 0 #19c8b9;
+}
