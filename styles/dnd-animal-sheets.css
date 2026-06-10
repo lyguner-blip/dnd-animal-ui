@@ -360,3 +360,85 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .chat-message {
   --dnd5e-color-application-temp: #19c8b9;
 }
 
+/* ===================================================================
+   Layer 3.5 — 核心随机表（RollTable）配置窗精修
+   目标是 FVTT v13 核心 .roll-table-sheet（非 dnd5e）。窗框/头/页脚按钮已被
+   通用外壳（dnd-animal-ui.css）与果冻按钮规则接管，本层只管窗内的“表格”。
+   核心结构（templates/sheets/roll-table/）：
+     编辑模式 results.hbs：表头 th.image/th.details/th.weight/th.range/th.controls，
+       行 tbody tr[data-result-id]，范围列 td.range 内含两个 input[number] + span.dash。
+     查看模式 view.hbs：列序 image/range/details/controls，范围列 td.range 为纯文本
+       {{result.range}}（无 input）。文档链接经 result-details.hbs 输出为
+       {{result.documentLink}}（即 a.content-link）；无链接时为 strong.name。
+   核心自身：表格无底色/边框（仅 tr 有 1px transparent 边框，foundry2.css:7243），
+   无行条纹，故我们的条纹/边框不与原生冲突；仅需让奶油色压过 themed light/dark
+   的文字变量。本层不重设 td.controls 内的 button.inline-control（果冻规则已接管）。
+   =================================================================== */
+
+/* 表格容器：圆角描边 + 暖白底。核心把边框放在 tr 上，这里给整桌外框。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table {
+  border: 2px solid rgba(159, 146, 125, 0.42);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fffdf2;
+}
+
+/* 表头：暖黄底 + 深棕字，去掉主题描影。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table th {
+  color: #794f27;
+  background: #f7cd67;
+  text-shadow: none;
+}
+
+/* 斑马条纹。核心无条纹；排除 .roulette（抽取时高亮动画行）与 .drawn（已抽取灰显），
+   让它们保留原生表现。条纹挂在 tbody tr 上，特异性（双开关 body + 表 + tr + nth-child）
+   稳压核心 tr.roulette/tr.drawn。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .roll-table-sheet table tbody tr:nth-child(odd):not(.roulette) {
+  background: #f7f3df;
+}
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .roll-table-sheet table tbody tr:nth-child(even):not(.roulette) {
+  background: #fffdf2;
+}
+
+/* 单元格文字 + 行间淡分隔线（核心 tr 边框为 transparent，这里点亮下边框）。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table td {
+  color: #725d42;
+}
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .roll-table-sheet table tbody tr {
+  border-bottom-color: #e8dfc8;
+}
+
+/* 范围列：青绿粗体。覆盖编辑模式的 td.range input 与查看模式的 td.range 纯文本。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table td.range,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .roll-table-sheet table td.range input {
+  color: #11a89b;
+  font-weight: 800;
+}
+
+/* 结果名称（无文档链接时 result-details.hbs 输出 strong.name）：深棕。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .roll-table-sheet table td.details > strong.name {
+  color: #794f27;
+}
+
+/* 行内文档链接 chip。核心 body.game .app a.content-link 用 #DDD 底 + 深边框
+   （foundry2.css:11362，特异性 0,3,2）。本层选择器 0,4,2 稳胜；显式重设背景/
+   边框/圆角/文字色/去下划线，并把 chip 内图标也改成青绿，避免半套主题观感。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .roll-table-sheet :is(a.content-link, .content-link) {
+  color: #794f27;
+  background: rgba(25, 200, 185, 0.13);
+  border: 1px solid rgba(25, 200, 185, 0.4);
+  border-radius: 999px;
+  padding: 0 0.5em;
+  text-decoration: none;
+  --content-link-icon-color: #11a89b;
+}
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .roll-table-sheet :is(a.content-link, .content-link) > i {
+  color: #11a89b;
+}
+
