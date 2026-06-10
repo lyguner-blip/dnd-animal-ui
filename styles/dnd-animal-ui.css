@@ -202,7 +202,8 @@ body.dnd-animal-ui-enabled .dnd-animal-ui-hidden-player-sidebar-panel {
 /* Core Foundry shells. v13 HUD overlays (scene controls, hotbar, players,
    camera views, token/tile HUDs) are ApplicationV2 too, so exclude them:
    they must keep their native transparent overlay look. */
-body.dnd-animal-ui-enabled :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout):not(.faded-ui):not(.placeable-hud):not(#camera-views):not(#tooltip),
+/* 0.5.0 - dnd5e2 windows are owned entirely by dnd-animal-sheets.css (native when cream theme is off). */
+body.dnd-animal-ui-enabled :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout):not(.faded-ui):not(.placeable-hud):not(#camera-views):not(#tooltip):not(.dnd5e2),
 body.dnd-animal-ui-enabled :is(#sidebar, #players, #navigation, #pause) {
   color: var(--dnd-animal-text-body) !important;
   border: 2px solid rgba(159, 146, 125, 0.62) !important;
@@ -217,7 +218,7 @@ body.dnd-animal-ui-enabled :is(#sidebar, #players, #navigation, #pause) {
   -webkit-backdrop-filter: blur(8px) saturate(1.05);
 }
 
-body.dnd-animal-ui-enabled.dnd-animal-ui-assets-high :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout):not(.faded-ui):not(.placeable-hud):not(#camera-views):not(#tooltip)::before {
+body.dnd-animal-ui-enabled.dnd-animal-ui-assets-high :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout):not(.faded-ui):not(.placeable-hud):not(#camera-views):not(#tooltip):not(.dnd5e2)::before {
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -231,12 +232,12 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-assets-high :is(.app, .application, .wi
   opacity: 0.22;
 }
 
-body.dnd-animal-ui-enabled .window-header,
-body.dnd-animal-ui-enabled .app .window-header,
-body.dnd-animal-ui-enabled .application .window-header,
-body.dnd-animal-ui-enabled .window-app .window-header,
-body.dnd-animal-ui-enabled .dialog .window-header,
-body.dnd-animal-ui-enabled .sheet .window-header,
+body.dnd-animal-ui-enabled .window-header:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .app .window-header:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .application .window-header:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .window-app .window-header:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .dialog .window-header:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .sheet .window-header:not(.dnd5e2 *),
 body.dnd-animal-ui-enabled .directory-header {
   min-height: 34px;
   color: var(--dnd-animal-text) !important;
@@ -273,13 +274,13 @@ body.dnd-animal-ui-enabled .window-header h2 {
   text-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled .window-content,
-body.dnd-animal-ui-enabled .app .window-content,
-body.dnd-animal-ui-enabled .application .window-content,
-body.dnd-animal-ui-enabled .window-app .window-content,
-body.dnd-animal-ui-enabled .dialog .window-content,
-body.dnd-animal-ui-enabled .sheet .window-content,
-body.dnd-animal-ui-enabled .sidebar-popout .window-content {
+body.dnd-animal-ui-enabled .window-content:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .app .window-content:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .application .window-content:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .window-app .window-content:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .dialog .window-content:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .sheet .window-content:not(.dnd5e2 *),
+body.dnd-animal-ui-enabled .sidebar-popout .window-content:not(.dnd5e2 *) {
   color: var(--dnd-animal-text-body) !important;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(247, 243, 223, 0.92)),
