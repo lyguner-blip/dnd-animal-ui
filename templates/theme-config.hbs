@@ -1,103 +1,107 @@
 <form class="dnd-animal-ui-config">
+  {{#if isGM}}
   <section class="dnd-animal-ui-config-section">
-    <h3><i class="fas fa-leaf"></i> 主题</h3>
+    <h3><i class="fas fa-leaf"></i> {{localize "DNDANIMALUI.Config.SectionTheme"}}</h3>
 
     <label class="dnd-animal-ui-config-row">
       <span>
-        <strong>启用主题</strong>
-        <small>关闭后移除动物岛主题覆盖。</small>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableTheme.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableTheme.Hint"}}</small>
       </span>
       <input type="checkbox" name="enableTheme" {{#if enableTheme}}checked{{/if}}>
     </label>
 
     <label class="dnd-animal-ui-config-row">
       <span>
-        <strong>兼容模式</strong>
-        <small>保留基础主题，临时关闭高风险装饰层，适合排查 UI 冲突。</small>
+        <strong>{{localize "DNDANIMALUI.Settings.CompatMode.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.CompatMode.Hint"}}</small>
       </span>
       <input type="checkbox" name="compatMode" {{#if compatMode}}checked{{/if}}>
     </label>
 
     <label class="dnd-animal-ui-config-row">
       <span>
-        <strong>动物岛光标</strong>
-        <small>使用本地打包的游戏风格指针。</small>
-      </span>
-      <input type="checkbox" name="enableCursor" {{#if enableCursor}}checked{{/if}}>
-    </label>
-
-    <label class="dnd-animal-ui-config-row">
-      <span>
-        <strong>按钮按压动效</strong>
-        <small>点击按钮时播放轻微弹跳和叶片光点。</small>
-      </span>
-      <input type="checkbox" name="enableButtonPressFx" {{#if enableButtonPressFx}}checked{{/if}}>
-    </label>
-
-    <label class="dnd-animal-ui-config-row">
-      <span>
-        <strong>聊天动物表情</strong>
-        <small>在聊天输入栏内加入动物表情按钮，可发送本地 SVG 表情。</small>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableStickers.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableStickers.Hint"}}</small>
       </span>
       <input type="checkbox" name="enableStickers" {{#if enableStickers}}checked{{/if}}>
-    </label>
-
-    <label class="dnd-animal-ui-config-row">
-      <span>
-        <strong>素材强度</strong>
-        <small>控制背景纹理和装饰素材的存在感。</small>
-      </span>
-      <select name="assetIntensity">
-        {{#each assetIntensityOptions}}
-          <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
-        {{/each}}
-      </select>
     </label>
   </section>
 
   <section class="dnd-animal-ui-config-section">
-    <h3><i class="fas fa-palette"></i> 兼容修正</h3>
+    <h3><i class="fas fa-palette"></i> {{localize "DNDANIMALUI.Config.SectionCompat"}}</h3>
 
     <label class="dnd-animal-ui-config-row">
       <span>
-        <strong>柔化右侧栏文件夹颜色</strong>
-        <small>压低 Foundry 文件夹自定义色，避免和动物岛配色打架。</small>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableFolderSoftening.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableFolderSoftening.Hint"}}</small>
       </span>
       <input type="checkbox" name="enableFolderSoftening" {{#if enableFolderSoftening}}checked{{/if}}>
     </label>
 
     <label class="dnd-animal-ui-config-row">
       <span>
-        <strong>日志可读性修正</strong>
-        <small>强制日志正文保持纸面浅底和高对比文字。</small>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableJournalReadability.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableJournalReadability.Hint"}}</small>
       </span>
       <input type="checkbox" name="enableJournalReadability" {{#if enableJournalReadability}}checked{{/if}}>
     </label>
 
     <label class="dnd-animal-ui-config-row">
       <span>
-        <strong>DnD5e 角色卡兼容保护</strong>
-        <small>保留系统原生布局，限制主题只改外壳和可读性。</small>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableDnd5eSheetSafety.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableDnd5eSheetSafety.Hint"}}</small>
       </span>
       <input type="checkbox" name="enableDnd5eSheetSafety" {{#if enableDnd5eSheetSafety}}checked{{/if}}>
     </label>
 
     <label class="dnd-animal-ui-config-row">
       <span>
-        <strong>DnD5e 角色卡动物背景</strong>
-        <small>给角色/NPC/物品卡加入柔和动物岛纸面背景。</small>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableDnd5eAnimalBackground.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableDnd5eAnimalBackground.Hint"}}</small>
       </span>
       <input type="checkbox" name="enableDnd5eAnimalBackground" {{#if enableDnd5eAnimalBackground}}checked{{/if}}>
     </label>
   </section>
 
   <section class="dnd-animal-ui-config-section">
-    <h3><i class="fas fa-columns"></i> 玩家右侧栏</h3>
+    <h3><i class="fas fa-icons"></i> {{localize "DNDANIMALUI.Config.SectionStickers"}}</h3>
+    <p class="dnd-animal-ui-config-hint">{{localize "DNDANIMALUI.Config.StickersHint"}}</p>
+
+    <div class="dnd-animal-ui-custom-sticker-list">
+      {{#each customStickers}}
+      <div class="dnd-animal-ui-custom-sticker-row" data-custom-sticker-row>
+        <input type="text" data-sticker-field="label" value="{{label}}" placeholder="{{localize "DNDANIMALUI.Config.StickerLabel"}}">
+        <input type="text" data-sticker-field="command" value="{{command}}" placeholder="{{localize "DNDANIMALUI.Config.StickerCommand"}}">
+        <select data-sticker-field="category">
+          {{#each categoryOptions}}
+            <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+        <input type="text" data-sticker-field="path" value="{{path}}" placeholder="{{localize "DNDANIMALUI.Config.StickerImage"}}">
+        <button type="button" data-action="pick-sticker-image" title="{{localize "DNDANIMALUI.Config.Browse"}}">
+          <i class="fas fa-file-image"></i>
+        </button>
+        <button type="button" data-action="delete-sticker" title="{{localize "DNDANIMALUI.Config.Delete"}}">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+      {{/each}}
+    </div>
+
+    <button type="button" class="dnd-animal-ui-add-sticker" data-action="add-sticker">
+      <i class="fas fa-plus"></i>
+      {{localize "DNDANIMALUI.Config.AddSticker"}}
+    </button>
+  </section>
+
+  <section class="dnd-animal-ui-config-section">
+    <h3><i class="fas fa-columns"></i> {{localize "DNDANIMALUI.Config.SectionSidebar"}}</h3>
 
     <label class="dnd-animal-ui-config-row">
       <span>
-        <strong>启用玩家右侧栏控制</strong>
-        <small>只影响非 GM 玩家。GM 不受隐藏规则影响。</small>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableSidebarVisibility.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableSidebarVisibility.Hint"}}</small>
       </span>
       <input type="checkbox" name="enableSidebarVisibility" {{#if enableSidebarVisibility}}checked{{/if}}>
     </label>
@@ -105,8 +109,8 @@
     <div class="dnd-animal-ui-sidebar-tabs-list">
       <div class="dnd-animal-ui-sidebar-tab-row header-row">
         <span class="tab-icon"></span>
-        <span class="tab-name">右侧栏</span>
-        <span class="tab-visible">玩家可见</span>
+        <span class="tab-name">{{localize "DNDANIMALUI.Config.SidebarTab"}}</span>
+        <span class="tab-visible">{{localize "DNDANIMALUI.Config.SidebarVisible"}}</span>
       </div>
       {{#each tabs}}
         <label class="dnd-animal-ui-sidebar-tab-row" data-tab-id="{{id}}">
@@ -119,23 +123,59 @@
       {{/each}}
     </div>
   </section>
+  {{/if}}
+
+  <section class="dnd-animal-ui-config-section">
+    <h3><i class="fas fa-user"></i> {{localize "DNDANIMALUI.Config.SectionPersonal"}}</h3>
+    <p class="dnd-animal-ui-config-hint">{{localize "DNDANIMALUI.Config.PersonalHint"}}</p>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableCursor.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableCursor.Hint"}}</small>
+      </span>
+      <input type="checkbox" name="enableCursor" {{#if enableCursor}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>{{localize "DNDANIMALUI.Settings.EnableButtonPressFx.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.EnableButtonPressFx.Hint"}}</small>
+      </span>
+      <input type="checkbox" name="enableButtonPressFx" {{#if enableButtonPressFx}}checked{{/if}}>
+    </label>
+
+    <label class="dnd-animal-ui-config-row">
+      <span>
+        <strong>{{localize "DNDANIMALUI.Settings.AssetIntensity.Name"}}</strong>
+        <small>{{localize "DNDANIMALUI.Settings.AssetIntensity.Hint"}}</small>
+      </span>
+      <select name="assetIntensity">
+        {{#each assetIntensityOptions}}
+          <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+        {{/each}}
+      </select>
+    </label>
+  </section>
 
   <footer class="sheet-footer flexrow">
     <button type="submit">
       <i class="fas fa-save"></i>
-      保存
+      {{localize "DNDANIMALUI.Config.Save"}}
     </button>
+    {{#if isGM}}
     <button type="button" data-action="select-all">
       <i class="fas fa-check-double"></i>
-      全选
+      {{localize "DNDANIMALUI.Config.SelectAll"}}
     </button>
     <button type="button" data-action="hide-compendium">
       <i class="fas fa-atlas"></i>
-      只隐藏合集包
+      {{localize "DNDANIMALUI.Config.HideCompendiumOnly"}}
     </button>
     <button type="button" data-action="select-none">
       <i class="fas fa-ban"></i>
-      全不选
+      {{localize "DNDANIMALUI.Config.SelectNone"}}
     </button>
+    {{/if}}
   </footer>
 </form>

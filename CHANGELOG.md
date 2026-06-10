@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.4.0 - 2026-06-10
+
+- Added GM-defined custom chat stickers: manage label/command/category/image rows in the settings window with a FilePicker, stored as a world setting and merged with the bundled stickers (panel and `/sticker` commands included). Duplicate or incomplete rows are skipped with a warning.
+- Changed cursor, button press effects, and asset intensity to client-scope personal preferences; previous world values reset to defaults once.
+- Opened the settings window to players: GM sections stay GM-only, while every player can adjust their own cursor/effects/intensity.
+- Added i18n support (Simplified Chinese and English, `lang/zh-cn.json` + `lang/en.json`) covering settings, the config window, sticker names, and notifications.
+- Improved the themed cursor: text fields, ProseMirror editors, and window resize handles keep their system cursors.
+- Escaped sticker labels/paths in generated chat HTML and panel buttons.
+- Added `.gitattributes` enforcing LF for text files.
+
+## 0.3.2 - 2026-06-10
+
+- Fixed player sidebar tab hiding on Foundry v13: tab buttons moved to `#sidebar > nav.tabs` and no longer matched the old `#sidebar-tabs` selectors, so hidden tabs stayed visible for players.
+- Fixed fallback tab activation on v13 using `Sidebar#changeTab` and `tabGroups.primary`/`aria-pressed` detection instead of the removed v11 APIs, avoiding the `activateTab` deprecation warning.
+- Fixed the chat sticker button breaking after collapsing/expanding the sidebar on v13: core moves `#chat-message` between containers, which stranded the old input wrapper. The sticker dock now lives inside `#chat-controls` and travels with the chat input, including into the chat popout.
+- Fixed v13 HUD overlays (token/tile HUD, hotbar, scene controls, players, camera views) being painted as cream paper panels with texture and backdrop blur; they keep their native overlay look now.
+- Fixed unreadable player list text: warm brown was forced onto the dark player plates and overrode per-user colors.
+- Added Animal Island theming for the v13 scene navigation (`#scene-navigation`), matching the v11 `#navigation` treatment.
+- Changed sticker messages to use `author` instead of the deprecated `user` field on v12+.
+- Raised `compatibility.minimum` to 11 (the stylesheet relies on `:has()` and modern selectors).
+
 ## 0.3.1 - 2026-06-08
 
 - Fixed low-contrast text in the Foundry module activation and package configuration windows.

@@ -1,0 +1,120 @@
+{
+  "DNDANIMALUI": {
+    "Menu": {
+      "Name": "DND 动物岛 UI",
+      "Label": "配置",
+      "Hint": "配置动物岛主题、兼容修正、聊天表情、玩家右侧栏可见项，以及本机个人偏好（光标、动效、素材强度）。"
+    },
+    "Config": {
+      "Title": "DND 动物岛 UI 设置",
+      "SectionTheme": "主题（全局，GM）",
+      "SectionCompat": "兼容修正（全局，GM）",
+      "SectionSidebar": "玩家右侧栏（GM）",
+      "SectionStickers": "自定义表情（GM）",
+      "SectionPersonal": "个人偏好（仅本机）",
+      "PersonalHint": "以下选项保存在你自己的浏览器中，每位玩家都可以独立设置。",
+      "StickersHint": "添加世界共享的自定义表情。命令留空或图片缺失的行在保存时会被忽略。",
+      "SidebarTab": "右侧栏",
+      "SidebarVisible": "玩家可见",
+      "StickerLabel": "名称",
+      "StickerCommand": "命令",
+      "StickerCategory": "分类",
+      "StickerImage": "图片",
+      "Browse": "浏览",
+      "Delete": "删除",
+      "AddSticker": "添加表情",
+      "SelectAll": "全选",
+      "SelectNone": "全不选",
+      "HideCompendiumOnly": "只隐藏合集包",
+      "Save": "保存"
+    },
+    "Settings": {
+      "EnableTheme": {
+        "Name": "启用主题",
+        "Hint": "开启 DND 动物岛 UI 全局主题。"
+      },
+      "CompatMode": {
+        "Name": "兼容模式",
+        "Hint": "保留主题基础外观，但临时关闭高风险装饰层：按钮动效、文件夹柔化、journal 强修正和 DnD5e 动物背景。"
+      },
+      "EnableCursor": {
+        "Name": "动物岛光标",
+        "Hint": "使用本地打包的游戏风格指针（文本框和窗口缩放仍使用系统光标）。"
+      },
+      "EnableButtonPressFx": {
+        "Name": "按钮按压动效",
+        "Hint": "点击按钮时播放轻微弹跳和叶片光点。"
+      },
+      "EnableStickers": {
+        "Name": "聊天动物表情",
+        "Hint": "在聊天输入栏内加入动物表情按钮，可发送本地 SVG 表情。"
+      },
+      "AssetIntensity": {
+        "Name": "素材强度",
+        "Hint": "控制背景纹理和装饰素材的存在感。",
+        "ChoiceHigh": "高还原",
+        "ChoiceLow": "轻量",
+        "ChoiceOff": "关闭素材"
+      },
+      "EnableFolderSoftening": {
+        "Name": "柔化右侧栏文件夹颜色",
+        "Hint": "压低 Foundry 文件夹自定义色，避免和动物岛配色打架。"
+      },
+      "EnableJournalReadability": {
+        "Name": "日志可读性修正",
+        "Hint": "强制日志正文保持纸面浅底和高对比文字。"
+      },
+      "EnableDnd5eSheetSafety": {
+        "Name": "DnD5e 角色卡兼容保护",
+        "Hint": "保留系统原生布局，限制主题只改外壳和可读性。"
+      },
+      "EnableDnd5eAnimalBackground": {
+        "Name": "DnD5e 角色卡动物背景",
+        "Hint": "给角色/NPC/物品卡加入柔和动物岛纸面背景。"
+      },
+      "EnableSidebarVisibility": {
+        "Name": "启用玩家右侧栏控制",
+        "Hint": "只影响非 GM 玩家。GM 不受隐藏规则影响。"
+      },
+      "PlayerSidebarTabs": {
+        "Name": "玩家右侧栏可见项数据"
+      },
+      "CustomStickers": {
+        "Name": "自定义聊天表情数据"
+      }
+    },
+    "Notify": {
+      "UnknownSticker": "没有找到动物表情：{query}。可用：{options}",
+      "KeepOneTab": "至少需要保留一个玩家可见的右侧栏。已自动保留一个栏目。",
+      "DuplicateStickerCommand": "自定义表情命令重复，已跳过：{command}"
+    },
+    "StickerButtonTitle": "发送动物表情",
+    "Category": {
+      "All": "全部",
+      "Emotion": "情绪",
+      "Adventure": "冒险",
+      "Animal": "动物"
+    },
+    "Sticker": {
+      "Duck": "法师鸭",
+      "Bear": "抱抱熊",
+      "Cat": "粉粉猫",
+      "Frog": "薄荷蛙",
+      "Rabbit": "奶油兔",
+      "Owl": "星星猫头鹰"
+    },
+    "Tabs": {
+      "Chat": "聊天",
+      "Combat": "战斗",
+      "Scenes": "场景",
+      "Actors": "角色",
+      "Items": "物品",
+      "Journal": "日志",
+      "Tables": "掷骰表",
+      "Cards": "卡牌",
+      "Playlists": "播放列表",
+      "Compendium": "合集包",
+      "Settings": "设置"
+    }
+  }
+}

@@ -12,7 +12,8 @@ const SETTINGS = {
   enableDnd5eSheetSafety: "enableDnd5eSheetSafety",
   enableDnd5eAnimalBackground: "enableDnd5eAnimalBackground",
   enableSidebarVisibility: "enableSidebarVisibility",
-  playerSidebarTabs: "playerSidebarTabs"
+  playerSidebarTabs: "playerSidebarTabs",
+  customStickers: "customStickers"
 };
 
 const BODY_CLASSES = [
@@ -48,39 +49,73 @@ const PRESSABLE_SELECTOR = [
 ].join(",");
 
 const STICKER_CATEGORIES = [
-  { id: "all", label: "全部" },
-  { id: "emotion", label: "情绪" },
-  { id: "adventure", label: "冒险" },
-  { id: "animal", label: "动物" }
+  { id: "all", label: "DNDANIMALUI.Category.All" },
+  { id: "emotion", label: "DNDANIMALUI.Category.Emotion" },
+  { id: "adventure", label: "DNDANIMALUI.Category.Adventure" },
+  { id: "animal", label: "DNDANIMALUI.Category.Animal" }
 ];
 
 const STICKERS = [
-  { id: "duck", label: "法师鸭", command: "duck", category: "adventure", path: "modules/dnd-animal-ui/assets/stickers/duck.svg" },
-  { id: "bear", label: "抱抱熊", command: "hug", category: "emotion", path: "modules/dnd-animal-ui/assets/stickers/bear.svg" },
-  { id: "cat", label: "粉粉猫", command: "cat", category: "emotion", path: "modules/dnd-animal-ui/assets/stickers/cat.svg" },
-  { id: "frog", label: "薄荷蛙", command: "frog", category: "animal", path: "modules/dnd-animal-ui/assets/stickers/frog.svg" },
-  { id: "rabbit", label: "奶油兔", command: "rabbit", category: "animal", path: "modules/dnd-animal-ui/assets/stickers/rabbit.svg" },
-  { id: "owl", label: "星星猫头鹰", command: "owl", category: "adventure", path: "modules/dnd-animal-ui/assets/stickers/owl.svg" }
+  { id: "duck", label: "DNDANIMALUI.Sticker.Duck", command: "duck", category: "adventure", path: "modules/dnd-animal-ui/assets/stickers/duck.svg" },
+  { id: "bear", label: "DNDANIMALUI.Sticker.Bear", command: "hug", category: "emotion", path: "modules/dnd-animal-ui/assets/stickers/bear.svg" },
+  { id: "cat", label: "DNDANIMALUI.Sticker.Cat", command: "cat", category: "emotion", path: "modules/dnd-animal-ui/assets/stickers/cat.svg" },
+  { id: "frog", label: "DNDANIMALUI.Sticker.Frog", command: "frog", category: "animal", path: "modules/dnd-animal-ui/assets/stickers/frog.svg" },
+  { id: "rabbit", label: "DNDANIMALUI.Sticker.Rabbit", command: "rabbit", category: "animal", path: "modules/dnd-animal-ui/assets/stickers/rabbit.svg" },
+  { id: "owl", label: "DNDANIMALUI.Sticker.Owl", command: "owl", category: "adventure", path: "modules/dnd-animal-ui/assets/stickers/owl.svg" }
 ];
 
-const STICKERS_BY_COMMAND = new Map(STICKERS.flatMap((sticker) => [
-  [sticker.id.toLowerCase(), sticker],
-  [sticker.command.toLowerCase(), sticker],
-  [sticker.label.toLowerCase(), sticker]
-]));
+const STICKER_CATEGORY_IDS = new Set(STICKER_CATEGORIES.map((category) => category.id));
+
+function getCustomStickers() {
+  let configured;
+  try {
+    configured = getSetting(SETTINGS.customStickers);
+  } catch (_error) {
+    return [];
+  }
+  if (!Array.isArray(configured)) return [];
+
+  return configured
+    .filter((sticker) => sticker && typeof sticker === "object" && sticker.command && sticker.path)
+    .map((sticker, index) => ({
+      id: String(sticker.id || `custom-${index}`),
+      label: String(sticker.label || sticker.command),
+      command: String(sticker.command),
+      category: STICKER_CATEGORY_IDS.has(sticker.category) && sticker.category !== "all" ? sticker.category : "animal",
+      path: String(sticker.path),
+      custom: true
+    }));
+}
+
+function getAllStickers() {
+  const bundled = STICKERS.map((sticker) => ({
+    ...sticker,
+    label: game.i18n?.localize ? game.i18n.localize(sticker.label) : sticker.label
+  }));
+  return bundled.concat(getCustomStickers());
+}
+
+function findStickerByQuery(query) {
+  const normalized = String(query || "").toLowerCase();
+  return getAllStickers().find((sticker) => (
+    sticker.id.toLowerCase() === normalized
+    || sticker.command.toLowerCase() === normalized
+    || sticker.label.toLowerCase() === normalized
+  ));
+}
 
 const SIDEBAR_TABS = [
-  { id: "chat", label: "聊天", icon: () => CONFIG.ChatMessage?.sidebarIcon || "fas fa-comments" },
-  { id: "combat", label: "战斗", icon: () => CONFIG.Combat?.sidebarIcon || "fas fa-swords" },
-  { id: "scenes", label: "场景", icon: () => CONFIG.Scene?.sidebarIcon || "fas fa-map" },
-  { id: "actors", label: "角色", icon: () => CONFIG.Actor?.sidebarIcon || "fas fa-user" },
-  { id: "items", label: "物品", icon: () => CONFIG.Item?.sidebarIcon || "fas fa-suitcase" },
-  { id: "journal", label: "日志", icon: () => CONFIG.JournalEntry?.sidebarIcon || "fas fa-book-open" },
-  { id: "tables", label: "掷骰表", icon: () => CONFIG.RollTable?.sidebarIcon || "fas fa-th-list" },
-  { id: "cards", label: "卡牌", icon: () => CONFIG.Cards?.sidebarIcon || "fa-solid fa-cards" },
-  { id: "playlists", label: "播放列表", icon: () => CONFIG.Playlist?.sidebarIcon || "fas fa-music" },
-  { id: "compendium", label: "合集包", icon: () => "fas fa-atlas" },
-  { id: "settings", label: "设置", icon: () => "fas fa-cogs" }
+  { id: "chat", label: "DNDANIMALUI.Tabs.Chat", icon: () => CONFIG.ChatMessage?.sidebarIcon || "fas fa-comments" },
+  { id: "combat", label: "DNDANIMALUI.Tabs.Combat", icon: () => CONFIG.Combat?.sidebarIcon || "fas fa-swords" },
+  { id: "scenes", label: "DNDANIMALUI.Tabs.Scenes", icon: () => CONFIG.Scene?.sidebarIcon || "fas fa-map" },
+  { id: "actors", label: "DNDANIMALUI.Tabs.Actors", icon: () => CONFIG.Actor?.sidebarIcon || "fas fa-user" },
+  { id: "items", label: "DNDANIMALUI.Tabs.Items", icon: () => CONFIG.Item?.sidebarIcon || "fas fa-suitcase" },
+  { id: "journal", label: "DNDANIMALUI.Tabs.Journal", icon: () => CONFIG.JournalEntry?.sidebarIcon || "fas fa-book-open" },
+  { id: "tables", label: "DNDANIMALUI.Tabs.Tables", icon: () => CONFIG.RollTable?.sidebarIcon || "fas fa-th-list" },
+  { id: "cards", label: "DNDANIMALUI.Tabs.Cards", icon: () => CONFIG.Cards?.sidebarIcon || "fa-solid fa-cards" },
+  { id: "playlists", label: "DNDANIMALUI.Tabs.Playlists", icon: () => CONFIG.Playlist?.sidebarIcon || "fas fa-music" },
+  { id: "compendium", label: "DNDANIMALUI.Tabs.Compendium", icon: () => "fas fa-atlas" },
+  { id: "settings", label: "DNDANIMALUI.Tabs.Settings", icon: () => "fas fa-cogs" }
 ];
 
 const DEFAULT_PLAYER_SIDEBAR_TABS = SIDEBAR_TABS.reduce((tabs, tab) => {
@@ -134,10 +169,13 @@ function getSidebarTabLabel(tabId, tabButton) {
   return game.i18n?.localize ? game.i18n.localize(labelKey) : labelKey;
 }
 
+// v12 and earlier render sidebar tabs inside #sidebar-tabs; v13 uses #sidebar > nav.tabs buttons.
+const SIDEBAR_TAB_BUTTON_SELECTOR = "#sidebar-tabs [data-tab], #sidebar nav.tabs [data-tab]";
+
 function getSidebarTabButtons() {
   const seenTabs = new Set();
 
-  return Array.from(document.querySelectorAll("#sidebar-tabs [data-tab]")).filter((tabButton) => {
+  return Array.from(document.querySelectorAll(SIDEBAR_TAB_BUTTON_SELECTOR)).filter((tabButton) => {
     const tabId = tabButton.dataset.tab;
 
     if (!tabId || seenTabs.has(tabId)) return false;
@@ -171,7 +209,7 @@ function getSidebarTabsForConfig() {
     if (tabs.has(tab.id)) continue;
     tabs.set(tab.id, {
       id: tab.id,
-      label: tab.label,
+      label: game.i18n?.localize ? game.i18n.localize(tab.label) : tab.label,
       icon: tab.icon?.() || "fas fa-circle",
       order: tabs.size + order
     });
@@ -209,9 +247,19 @@ function clearPlayerSidebarTabVisibility() {
   });
 }
 
-function activateFirstVisibleSidebarTab(visibleTabs) {
-  const activeTab = document.querySelector("#sidebar-tabs [data-tab].active, #sidebar-tabs [data-tab][aria-selected='true']")?.dataset?.tab
+function getActiveSidebarTabId() {
+  const activeButton = document.querySelector(
+    "#sidebar-tabs [data-tab].active, #sidebar-tabs [data-tab][aria-selected='true'], "
+    + "#sidebar nav.tabs [data-tab].active, #sidebar nav.tabs [data-tab][aria-pressed='true']"
+  );
+
+  return activeButton?.dataset?.tab
+    || ui.sidebar?.tabGroups?.primary
     || ui.sidebar?.activeTab;
+}
+
+function activateFirstVisibleSidebarTab(visibleTabs) {
+  const activeTab = getActiveSidebarTabId();
 
   if (!activeTab || isPlayerSidebarTabVisible(activeTab, visibleTabs)) return;
 
@@ -219,6 +267,11 @@ function activateFirstVisibleSidebarTab(visibleTabs) {
   const firstVisible = (sidebarTabs.length ? sidebarTabs : SIDEBAR_TABS)
     .find((tab) => isPlayerSidebarTabVisible(tab.id, visibleTabs))?.id;
   if (!firstVisible) return;
+
+  if (ui.sidebar?.changeTab) {
+    ui.sidebar.changeTab(firstVisible, "primary");
+    return;
+  }
 
   if (ui.sidebar?.activateTab) {
     ui.sidebar.activateTab(firstVisible);
@@ -311,33 +364,11 @@ function getChatForm() {
   return document.querySelector("#chat-form") || document.querySelector("#chat-controls")?.closest("form");
 }
 
-function isVisibleChatInput(element) {
-  if (!element || element.closest(".dnd-animal-ui-sticker-dock")) return false;
-
-  const style = window.getComputedStyle(element);
-  if (style.display === "none" || style.visibility === "hidden") return false;
-
-  return element.getClientRects().length > 0;
-}
-
-function getChatMessageInput(chatForm) {
-  const selectors = [
-    "#chat-message",
-    "textarea[name='message']",
-    "textarea[name='content']",
-    "textarea[placeholder]",
-    "textarea",
-    "[contenteditable='true'][data-chat-input]",
-    "[contenteditable='true'][role='textbox']",
-    "[contenteditable='true'][aria-multiline='true']"
-  ];
-
-  for (const selector of selectors) {
-    const input = Array.from(chatForm.querySelectorAll(selector)).find(isVisibleChatInput);
-    if (input) return input;
-  }
-
-  return null;
+// v13 moves #chat-message and #chat-controls between containers when the sidebar
+// collapses/expands or chat pops out, so the sticker dock lives inside #chat-controls
+// and travels with it instead of wrapping the input element.
+function getStickerMount() {
+  return document.getElementById("chat-controls") || getChatForm();
 }
 
 function closeStickerPanels(exceptPanel = null) {
@@ -347,37 +378,54 @@ function closeStickerPanels(exceptPanel = null) {
 }
 
 function removeStickerButton() {
-  document.querySelectorAll(".dnd-animal-ui-sticker-dock").forEach((dock) => {
-    const host = dock.closest(".dnd-animal-ui-chat-input-wrap");
-    dock.remove();
+  document.querySelectorAll(".dnd-animal-ui-sticker-dock").forEach((dock) => dock.remove());
 
-    if (!host) return;
-    host.querySelectorAll("textarea, input[type='text'], [contenteditable='true']").forEach((input) => {
-      input.classList.remove("dnd-animal-ui-chat-message-input");
-      host.parentElement?.insertBefore(input, host);
-    });
-    host.remove();
+  // Clean up the <=0.3.1 input wrapper if it is still in the DOM.
+  document.querySelectorAll(".dnd-animal-ui-chat-input-wrap").forEach((wrap) => {
+    while (wrap.firstChild) wrap.parentElement?.insertBefore(wrap.firstChild, wrap);
+    wrap.remove();
   });
+
+  document.querySelectorAll(".dnd-animal-ui-chat-message-input").forEach((input) => {
+    input.classList.remove("dnd-animal-ui-chat-message-input");
+  });
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (ch) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "'": "&#39;"
+  }[ch]));
 }
 
 async function sendSticker(sticker) {
   const content = `
-    <div class="dnd-animal-ui-chat-sticker-card" data-sticker-id="${sticker.id}">
-      <span class="dnd-animal-ui-chat-sticker-chip">${getStickerCategoryLabel(sticker.category)}</span>
-      <img src="${sticker.path}" alt="${sticker.label}">
-      <span>${sticker.label}</span>
+    <div class="dnd-animal-ui-chat-sticker-card" data-sticker-id="${escapeHTML(sticker.id)}">
+      <span class="dnd-animal-ui-chat-sticker-chip">${escapeHTML(getStickerCategoryLabel(sticker.category))}</span>
+      <img src="${escapeHTML(sticker.path)}" alt="${escapeHTML(sticker.label)}">
+      <span>${escapeHTML(sticker.label)}</span>
     </div>
   `;
 
-  await ChatMessage.create({
-    user: game.user.id,
+  const messageData = {
     speaker: ChatMessage.getSpeaker({ actor: game.user.character }),
     content
-  });
+  };
+
+  // ChatMessage#user was renamed to #author in v12.
+  if ((game.release?.generation ?? 0) >= 12) messageData.author = game.user.id;
+  else messageData.user = game.user.id;
+
+  await ChatMessage.create(messageData);
 }
 
 function getStickerCategoryLabel(categoryId) {
-  return STICKER_CATEGORIES.find((category) => category.id === categoryId)?.label || "全部";
+  const label = STICKER_CATEGORIES.find((category) => category.id === categoryId)?.label
+    || "DNDANIMALUI.Category.All";
+  return game.i18n?.localize ? game.i18n.localize(label) : label;
 }
 
 function filterStickerPanel(panel, categoryId) {
@@ -408,7 +456,7 @@ function buildStickerPanel() {
     tab.type = "button";
     tab.className = "dnd-animal-ui-sticker-tab";
     tab.dataset.categoryId = category.id;
-    tab.textContent = category.label;
+    tab.textContent = game.i18n.localize(category.label);
     tab.setAttribute("aria-pressed", category.id === "all" ? "true" : "false");
     tab.addEventListener("click", () => filterStickerPanel(panel, category.id));
     tabs.append(tab);
@@ -417,14 +465,14 @@ function buildStickerPanel() {
   const grid = document.createElement("div");
   grid.className = "dnd-animal-ui-sticker-grid";
 
-  for (const sticker of STICKERS) {
+  for (const sticker of getAllStickers()) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "dnd-animal-ui-sticker-option";
     button.dataset.stickerId = sticker.id;
     button.dataset.categoryId = sticker.category;
     button.title = sticker.label;
-    button.innerHTML = `<img src="${sticker.path}" alt=""><span>${sticker.label}</span><small>/${sticker.command}</small>`;
+    button.innerHTML = `<img src="${escapeHTML(sticker.path)}" alt=""><span>${escapeHTML(sticker.label)}</span><small>/${escapeHTML(sticker.command)}</small>`;
     button.addEventListener("click", async () => {
       panel.classList.remove("open");
       await sendSticker(sticker);
@@ -444,7 +492,7 @@ function parseStickerCommand(content) {
   const query = match[1].trim();
   return {
     query,
-    sticker: STICKERS_BY_COMMAND.get(query.toLowerCase())
+    sticker: findStickerByQuery(query)
   };
 }
 
@@ -455,8 +503,11 @@ function handleStickerCommand(_chatLog, content) {
   if (!command) return true;
 
   if (!command.sticker) {
-    const options = STICKERS.map((sticker) => `/${sticker.command}`).join(" ");
-    ui.notifications?.warn(`没有找到动物表情：${command.query}。可用：${options}`);
+    const options = getAllStickers().map((sticker) => `/${sticker.command}`).join(" ");
+    ui.notifications?.warn(game.i18n.format("DNDANIMALUI.Notify.UnknownSticker", {
+      query: command.query,
+      options
+    }));
     return false;
   }
 
@@ -470,10 +521,14 @@ function injectStickerButton() {
     return;
   }
 
-  const chatForm = getChatForm();
-  if (!chatForm || chatForm.querySelector(".dnd-animal-ui-sticker-button")) return;
-  const chatInput = getChatMessageInput(chatForm);
-  if (!chatInput) return;
+  const mount = getStickerMount();
+  if (!mount) return;
+
+  const existing = document.querySelector(".dnd-animal-ui-sticker-dock");
+  if (existing) {
+    if (existing.parentElement === mount) return;
+    existing.remove();
+  }
 
   const wrapper = document.createElement("div");
   wrapper.className = "dnd-animal-ui-sticker-dock";
@@ -481,7 +536,7 @@ function injectStickerButton() {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "dnd-animal-ui-sticker-button";
-  button.title = "发送动物表情";
+  button.title = game.i18n.localize("DNDANIMALUI.StickerButtonTitle");
   button.innerHTML = `<img src="modules/dnd-animal-ui/assets/stickers/duck.svg" alt="">`;
 
   const panel = buildStickerPanel();
@@ -493,28 +548,14 @@ function injectStickerButton() {
   });
 
   wrapper.append(button, panel);
-
-  if (chatInput && !chatInput.closest(".dnd-animal-ui-chat-input-wrap")) {
-    const inputWrap = document.createElement("div");
-    inputWrap.className = "dnd-animal-ui-chat-input-wrap";
-    chatInput.parentElement.insertBefore(inputWrap, chatInput);
-    chatInput.classList.add("dnd-animal-ui-chat-message-input");
-    inputWrap.append(chatInput, wrapper);
-    return;
-  }
-
-  if (chatInput?.closest(".dnd-animal-ui-chat-input-wrap")) {
-    chatInput.classList.add("dnd-animal-ui-chat-message-input");
-    chatInput.closest(".dnd-animal-ui-chat-input-wrap").append(wrapper);
-    return;
-  }
+  mount.append(wrapper);
 }
 
 class DndAnimalThemeConfig extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "dnd-animal-ui-theme-config",
-      title: "DND 动物岛 UI 设置",
+      title: game.i18n.localize("DNDANIMALUI.Config.Title"),
       template: "modules/dnd-animal-ui/templates/theme-config.hbs",
       width: 560,
       classes: ["dnd-animal-ui-theme-config-window"]
@@ -524,8 +565,12 @@ class DndAnimalThemeConfig extends FormApplication {
   getData() {
     const visibleTabs = getPlayerSidebarTabsSetting();
     const assetIntensity = getSetting(SETTINGS.assetIntensity);
+    const categoryOptions = STICKER_CATEGORIES
+      .filter((category) => category.id !== "all")
+      .map((category) => ({ value: category.id, label: game.i18n.localize(category.label) }));
 
     return {
+      isGM: game.user.isGM,
       enableTheme: getSetting(SETTINGS.enableTheme),
       compatMode: getSetting(SETTINGS.compatMode),
       enableCursor: getSetting(SETTINGS.enableCursor),
@@ -537,10 +582,17 @@ class DndAnimalThemeConfig extends FormApplication {
       enableDnd5eAnimalBackground: getSetting(SETTINGS.enableDnd5eAnimalBackground),
       enableSidebarVisibility: getSetting(SETTINGS.enableSidebarVisibility),
       assetIntensityOptions: [
-        { value: "high", label: "高还原", selected: assetIntensity === "high" },
-        { value: "low", label: "轻量", selected: assetIntensity === "low" },
-        { value: "off", label: "关闭素材", selected: assetIntensity === "off" }
+        { value: "high", label: game.i18n.localize("DNDANIMALUI.Settings.AssetIntensity.ChoiceHigh"), selected: assetIntensity === "high" },
+        { value: "low", label: game.i18n.localize("DNDANIMALUI.Settings.AssetIntensity.ChoiceLow"), selected: assetIntensity === "low" },
+        { value: "off", label: game.i18n.localize("DNDANIMALUI.Settings.AssetIntensity.ChoiceOff"), selected: assetIntensity === "off" }
       ],
+      customStickers: getCustomStickers().map((sticker) => ({
+        ...sticker,
+        categoryOptions: categoryOptions.map((option) => ({
+          ...option,
+          selected: option.value === sticker.category
+        }))
+      })),
       tabs: getSidebarTabsForConfig().map((tab) => ({
         ...tab,
         checked: isPlayerSidebarTabVisible(tab.id, visibleTabs)
@@ -563,43 +615,155 @@ class DndAnimalThemeConfig extends FormApplication {
       html.find("input[data-sidebar-tab-id]").prop("checked", true);
       html.find("input[data-sidebar-tab-id='compendium']").prop("checked", false);
     });
+
+    html.find("[data-action='add-sticker']").on("click", (event) => {
+      event.preventDefault();
+      this._addStickerRow(html[0]?.querySelector(".dnd-animal-ui-custom-sticker-list"));
+    });
+
+    html.on("click", "[data-action='delete-sticker']", (event) => {
+      event.preventDefault();
+      event.currentTarget.closest("[data-custom-sticker-row]")?.remove();
+    });
+
+    html.on("click", "[data-action='pick-sticker-image']", (event) => {
+      event.preventDefault();
+      const row = event.currentTarget.closest("[data-custom-sticker-row]");
+      const input = row?.querySelector("[data-sticker-field='path']");
+      if (!input) return;
+
+      const PickerClass = foundry.applications?.apps?.FilePicker?.implementation
+        || foundry.applications?.apps?.FilePicker
+        || globalThis.FilePicker;
+      new PickerClass({
+        type: "image",
+        current: input.value || "",
+        callback: (path) => {
+          input.value = path;
+        }
+      }).render(true);
+    });
+  }
+
+  _addStickerRow(list) {
+    if (!list) return;
+
+    const row = document.createElement("div");
+    row.className = "dnd-animal-ui-custom-sticker-row";
+    row.dataset.customStickerRow = "";
+
+    const makeTextInput = (field, placeholderKey) => {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.dataset.stickerField = field;
+      input.placeholder = game.i18n.localize(placeholderKey);
+      return input;
+    };
+
+    const select = document.createElement("select");
+    select.dataset.stickerField = "category";
+    for (const category of STICKER_CATEGORIES) {
+      if (category.id === "all") continue;
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = game.i18n.localize(category.label);
+      select.append(option);
+    }
+    select.value = "animal";
+
+    const makeIconButton = (action, icon, titleKey) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.action = action;
+      button.title = game.i18n.localize(titleKey);
+      button.innerHTML = `<i class="${icon}"></i>`;
+      return button;
+    };
+
+    row.append(
+      makeTextInput("label", "DNDANIMALUI.Config.StickerLabel"),
+      makeTextInput("command", "DNDANIMALUI.Config.StickerCommand"),
+      select,
+      makeTextInput("path", "DNDANIMALUI.Config.StickerImage"),
+      makeIconButton("pick-sticker-image", "fas fa-file-image", "DNDANIMALUI.Config.Browse"),
+      makeIconButton("delete-sticker", "fas fa-trash", "DNDANIMALUI.Config.Delete")
+    );
+    list.append(row);
+  }
+
+  _collectCustomStickers(form) {
+    const stickers = [];
+    const seenCommands = new Set(STICKERS.map((sticker) => sticker.command.toLowerCase()));
+
+    for (const row of form.querySelectorAll("[data-custom-sticker-row]")) {
+      const getField = (field) => row.querySelector(`[data-sticker-field='${field}']`)?.value?.trim() || "";
+      const command = getField("command").replace(/^\//, "").toLowerCase();
+      const path = getField("path");
+      if (!command || !path) continue;
+
+      if (seenCommands.has(command)) {
+        ui.notifications?.warn(game.i18n.format("DNDANIMALUI.Notify.DuplicateStickerCommand", { command }));
+        continue;
+      }
+
+      seenCommands.add(command);
+      stickers.push({
+        id: `custom-${command}`,
+        label: getField("label") || command,
+        command,
+        category: getField("category") || "animal",
+        path
+      });
+    }
+
+    return stickers;
   }
 
   async _updateObject(event) {
-    const form = event.currentTarget;
-    const visibleTabs = {};
+    const form = this.form || event?.currentTarget;
 
-    for (const input of form.querySelectorAll("[data-sidebar-tab-id]")) {
-      visibleTabs[input.dataset.sidebarTabId] = input.checked;
-    }
-
-    if (!Object.values(visibleTabs).some(Boolean)) {
-      const fallbackTab = visibleTabs.chat !== undefined ? "chat" : Object.keys(visibleTabs)[0];
-      if (fallbackTab) visibleTabs[fallbackTab] = true;
-      ui.notifications?.warn("至少需要保留一个玩家可见的右侧栏。已自动保留一个栏目。");
-    }
-
-    await game.settings.set(MODULE_ID, SETTINGS.enableTheme, form.enableTheme.checked);
-    await game.settings.set(MODULE_ID, SETTINGS.compatMode, form.compatMode.checked);
+    // Personal client-scope preferences: every player may save these.
     await game.settings.set(MODULE_ID, SETTINGS.enableCursor, form.enableCursor.checked);
     await game.settings.set(MODULE_ID, SETTINGS.enableButtonPressFx, form.enableButtonPressFx.checked);
-    await game.settings.set(MODULE_ID, SETTINGS.enableStickers, form.enableStickers.checked);
-    await game.settings.set(MODULE_ID, SETTINGS.enableFolderSoftening, form.enableFolderSoftening.checked);
-    await game.settings.set(MODULE_ID, SETTINGS.enableJournalReadability, form.enableJournalReadability.checked);
-    await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eSheetSafety, form.enableDnd5eSheetSafety.checked);
-    await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eAnimalBackground, form.enableDnd5eAnimalBackground.checked);
-    await game.settings.set(MODULE_ID, SETTINGS.enableSidebarVisibility, form.enableSidebarVisibility.checked);
     await game.settings.set(MODULE_ID, SETTINGS.assetIntensity, form.assetIntensity.value);
-    await game.settings.set(MODULE_ID, SETTINGS.playerSidebarTabs, visibleTabs);
+
+    if (game.user.isGM) {
+      const visibleTabs = {};
+      for (const input of form.querySelectorAll("[data-sidebar-tab-id]")) {
+        visibleTabs[input.dataset.sidebarTabId] = input.checked;
+      }
+
+      if (Object.keys(visibleTabs).length && !Object.values(visibleTabs).some(Boolean)) {
+        const fallbackTab = visibleTabs.chat !== undefined ? "chat" : Object.keys(visibleTabs)[0];
+        if (fallbackTab) visibleTabs[fallbackTab] = true;
+        ui.notifications?.warn(game.i18n.localize("DNDANIMALUI.Notify.KeepOneTab"));
+      }
+
+      await game.settings.set(MODULE_ID, SETTINGS.enableTheme, form.enableTheme.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.compatMode, form.compatMode.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.enableStickers, form.enableStickers.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.enableFolderSoftening, form.enableFolderSoftening.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.enableJournalReadability, form.enableJournalReadability.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eSheetSafety, form.enableDnd5eSheetSafety.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eAnimalBackground, form.enableDnd5eAnimalBackground.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.enableSidebarVisibility, form.enableSidebarVisibility.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.playerSidebarTabs, visibleTabs);
+      await game.settings.set(MODULE_ID, SETTINGS.customStickers, this._collectCustomStickers(form));
+    }
 
     applyThemeState();
   }
 }
 
+function refreshStickerDock() {
+  removeStickerButton();
+  if (game.ready) applyThemeState();
+}
+
 function registerSettings() {
   game.settings.register(MODULE_ID, SETTINGS.enableTheme, {
-    name: "启用主题",
-    hint: "开启 DND 动物岛 UI 全局主题。",
+    name: "DNDANIMALUI.Settings.EnableTheme.Name",
+    hint: "DNDANIMALUI.Settings.EnableTheme.Hint",
     scope: "world",
     config: false,
     type: Boolean,
@@ -608,8 +772,8 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.compatMode, {
-    name: "兼容模式",
-    hint: "保留主题基础外观，但临时关闭高风险装饰层：按钮动效、文件夹柔化、journal 强修正和 DnD5e 动物背景。",
+    name: "DNDANIMALUI.Settings.CompatMode.Name",
+    hint: "DNDANIMALUI.Settings.CompatMode.Hint",
     scope: "world",
     config: false,
     type: Boolean,
@@ -618,8 +782,9 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.enableCursor, {
-    name: "动物岛光标",
-    scope: "world",
+    name: "DNDANIMALUI.Settings.EnableCursor.Name",
+    hint: "DNDANIMALUI.Settings.EnableCursor.Hint",
+    scope: "client",
     config: false,
     type: Boolean,
     default: true,
@@ -627,22 +792,24 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.assetIntensity, {
-    name: "素材强度",
-    scope: "world",
+    name: "DNDANIMALUI.Settings.AssetIntensity.Name",
+    hint: "DNDANIMALUI.Settings.AssetIntensity.Hint",
+    scope: "client",
     config: false,
     type: String,
     choices: {
-      high: "高还原",
-      low: "轻量",
-      off: "关闭素材"
+      high: "DNDANIMALUI.Settings.AssetIntensity.ChoiceHigh",
+      low: "DNDANIMALUI.Settings.AssetIntensity.ChoiceLow",
+      off: "DNDANIMALUI.Settings.AssetIntensity.ChoiceOff"
     },
     default: "high",
     onChange: applyThemeState
   });
 
   game.settings.register(MODULE_ID, SETTINGS.enableButtonPressFx, {
-    name: "按钮按压动效",
-    scope: "world",
+    name: "DNDANIMALUI.Settings.EnableButtonPressFx.Name",
+    hint: "DNDANIMALUI.Settings.EnableButtonPressFx.Hint",
+    scope: "client",
     config: false,
     type: Boolean,
     default: true,
@@ -650,7 +817,8 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.enableStickers, {
-    name: "聊天动物表情",
+    name: "DNDANIMALUI.Settings.EnableStickers.Name",
+    hint: "DNDANIMALUI.Settings.EnableStickers.Hint",
     scope: "world",
     config: false,
     type: Boolean,
@@ -658,8 +826,18 @@ function registerSettings() {
     onChange: applyThemeState
   });
 
+  game.settings.register(MODULE_ID, SETTINGS.customStickers, {
+    name: "DNDANIMALUI.Settings.CustomStickers.Name",
+    scope: "world",
+    config: false,
+    type: Array,
+    default: [],
+    onChange: refreshStickerDock
+  });
+
   game.settings.register(MODULE_ID, SETTINGS.enableFolderSoftening, {
-    name: "柔化右侧栏文件夹颜色",
+    name: "DNDANIMALUI.Settings.EnableFolderSoftening.Name",
+    hint: "DNDANIMALUI.Settings.EnableFolderSoftening.Hint",
     scope: "world",
     config: false,
     type: Boolean,
@@ -668,7 +846,8 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.enableJournalReadability, {
-    name: "日志可读性修正",
+    name: "DNDANIMALUI.Settings.EnableJournalReadability.Name",
+    hint: "DNDANIMALUI.Settings.EnableJournalReadability.Hint",
     scope: "world",
     config: false,
     type: Boolean,
@@ -677,7 +856,8 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.enableDnd5eSheetSafety, {
-    name: "DnD5e 角色卡兼容保护",
+    name: "DNDANIMALUI.Settings.EnableDnd5eSheetSafety.Name",
+    hint: "DNDANIMALUI.Settings.EnableDnd5eSheetSafety.Hint",
     scope: "world",
     config: false,
     type: Boolean,
@@ -686,7 +866,8 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.enableDnd5eAnimalBackground, {
-    name: "DnD5e 角色卡动物背景",
+    name: "DNDANIMALUI.Settings.EnableDnd5eAnimalBackground.Name",
+    hint: "DNDANIMALUI.Settings.EnableDnd5eAnimalBackground.Hint",
     scope: "world",
     config: false,
     type: Boolean,
@@ -695,7 +876,8 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.enableSidebarVisibility, {
-    name: "玩家右侧栏可见项",
+    name: "DNDANIMALUI.Settings.EnableSidebarVisibility.Name",
+    hint: "DNDANIMALUI.Settings.EnableSidebarVisibility.Hint",
     scope: "world",
     config: false,
     type: Boolean,
@@ -704,7 +886,7 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, SETTINGS.playerSidebarTabs, {
-    name: "玩家右侧栏可见项数据",
+    name: "DNDANIMALUI.Settings.PlayerSidebarTabs.Name",
     scope: "world",
     config: false,
     type: Object,
@@ -713,12 +895,12 @@ function registerSettings() {
   });
 
   game.settings.registerMenu(MODULE_ID, "themeConfig", {
-    name: "DND 动物岛 UI",
-    label: "配置",
-    hint: "配置动物岛主题、光标、素材强度、按钮动效和非 GM 玩家右侧栏可见项。",
+    name: "DNDANIMALUI.Menu.Name",
+    label: "DNDANIMALUI.Menu.Label",
+    hint: "DNDANIMALUI.Menu.Hint",
     icon: "fas fa-leaf",
     type: DndAnimalThemeConfig,
-    restricted: true
+    restricted: false
   });
 }
 
@@ -729,6 +911,7 @@ Hooks.once("ready", () => {
 });
 Hooks.on("renderSidebar", applyPlayerSidebarTabVisibility);
 Hooks.on("renderChatLog", injectStickerButton);
+Hooks.on("renderChatInput", injectStickerButton);
 Hooks.on("chatMessage", handleStickerCommand);
 Hooks.on("collapseSidebar", applyPlayerSidebarTabVisibility);
 Hooks.on("updateSetting", (setting) => {

@@ -1,0 +1,120 @@
+{
+  "DNDANIMALUI": {
+    "Menu": {
+      "Name": "DND Animal Island UI",
+      "Label": "Configure",
+      "Hint": "Configure the Animal Island theme, compatibility fixes, chat stickers, player sidebar visibility, and per-client personal preferences (cursor, effects, asset intensity)."
+    },
+    "Config": {
+      "Title": "DND Animal Island UI Settings",
+      "SectionTheme": "Theme (world, GM)",
+      "SectionCompat": "Compatibility Fixes (world, GM)",
+      "SectionSidebar": "Player Sidebar (GM)",
+      "SectionStickers": "Custom Stickers (GM)",
+      "SectionPersonal": "Personal Preferences (this client only)",
+      "PersonalHint": "These options are stored in your own browser. Every player can set them independently.",
+      "StickersHint": "Add world-shared custom stickers. Rows with an empty command or missing image are ignored on save.",
+      "SidebarTab": "Sidebar Tab",
+      "SidebarVisible": "Visible to Players",
+      "StickerLabel": "Label",
+      "StickerCommand": "Command",
+      "StickerCategory": "Category",
+      "StickerImage": "Image",
+      "Browse": "Browse",
+      "Delete": "Delete",
+      "AddSticker": "Add Sticker",
+      "SelectAll": "Select All",
+      "SelectNone": "Select None",
+      "HideCompendiumOnly": "Hide Compendium Only",
+      "Save": "Save"
+    },
+    "Settings": {
+      "EnableTheme": {
+        "Name": "Enable Theme",
+        "Hint": "Enable the global DND Animal Island UI theme."
+      },
+      "CompatMode": {
+        "Name": "Compatibility Mode",
+        "Hint": "Keep the base theme look but temporarily disable high-risk decorative layers: button effects, folder softening, journal overrides, and DnD5e animal backgrounds."
+      },
+      "EnableCursor": {
+        "Name": "Animal Island Cursor",
+        "Hint": "Use the bundled game-style pointer (text fields and window resize handles keep system cursors)."
+      },
+      "EnableButtonPressFx": {
+        "Name": "Button Press Effects",
+        "Hint": "Play a small bounce and leaf sparkle when clicking buttons."
+      },
+      "EnableStickers": {
+        "Name": "Chat Animal Stickers",
+        "Hint": "Add an animal sticker button to the chat input bar for sending bundled SVG stickers."
+      },
+      "AssetIntensity": {
+        "Name": "Asset Intensity",
+        "Hint": "Control how present background textures and decorative assets are.",
+        "ChoiceHigh": "Full",
+        "ChoiceLow": "Light",
+        "ChoiceOff": "Assets Off"
+      },
+      "EnableFolderSoftening": {
+        "Name": "Soften Sidebar Folder Colors",
+        "Hint": "Tone down custom Foundry folder colors so they do not clash with the Animal Island palette."
+      },
+      "EnableJournalReadability": {
+        "Name": "Journal Readability Fixes",
+        "Hint": "Force journal pages to keep a light paper background with high-contrast text."
+      },
+      "EnableDnd5eSheetSafety": {
+        "Name": "DnD5e Sheet Compatibility Guard",
+        "Hint": "Keep native system layout and restrict the theme to shells and readability."
+      },
+      "EnableDnd5eAnimalBackground": {
+        "Name": "DnD5e Animal Sheet Background",
+        "Hint": "Give actor/NPC/item sheets a soft Animal Island paper background."
+      },
+      "EnableSidebarVisibility": {
+        "Name": "Enable Player Sidebar Control",
+        "Hint": "Only affects non-GM players. GMs are never subject to hiding rules."
+      },
+      "PlayerSidebarTabs": {
+        "Name": "Player Sidebar Visibility Data"
+      },
+      "CustomStickers": {
+        "Name": "Custom Chat Sticker Data"
+      }
+    },
+    "Notify": {
+      "UnknownSticker": "No animal sticker found for: {query}. Available: {options}",
+      "KeepOneTab": "At least one sidebar tab must stay visible to players. One tab was kept automatically.",
+      "DuplicateStickerCommand": "Duplicate custom sticker command skipped: {command}"
+    },
+    "StickerButtonTitle": "Send an animal sticker",
+    "Category": {
+      "All": "All",
+      "Emotion": "Emotion",
+      "Adventure": "Adventure",
+      "Animal": "Animals"
+    },
+    "Sticker": {
+      "Duck": "Wizard Duck",
+      "Bear": "Hug Bear",
+      "Cat": "Pink Cat",
+      "Frog": "Mint Frog",
+      "Rabbit": "Cream Rabbit",
+      "Owl": "Star Owl"
+    },
+    "Tabs": {
+      "Chat": "Chat",
+      "Combat": "Combat",
+      "Scenes": "Scenes",
+      "Actors": "Actors",
+      "Items": "Items",
+      "Journal": "Journal",
+      "Tables": "Roll Tables",
+      "Cards": "Cards",
+      "Playlists": "Playlists",
+      "Compendium": "Compendium",
+      "Settings": "Settings"
+    }
+  }
+}

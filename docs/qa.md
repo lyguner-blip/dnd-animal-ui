@@ -23,6 +23,8 @@ Use this checklist after enabling the module in a Foundry VTT world.
   - DnD5e sheet safety
   - DnD5e animal sheet background
 - Open chat and confirm the animal sticker button is inside the chat input bar.
+- Collapse and expand the sidebar (v13), and pop out the chat log. Confirm the sticker button follows the native chat controls and still opens its panel.
+- On v13, confirm token HUD, hotbar, scene controls, players list, and camera views keep their native dark overlay look (no cream panels).
 - Open the sticker panel and confirm the category tabs filter stickers without moving native chat controls.
 - Send each sticker and confirm the message uses a local `modules/dnd-animal-ui/assets/stickers/*.svg` image.
 - Type `/sticker duck` and `/表情 duck` in chat and confirm a sticker message is sent.
@@ -31,6 +33,9 @@ Use this checklist after enabling the module in a Foundry VTT world.
 - Open a journal entry with sidebar/page navigation. Confirm headings, body text, links, tables, and selected page rows have enough contrast.
 - Check actor, item, journal, scene, compendium, and settings sidebars. Folder colors should feel softened when the option is enabled.
 - Log in as a non-GM player. Confirm hidden sidebar tabs disappear and at least one tab remains visible.
+- As GM, add a custom sticker (label, command, category, image via file picker), save, and confirm it appears in the panel and responds to `/sticker <command>` on another client.
+- As a non-GM player, open `DND 动物岛 UI` settings: only the personal section should be visible, and saving cursor/effects/intensity must apply locally without permission errors.
+- With the themed cursor enabled, hover a text input (I-beam expected) and a window resize corner (resize arrow expected).
 
 ## Visual Acceptance
 

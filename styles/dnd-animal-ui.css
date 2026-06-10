@@ -120,6 +120,30 @@ body.dnd-animal-ui-cursor-enabled * {
   cursor: url("../assets/cursor/cursor-icon.png") 4 0, auto !important;
 }
 
+/* 0.4.0 - keep system cursors where the themed pointer hurts usability. */
+body.dnd-animal-ui-cursor-enabled :is(
+  input[type="text"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="date"],
+  input[type="time"],
+  input[type="url"],
+  input[type="email"],
+  textarea,
+  [contenteditable="true"],
+  .ProseMirror,
+  .ProseMirror *,
+  .editor-content,
+  .editor-content *
+) {
+  cursor: text !important;
+}
+
+body.dnd-animal-ui-cursor-enabled :is(.window-resizable-handle, .window-resize-handle, [data-action="resize"]) {
+  cursor: nwse-resize !important;
+}
+
 body.dnd-animal-ui-enabled {
   color: var(--dnd-animal-text-body);
 }
@@ -168,14 +192,17 @@ body.dnd-animal-ui-enabled .fa-brands {
   font-weight: 400 !important;
 }
 
-body.dnd-animal-ui-enabled #sidebar-tabs .dnd-animal-ui-hidden-player-sidebar-tab,
-body.dnd-animal-ui-enabled #sidebar-content .dnd-animal-ui-hidden-player-sidebar-panel,
-body.dnd-animal-ui-enabled #sidebar .dnd-animal-ui-hidden-player-sidebar-panel {
+/* Hidden player sidebar tabs/panels. No ancestor requirement: v13 tab buttons
+   live in #sidebar > nav.tabs (no #sidebar-tabs id). */
+body.dnd-animal-ui-enabled .dnd-animal-ui-hidden-player-sidebar-tab,
+body.dnd-animal-ui-enabled .dnd-animal-ui-hidden-player-sidebar-panel {
   display: none !important;
 }
 
-/* Core Foundry shells */
-body.dnd-animal-ui-enabled :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout),
+/* Core Foundry shells. v13 HUD overlays (scene controls, hotbar, players,
+   camera views, token/tile HUDs) are ApplicationV2 too, so exclude them:
+   they must keep their native transparent overlay look. */
+body.dnd-animal-ui-enabled :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout):not(.faded-ui):not(.placeable-hud):not(#camera-views):not(#tooltip),
 body.dnd-animal-ui-enabled :is(#sidebar, #players, #navigation, #pause) {
   color: var(--dnd-animal-text-body) !important;
   border: 2px solid rgba(159, 146, 125, 0.62) !important;
@@ -190,7 +217,7 @@ body.dnd-animal-ui-enabled :is(#sidebar, #players, #navigation, #pause) {
   -webkit-backdrop-filter: blur(8px) saturate(1.05);
 }
 
-body.dnd-animal-ui-enabled.dnd-animal-ui-assets-high :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout)::before {
+body.dnd-animal-ui-enabled.dnd-animal-ui-assets-high :is(.app, .application, .window-app, .dialog, .sheet, .sidebar-popout):not(.faded-ui):not(.placeable-hud):not(#camera-views):not(#tooltip)::before {
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -467,31 +494,16 @@ body.dnd-animal-ui-enabled #chat-form {
   position: relative;
 }
 
-body.dnd-animal-ui-enabled .dnd-animal-ui-chat-input-wrap {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-body.dnd-animal-ui-enabled .dnd-animal-ui-chat-input-wrap .dnd-animal-ui-chat-message-input {
-  width: 100% !important;
-  min-width: 0;
-  margin: 0 !important;
-  padding-right: 0.8rem !important;
-  padding-left: 48px !important;
-}
-
+/* The sticker dock sits inside #chat-controls as a regular control and the
+   panel pops up from the button itself. */
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-dock {
-  position: absolute;
-  left: 8px;
-  right: auto;
-  top: 8px;
-  z-index: 30;
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 34px;
   height: 34px;
+  flex: 0 0 34px;
 }
 
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-button {
@@ -513,9 +525,10 @@ body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-button img {
 
 body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-panel {
   position: absolute;
-  left: 0;
-  right: auto;
-  bottom: calc(100% + 8px);
+  right: 0;
+  left: auto;
+  bottom: calc(100% + 10px);
+  z-index: 9999;
   display: none;
   width: min(248px, calc(100vw - 32px));
   gap: 10px;
@@ -655,16 +668,19 @@ body.dnd-animal-ui-enabled .control-tools :is(ol, ul, li, menu, nav, section, di
   box-shadow: none !important;
 }
 
-body.dnd-animal-ui-enabled #players,
 body.dnd-animal-ui-enabled #navigation {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(248, 248, 240, 0.86)),
     var(--dnd-animal-bg) !important;
 }
 
-body.dnd-animal-ui-enabled #players h3,
-body.dnd-animal-ui-enabled #players ol,
-body.dnd-animal-ui-enabled #players li,
+/* Player names sit on dark plates and carry per-user colors from core:
+   only the v12-and-earlier heading needs a readable light color. */
+body.dnd-animal-ui-enabled #players h3 {
+  color: var(--dnd-animal-dark-text) !important;
+  text-shadow: none !important;
+}
+
 body.dnd-animal-ui-enabled #navigation .scene-name {
   color: var(--dnd-animal-text) !important;
   text-shadow: none !important;
@@ -683,6 +699,34 @@ body.dnd-animal-ui-enabled #navigation .scene.active,
 body.dnd-animal-ui-enabled #navigation .scene.view {
   background: var(--dnd-animal-blue) !important;
   color: #fff !important;
+}
+
+/* v13 scene navigation (#scene-navigation replaced #navigation). */
+body.dnd-animal-ui-enabled #scene-navigation .scene {
+  border: 2px solid rgba(159, 146, 125, 0.58) !important;
+  border-radius: 18px !important;
+  background: rgba(247, 243, 223, 0.92) !important;
+  box-shadow: 0 3px 0 0 rgba(189, 174, 160, 0.72) !important;
+}
+
+body.dnd-animal-ui-enabled #scene-navigation .scene .scene-name {
+  color: var(--dnd-animal-text) !important;
+  text-shadow: none !important;
+}
+
+body.dnd-animal-ui-enabled #scene-navigation .scene:is(.active, .view) {
+  background: var(--dnd-animal-blue) !important;
+  border-color: rgba(95, 113, 196, 0.8) !important;
+}
+
+body.dnd-animal-ui-enabled #scene-navigation .scene:is(.active, .view) .scene-name {
+  color: #fff !important;
+}
+
+body.dnd-animal-ui-enabled #scene-navigation-expand {
+  border-radius: var(--dnd-animal-pill) !important;
+  background: rgba(247, 243, 223, 0.92) !important;
+  color: var(--dnd-animal-text) !important;
 }
 
 body.dnd-animal-ui-enabled #pause {
@@ -962,6 +1006,49 @@ body.dnd-animal-ui-enabled .dnd-animal-ui-sidebar-tab-row .tab-name {
   white-space: nowrap;
 }
 
+/* 0.4.0 - theme config: hint lines and custom sticker manager. */
+body.dnd-animal-ui-enabled .dnd-animal-ui-config-hint {
+  margin: -0.25rem 0 0.55rem;
+  color: var(--dnd-animal-text-muted);
+  font-size: 0.78rem;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-custom-sticker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0 0 0.5rem;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-custom-sticker-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 2fr) auto auto;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.4rem;
+  border: 2px solid rgba(216, 208, 195, 0.64);
+  border-radius: 14px;
+  background: rgba(248, 248, 240, 0.72);
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-custom-sticker-row :is(input, select) {
+  min-height: 28px !important;
+  font-size: 0.8rem;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-custom-sticker-row button {
+  width: 30px;
+  height: 30px;
+  min-width: 30px !important;
+  padding: 0 !important;
+  line-height: 1;
+}
+
+body.dnd-animal-ui-enabled .dnd-animal-ui-add-sticker {
+  width: 100%;
+  min-height: 32px;
+}
+
 /* Compatibility guards */
 body.dnd-animal-ui-enabled :is(.app, .application, .window-app, .sheet):is(.minimized, .minimizing, .maximizing) .window-content {
   display: none !important;
@@ -1123,7 +1210,7 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-journal-readability-enabled #sidebar .t
   background: var(--dnd-animal-primary) !important;
 }
 
-/* 0.3.1 - module activation text, chat sticker placement, and dnd5e sheet tone polish. */
+/* 0.3.1 - module activation text and dnd5e sheet tone polish. */
 body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-configuration, .window-app.package-configuration, .application.package-configuration) {
   color: var(--dnd-animal-text-body) !important;
 }
@@ -1211,24 +1298,6 @@ body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-
   color: var(--dnd-animal-text) !important;
   background: rgba(230, 249, 246, 0.72) !important;
   border-color: rgba(25, 200, 185, 0.34) !important;
-}
-
-body.dnd-animal-ui-enabled .dnd-animal-ui-chat-input-wrap .dnd-animal-ui-chat-message-input {
-  padding-right: 0.85rem !important;
-  padding-left: 48px !important;
-}
-
-body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-dock {
-  left: 8px;
-  right: auto;
-  top: 8px;
-  z-index: 30;
-}
-
-body.dnd-animal-ui-enabled .dnd-animal-ui-sticker-panel {
-  left: 0;
-  right: auto;
-  transform-origin: 20px 100%;
 }
 
 body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) .window-content,
