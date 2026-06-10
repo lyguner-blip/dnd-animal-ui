@@ -64,13 +64,9 @@
         "Name": "日志可读性修正",
         "Hint": "强制日志正文保持纸面浅底和高对比文字。"
       },
-      "EnableDnd5eSheetSafety": {
-        "Name": "DnD5e 角色卡兼容保护",
-        "Hint": "保留系统原生布局，限制主题只改外壳和可读性。"
-      },
-      "EnableDnd5eAnimalBackground": {
-        "Name": "DnD5e 角色卡动物背景",
-        "Hint": "给角色/NPC/物品卡加入柔和动物岛纸面背景。"
+      "EnableDnd5eCreamTheme": {
+        "Name": "DnD5e 卡片奶油主题",
+        "Hint": "角色卡、物品卡、随机表、聊天卡和宏栏全面使用动物岛奶油配色。关闭后恢复系统原生样式。"
       },
       "EnableSidebarVisibility": {
         "Name": "启用玩家右侧栏控制",

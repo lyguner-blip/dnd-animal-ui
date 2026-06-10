@@ -9,8 +9,7 @@ const SETTINGS = {
   enableStickers: "enableStickers",
   enableFolderSoftening: "enableFolderSoftening",
   enableJournalReadability: "enableJournalReadability",
-  enableDnd5eSheetSafety: "enableDnd5eSheetSafety",
-  enableDnd5eAnimalBackground: "enableDnd5eAnimalBackground",
+  enableDnd5eCreamTheme: "enableDnd5eCreamTheme",
   enableSidebarVisibility: "enableSidebarVisibility",
   playerSidebarTabs: "playerSidebarTabs",
   customStickers: "customStickers"
@@ -24,8 +23,7 @@ const BODY_CLASSES = [
   "dnd-animal-ui-stickers-enabled",
   "dnd-animal-ui-folder-softening-enabled",
   "dnd-animal-ui-journal-readability-enabled",
-  "dnd-animal-ui-dnd5e-sheet-safety-enabled",
-  "dnd-animal-ui-dnd5e-animal-background-enabled",
+  "dnd-animal-ui-dnd5e-cream-enabled",
   "dnd-animal-ui-assets-low",
   "dnd-animal-ui-assets-high",
   "dnd-animal-ui-assets-off"
@@ -335,8 +333,7 @@ function applyThemeState() {
   if (getSetting(SETTINGS.enableStickers)) body.classList.add("dnd-animal-ui-stickers-enabled");
   if (!compatMode && getSetting(SETTINGS.enableFolderSoftening)) body.classList.add("dnd-animal-ui-folder-softening-enabled");
   if (!compatMode && getSetting(SETTINGS.enableJournalReadability)) body.classList.add("dnd-animal-ui-journal-readability-enabled");
-  if (getSetting(SETTINGS.enableDnd5eSheetSafety)) body.classList.add("dnd-animal-ui-dnd5e-sheet-safety-enabled");
-  if (!compatMode && getSetting(SETTINGS.enableDnd5eAnimalBackground)) body.classList.add("dnd-animal-ui-dnd5e-animal-background-enabled");
+  if (!compatMode && getSetting(SETTINGS.enableDnd5eCreamTheme)) body.classList.add("dnd-animal-ui-dnd5e-cream-enabled");
 
   const intensity = compatMode ? "low" : (getSetting(SETTINGS.assetIntensity) || "high");
   body.classList.add(`dnd-animal-ui-assets-${intensity}`);
@@ -578,8 +575,7 @@ class DndAnimalThemeConfig extends FormApplication {
       enableStickers: getSetting(SETTINGS.enableStickers),
       enableFolderSoftening: getSetting(SETTINGS.enableFolderSoftening),
       enableJournalReadability: getSetting(SETTINGS.enableJournalReadability),
-      enableDnd5eSheetSafety: getSetting(SETTINGS.enableDnd5eSheetSafety),
-      enableDnd5eAnimalBackground: getSetting(SETTINGS.enableDnd5eAnimalBackground),
+      enableDnd5eCreamTheme: getSetting(SETTINGS.enableDnd5eCreamTheme),
       enableSidebarVisibility: getSetting(SETTINGS.enableSidebarVisibility),
       assetIntensityOptions: [
         { value: "high", label: game.i18n.localize("DNDANIMALUI.Settings.AssetIntensity.ChoiceHigh"), selected: assetIntensity === "high" },
@@ -744,8 +740,7 @@ class DndAnimalThemeConfig extends FormApplication {
       await game.settings.set(MODULE_ID, SETTINGS.enableStickers, form.enableStickers.checked);
       await game.settings.set(MODULE_ID, SETTINGS.enableFolderSoftening, form.enableFolderSoftening.checked);
       await game.settings.set(MODULE_ID, SETTINGS.enableJournalReadability, form.enableJournalReadability.checked);
-      await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eSheetSafety, form.enableDnd5eSheetSafety.checked);
-      await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eAnimalBackground, form.enableDnd5eAnimalBackground.checked);
+      await game.settings.set(MODULE_ID, SETTINGS.enableDnd5eCreamTheme, form.enableDnd5eCreamTheme.checked);
       await game.settings.set(MODULE_ID, SETTINGS.enableSidebarVisibility, form.enableSidebarVisibility.checked);
       await game.settings.set(MODULE_ID, SETTINGS.playerSidebarTabs, visibleTabs);
       await game.settings.set(MODULE_ID, SETTINGS.customStickers, this._collectCustomStickers(form));
@@ -855,19 +850,9 @@ function registerSettings() {
     onChange: applyThemeState
   });
 
-  game.settings.register(MODULE_ID, SETTINGS.enableDnd5eSheetSafety, {
-    name: "DNDANIMALUI.Settings.EnableDnd5eSheetSafety.Name",
-    hint: "DNDANIMALUI.Settings.EnableDnd5eSheetSafety.Hint",
-    scope: "world",
-    config: false,
-    type: Boolean,
-    default: true,
-    onChange: applyThemeState
-  });
-
-  game.settings.register(MODULE_ID, SETTINGS.enableDnd5eAnimalBackground, {
-    name: "DNDANIMALUI.Settings.EnableDnd5eAnimalBackground.Name",
-    hint: "DNDANIMALUI.Settings.EnableDnd5eAnimalBackground.Hint",
+  game.settings.register(MODULE_ID, SETTINGS.enableDnd5eCreamTheme, {
+    name: "DNDANIMALUI.Settings.EnableDnd5eCreamTheme.Name",
+    hint: "DNDANIMALUI.Settings.EnableDnd5eCreamTheme.Hint",
     scope: "world",
     config: false,
     type: Boolean,

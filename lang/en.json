@@ -64,13 +64,9 @@
         "Name": "Journal Readability Fixes",
         "Hint": "Force journal pages to keep a light paper background with high-contrast text."
       },
-      "EnableDnd5eSheetSafety": {
-        "Name": "DnD5e Sheet Compatibility Guard",
-        "Hint": "Keep native system layout and restrict the theme to shells and readability."
-      },
-      "EnableDnd5eAnimalBackground": {
-        "Name": "DnD5e Animal Sheet Background",
-        "Hint": "Give actor/NPC/item sheets a soft Animal Island paper background."
+      "EnableDnd5eCreamTheme": {
+        "Name": "DnD5e Cream Sheets",
+        "Hint": "Theme actor sheets, item sheets, roll tables, chat cards and the hotbar with the full Animal Island cream palette. Disable to restore native system styling."
       },
       "EnableSidebarVisibility": {
         "Name": "Enable Player Sidebar Control",
