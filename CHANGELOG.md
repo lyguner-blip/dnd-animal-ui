@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.0 - 2026-06-11
+
+- Added full cream theming for dnd5e 5.x sheets: palette variables remapped so PC/NPC/item sheets drop the dark slate panels entirely; island banner headers, cream filigree boxes, warm-yellow section headers, teal accents.
+- Added cream theming for core roll table sheets (stripes, teal ranges, drawn-row muting), the dnd5e compendium browser, dnd5e chat cards (dice totals with crit/fumble rings) and the native v13 hotbar (cream slots, jelly page controls).
+- Changed dnd5e sheets and the chat log to always use the system light-theme branch while the cream theme is active, regardless of the global Foundry theme.
+- Changed generic window-shell theming to exclude dnd5e2 windows entirely; they are now owned by the new `styles/dnd-animal-sheets.css` and return fully native when the cream theme is off.
+- Removed the `enableDnd5eSheetSafety` and `enableDnd5eAnimalBackground` settings; both are replaced by a single `enableDnd5eCreamTheme` world toggle (default on).
+- Changed author to 蟀蟀.
+
 ## 0.4.0 - 2026-06-10
 
 - Added GM-defined custom chat stickers: manage label/command/category/image rows in the settings window with a FilePicker, stored as a world setting and merged with the bundled stickers (panel and `/sticker` commands included). Duplicate or incomplete rows are skipped with a warning.

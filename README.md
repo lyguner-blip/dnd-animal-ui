@@ -18,7 +18,7 @@ https://github.com/lyguner-blip/dnd-animal-ui/releases/download/v0.4.0/dnd-anima
 - 聊天输入栏内嵌动物表情按钮，可发送本地打包的萌系动物 SVG 表情；按钮跟随原生聊天控制条，支持侧边栏折叠与聊天弹窗。
 - GM 可通过设置窗口添加世界共享的自定义表情（FilePicker 选图，自动获得聊天命令）。
 - 表情面板支持分类筛选，并支持 `/sticker duck`、`/表情 duck` 等聊天命令。
-- 可单独开关右侧栏文件夹柔化、journal 可读性、DnD5e sheet 兼容保护和角色卡动物背景。
+- 可单独开关右侧栏文件夹柔化、journal 可读性、DnD5e 奶油主题（`enableDnd5eCreamTheme`，默认开启，取代旧版的 sheet 兼容保护与角色卡动物背景两个独立开关）。
 - 玩家右侧栏隐藏属于界面级"减少干扰"功能，不是权限控制：被隐藏的目录仍可通过宏或 API 访问，敏感内容请用 Foundry 自身的文档权限管理。
 - 兼容模式可临时关闭高风险装饰层，用于快速排查 UI 冲突。
 - 界面文案支持 i18n（简体中文 / English）。
