@@ -63,3 +63,90 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.chat-messag
   --color-text-emphatic: #794f27;
   --color-text-title: #794f27;
 }
+
+/* ===================================================================
+   Layer 2 — 装饰层：背景纹理、卡头横幅、filigree 框、分隔线。
+   注意：自定义属性里的 url() 一律绝对路径。
+   =================================================================== */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled :is(.dnd5e2, .dnd5e2-journal),
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.chat-message {
+  /* 整窗背景：奶油渐变替代灰纸纹理 */
+  --dnd5e-application-background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(247, 243, 223, 0.96)),
+    rgb(247, 243, 223);
+
+  /* 角色卡头部：岛景横幅 + 青天渐变压暗；正文不再用红纸纹理 */
+  --dnd5e-character-header-image:
+    linear-gradient(180deg, rgba(125, 202, 194, 0.55), rgba(239, 232, 207, 0.92) 78%),
+    url("/modules/dnd-animal-ui/assets/backgrounds/animalisland_1440_2560.jpg");
+  --dnd5e-character-body-image: none;
+  --dnd5e-character-background-content: none;
+  --dnd5e-character-background-image: transparent;
+
+  /* NPC / 物品卡头部统一岛景；遭遇/团体保持素面 */
+  --dnd5e-npc-header-content: "";
+  --dnd5e-npc-header-image:
+    linear-gradient(180deg, rgba(125, 202, 194, 0.55), rgba(239, 232, 207, 0.92) 78%),
+    url("/modules/dnd-animal-ui/assets/backgrounds/animalisland_1440_2560.jpg");
+  --dnd5e-item-header-content: "";
+  --dnd5e-item-header-image:
+    linear-gradient(180deg, rgba(125, 202, 194, 0.55), rgba(239, 232, 207, 0.92) 78%),
+    url("/modules/dnd-animal-ui/assets/backgrounds/animalisland_1440_2560.jpg");
+  --dnd5e-encounter-header-content: none;
+  --dnd5e-encounter-header-image: transparent;
+  --dnd5e-group-header-content: none;
+  --dnd5e-group-header-image: transparent;
+
+  /* 面板与边框：金线 → 暖棕圆线 */
+  --dnd5e-background-card: #fffdf2;
+  --dnd5e-background-parchment: #fffdf2;
+  --dnd5e-background-alt-1: #f0e8d8;
+  --dnd5e-background-alt-2: #ece2cf;
+  --dnd5e-gold-icon-background: #f0e8d8;
+  --dnd5e-border-gold: 2px solid rgba(159, 146, 125, 0.62);
+  --dnd5e-inventory-border: 2px solid rgba(159, 146, 125, 0.42);
+  --dnd5e-slot-border: 1px solid rgba(159, 146, 125, 0.62);
+  --dnd5e-border-dotted: 1px dotted #c4b89e;
+  --dnd5e-border-dashed: 1px dashed #c4b89e;
+  --dnd5e-border-dashed-faint: 1px dashed #e8dfc8;
+  --dnd5e-border-dark: 1px solid #c4b89e;
+  --dnd5e-border-separator-faint: 1px solid #e8dfc8;
+  --dnd5e-border-separator-heavy: 1px solid #d8d0c3;
+  --separated-list-item-background-color: #fffdf2;
+  --separated-list-item-border-color: rgba(159, 146, 125, 0.5);
+
+  /* 物品/特性区卡头（原暗红渐变）→ 暖黄 */
+  --dnd5e-card-header-1: #f7cd67;
+  --dnd5e-card-header-2: #f7d77d;
+  --dnd5e-card-header-disabled-1: #d8d0c3;
+  --dnd5e-card-header-disabled-2: #e8dfc8;
+
+  /* 属性区 */
+  --dnd5e-attribute-color: #794f27;
+  --dnd5e-ability-color: #8a7b66;
+  --dnd5e-ability-mod-color: #11a89b;
+  --dnd5e-heading-3-color: #794f27;
+  --dnd5e-condition-hover: #f0e8d8;
+
+  /* filigree 哥特框 → 奶油填充 + 暖棕描线 */
+  --filigree-background-color: #fffdf2;
+  --filigree-border-color: rgba(159, 146, 125, 0.6);
+}
+
+/* dnd5e 窗口外壳与主文件的果冻语言对齐 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .application.dnd5e2:not(.minimized) {
+  border: 2px solid rgba(159, 146, 125, 0.62) !important;
+  border-radius: var(--dnd-animal-radius-lg) !important;
+  box-shadow:
+    0 5px 0 0 rgba(189, 174, 160, 0.88),
+    0 10px 24px rgba(61, 52, 40, 0.14) !important;
+}
+
+/* 卡头横幅上的标题文字保持可读（沿用 0.4.0 描影方案） */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .application.dnd5e2.sheet
+  :is(.sheet-header, header.sheet-header) :is(.document-name, input.document-name, .title, h1, h2) {
+  color: #fff9e3 !important;
+  text-shadow:
+    0 2px 0 rgba(114, 93, 66, 0.75),
+    0 0 5px rgba(61, 52, 40, 0.82) !important;
+}
