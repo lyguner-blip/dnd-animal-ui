@@ -355,10 +355,24 @@ function isCreamThemeActive() {
   }
 }
 
+// Already-rendered windows keep the forced classes until their next render
+// after the cream theme is toggled off — transient by design.
 function forceDnd5eLightTheme(element) {
   if (!isCreamThemeActive()) return;
   const el = element instanceof HTMLElement ? element : element?.[0];
   if (!el?.classList?.contains("dnd5e2")) return;
+  el.classList.add("themed", "theme-light");
+  el.classList.remove("theme-dark");
+}
+
+// dnd5e chat cards take their palette from the DESCENDANT selector
+// `.themed.theme-light .dnd5e2.chat-message`, so the light branch must be
+// forced on the chat log container, not on each message (whose dnd5e2 class
+// is added after renderChatMessageHTML fires anyway).
+function forceChatLogLightTheme(element) {
+  if (!isCreamThemeActive()) return;
+  const el = element instanceof HTMLElement ? element : element?.[0];
+  if (!el?.id || !["chat", "chat-popout"].includes(el.id)) return;
   el.classList.add("themed", "theme-light");
   el.classList.remove("theme-dark");
 }
@@ -921,7 +935,7 @@ Hooks.on("renderChatInput", injectStickerButton);
 Hooks.on("chatMessage", handleStickerCommand);
 Hooks.on("collapseSidebar", applyPlayerSidebarTabVisibility);
 Hooks.on("renderApplicationV2", (_app, element) => forceDnd5eLightTheme(element));
-Hooks.on("renderChatMessageHTML", (_message, html) => forceDnd5eLightTheme(html));
+Hooks.on("renderApplicationV2", (_app, element) => forceChatLogLightTheme(element));
 Hooks.on("updateSetting", (setting) => {
   const key = setting?.key || setting?.id;
   if (!key?.startsWith(`${MODULE_ID}.`)) return;
