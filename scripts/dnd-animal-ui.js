@@ -342,6 +342,27 @@ function applyThemeState() {
   injectStickerButton();
 }
 
+// dnd5e 5.x picks its palette from .theme-light/.theme-dark classes. The cream
+// theme repaints the light branch, so sheets must always take it — even when
+// the user's global Foundry theme is dark.
+function isCreamThemeActive() {
+  try {
+    return getSetting(SETTINGS.enableTheme)
+      && !getSetting(SETTINGS.compatMode)
+      && getSetting(SETTINGS.enableDnd5eCreamTheme);
+  } catch (_error) {
+    return false;
+  }
+}
+
+function forceDnd5eLightTheme(element) {
+  if (!isCreamThemeActive()) return;
+  const el = element instanceof HTMLElement ? element : element?.[0];
+  if (!el?.classList?.contains("dnd5e2")) return;
+  el.classList.add("themed", "theme-light");
+  el.classList.remove("theme-dark");
+}
+
 function createLeafPop(target) {
   if (!document.body?.classList.contains("dnd-animal-ui-button-fx-enabled")) return;
 
@@ -899,6 +920,8 @@ Hooks.on("renderChatLog", injectStickerButton);
 Hooks.on("renderChatInput", injectStickerButton);
 Hooks.on("chatMessage", handleStickerCommand);
 Hooks.on("collapseSidebar", applyPlayerSidebarTabVisibility);
+Hooks.on("renderApplicationV2", (_app, element) => forceDnd5eLightTheme(element));
+Hooks.on("renderChatMessageHTML", (_message, html) => forceDnd5eLightTheme(html));
 Hooks.on("updateSetting", (setting) => {
   const key = setting?.key || setting?.id;
   if (!key?.startsWith(`${MODULE_ID}.`)) return;
