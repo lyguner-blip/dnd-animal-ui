@@ -273,3 +273,90 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.item 
   border-radius: 14px;
 }
 
+/* ===================================================================
+   Layer 3.4 — 聊天掷骰 / 物品使用卡精修
+   选择器按 dnd5e 5.3.3 源核对：
+     · 骰子结构 .dice-roll > .dice-result > .dice-total（dnd5e.css:13465-13531，
+       core foundry2.css:5141-5195）。注意 .dice-total 在 .dice-result 内，
+       .dice-roll 是外层可点击壳，用后代选择器即可命中。
+     · 大成功/大失败类名 .critical / .fumble / .success / .failure 挂在
+       .dice-total 上（dnd5e.css:13506-13527）。
+     · 卡片按钮 .chat-card .card-buttons button（dnd5e.css:13825，
+       activity-card.hbs:19-25）。
+     · 伤害应用色 --dnd5e-color-application-{damage,healing,temp} 定义于 :root
+       （dnd5e.css:77-79），仅被 .targets .target .calculated{,.healing,.temp}
+       文字消费（dnd5e.css:14020-14026）；不存在 [data-action="applyDamage"] 或
+       <damage-application> 消费它们 —— 故改为在消息祖先上重设变量令其级联。
+   =================================================================== */
+
+/* 骰子结果总值：暖白圆角徽章 + 深棕粗体。
+   .dice-total 在 .dice-result 内，本规则特异性 0,5,0 压过系统 .dice-result
+   .dice-total（0,2,0）。系统 ::before 分隔竖线与 ::after 折叠箭头保留。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .chat-message .dice-roll .dice-total {
+  color: #794f27;
+  background: #fffdf2;
+  border: 2px solid rgba(159, 146, 125, 0.62);
+  border-radius: 14px;
+  font-weight: 900;
+}
+
+/* 大成功 / 大失败：青绿 / 珊瑚描边 + 淡色底（系统对应规则 0,3,0 会被上面
+   0,5,0 的 background 盖掉，故此处显式补回带色底，否则成功/失败洗成纯奶白）。
+   系统 crit/fumble 另加 border-width:3px;border-style:double（dnd5e.css:13526），
+   本规则的 border 简写会覆盖之，统一回 2px 实线圆边。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .chat-message .dice-roll .dice-total.critical,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .chat-message .dice-roll .dice-total.success:not(.fumble) {
+  color: #11a89b;
+  background: #d9ecd0;
+  border: 2px solid #19c8b9;
+  box-shadow: 0 0 0 3px rgba(25, 200, 185, 0.18);
+}
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .chat-message .dice-roll .dice-total.fumble,
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .chat-message .dice-roll .dice-total.failure:not(.critical) {
+  color: #b23a48;
+  background: #f8dde0;
+  border: 2px solid #d97583;
+  box-shadow: 0 0 0 3px rgba(217, 117, 131, 0.18);
+}
+
+/* 骰子展开 tooltip 内单颗骰子。结构是 .dice-tooltip .dice-rolls .roll
+   （roll-breakdown.hbs:12-15，core foundry2.css:5234）；不存在 .die（已从草案
+   删除，见提交说明）。仅给「普通」骰子上暖棕字；保留系统对 success/max/failure/
+   min/discarded 的 filter 语义着色，故用 :not() 排除，避免抹平高低骰提示。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .chat-message .dice-tooltip .dice-rolls
+  .roll:not(.success):not(.failure):not(.max):not(.min):not(.discarded):not(.rerolled) {
+  color: #794f27;
+}
+
+/* 攻击/伤害/豁免等卡片按钮：奶油果冻。
+   只命中 .chat-card .card-buttons 内的实义动作按钮（activity-card.hbs / bastion-* /
+   order-activity-card.hbs / roll-request-card.hbs 均为此结构）。伤害托盘里的
+   .damage-multipliers 小格按钮与 .wrapper>button 不在 .chat-card 内（是 .message
+   的兄弟 .targets-tray），不受影响；卡内无图标专用步进按钮，药丸不破版。
+   系统按钮基样只设 --button-* 变量（dnd5e.css:807-815），故直接属性 + !important
+   稳赢。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .chat-message .chat-card .card-buttons button {
+  color: #794f27 !important;
+  background: #f8f8f0 !important;
+  border: 2px solid rgba(159, 146, 125, 0.72) !important;
+  border-radius: 50px !important;
+  box-shadow: 0 3px 0 0 #bdaea0 !important;
+}
+
+/* 伤害应用文字色（.calculated 及 .healing/.temp 变体）只调明度贴合奶油底。
+   变量在祖先上重设即可级联至消费处（dnd5e.css:14020-14026）；草案原选择器
+   [data-action="applyDamage"] / .damage-application button 在 5.3.3 中均不存在，
+   已弃用。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .chat-message {
+  --dnd5e-color-application-damage: #c2606e;
+  --dnd5e-color-application-healing: #4f8f1f;
+  --dnd5e-color-application-temp: #19c8b9;
+}
+
