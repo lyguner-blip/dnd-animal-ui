@@ -163,7 +163,7 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .application.dnd5e2
    --_fill: var(--proficiency-cycle-enabled-color)，外部 color/--color-fill
    无法穿透；只能通过继承的自定义属性着色（dnd5e.mjs:65077）。 */
 body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor.character
-  .sheet-body :is(.skills, .saves) {
+  .sheet-body :is(.skills, .saves, .tools) {
   --proficiency-cycle-enabled-color: #19c8b9;
   --proficiency-cycle-disabled-color: #c4b89e;
 }
@@ -191,6 +191,12 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
   .sheet-header .sheet-header-buttons button > i {
   color: #11a89b;
 }
+/* 系统 .gold-button::after 在按钮内画 inset:3px 的金线内框（dnd5e.css:3775），
+   会透出在我们的奶油药丸里；关掉它。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
+  .sheet-header .sheet-header-buttons button::after {
+  content: none;
+}
 
 /* 货币栏输入：section.currency > label > input.uninput（inventory.hbs:16）。 */
 body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor .currency input {
@@ -207,3 +213,30 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor
   background: linear-gradient(90deg, #6fba2c, #f7cd67) !important;
   border-right-color: #5da626 !important;
 }
+
+/* ===================================================================
+   Layer 3.2 — NPC / 怪物卡精修
+   选择器按 dnd5e 5.3.3 源核对（dnd5e.css / npc-header.hbs / dnd5e.mjs）。
+   =================================================================== */
+
+/* 卡头横幅：系统 ::before 默认 opacity:0.05（dnd5e.css:10069），
+   我们的岛景渐变在 5% 下完全不可见，而 Layer 2 又强制白色标题文字需要
+   背景衬托。提到 ~0.55（渐变本身已压暗图片，无需更高）。
+   ::before 挂在 sheet 根 .dnd5e2.sheet.actor.npc:not(.minimized) 上。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .dnd5e2.sheet.actor.npc:not(.minimized)::before {
+  opacity: 0.55;
+}
+
+/* CR / 挑战等级徽章。系统基样 .cr-badge 是 45x45 + ui/cr-badge.webp 盾牌图
+   （dnd5e.css:7801）。换成奶油圆章：去掉盾牌底图，铺暖橙圆形。 */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled
+  .dnd5e2.sheet.actor.npc .cr-badge {
+  color: #fff9e3;
+  background-color: #e59266;
+  background-image: none;
+  border: 2px solid rgba(181, 102, 54, 0.8);
+  border-radius: 999px;
+  text-shadow: 0 1px 0 rgba(114, 93, 66, 0.6);
+}
+
