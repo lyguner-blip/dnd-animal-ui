@@ -773,155 +773,6 @@ body.dnd-animal-ui-enabled .item[data-document-id]:nth-child(8n + 3) .name {
   --dnd-animal-tile: var(--dnd-animal-yellow);
 }
 
-/* dnd5e2 sheets */
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
-  .items-section,
-  .items-header,
-  .item-list,
-  .items-list,
-  .activities,
-  .activity,
-  .item,
-  .favorites,
-  .search,
-  .filter-list,
-  .pills,
-  .pills-group
-) {
-  --color-text-primary: var(--dnd-animal-dark-text);
-  --color-text-secondary: var(--dnd-animal-dark-muted);
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) .window-content,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
-  background:
-    linear-gradient(180deg, rgba(230, 249, 246, 0.78), rgba(255, 253, 242, 0.94) 28%, rgba(247, 243, 223, 0.98)),
-    var(--dnd-animal-content) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) {
-  background:
-    linear-gradient(180deg, rgba(157, 220, 231, 0.7), rgba(248, 248, 240, 0.86) 72%),
-    url("../assets/backgrounds/animalisland_1440_2560.jpg") center 18% / cover no-repeat !important;
-  border-bottom: 3px solid rgba(247, 205, 103, 0.74) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(
-  .sheet-body,
-  .main-content,
-  .sidebar,
-  .stats,
-  .details,
-  .inventory,
-  .features,
-  .spellbook,
-  .biography,
-  .tab,
-  section,
-  article
-),
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) :is(
-  .sheet-body,
-  .main-content,
-  .details,
-  .description,
-  .tab,
-  section,
-  article
-) {
-  background-image: none !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.window-content, .sheet-header, .sheet-body, .main-content, .tab)::before,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.window-content, .sheet-header, .sheet-body, .main-content, .tab)::after,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) :is(.window-content, .sheet-body, .main-content, .tab)::before,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) :is(.window-content, .sheet-body, .main-content, .tab)::after {
-  background-image: none !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header)::before {
-  opacity: 0.18 !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) :is(.document-name, input.document-name, .subtitle, .class, .race, .type, .level, .level-badge, .labels, .label, span, h1, h2) {
-  color: #fff9e3 !important;
-  text-shadow:
-    0 2px 0 rgba(114, 93, 66, 0.75),
-    0 0 5px rgba(61, 52, 40, 0.82) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, filigree-box) {
-  color: var(--dnd-animal-dark-text) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, filigree-box) :is(.label, .name, .mod, .score, .sign, .bonus, .value, .total, span, h3, h4) {
-  color: var(--dnd-animal-dark-text) !important;
-  text-shadow: none !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) .pills-group,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) .pills-group :is(h3, h4, .icon, .roboto-upper, .config-button, .config-button i) {
-  color: var(--dnd-animal-text) !important;
-  text-shadow: none !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) .pills-group.empty :is(h3, h4, .icon, .roboto-upper) {
-  color: var(--dnd-animal-text-body) !important;
-  opacity: 1 !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .skills, .saves, .items-section) :is(.label, .ability, .name strong, .item-name strong, h3, h4) {
-  color: #f7d77d !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
-  .items-section,
-  .items-header,
-  .item-list .item,
-  .items-list .item,
-  .activities .item,
-  .activity,
-  .search,
-  .filter-list
-) {
-  color: var(--dnd-animal-dark-text) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(
-  .items-section,
-  .items-header,
-  .item-list .item,
-  .items-list .item,
-  .activities .item,
-  .activity,
-  .search,
-  .filter-list
-) :is(.name, .item-name, .title, .label, .item-summary, .subtitle, span, a, p, h3, h4, td, th) {
-  color: var(--dnd-animal-dark-text) !important;
-  text-shadow: none !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.items-header, .section-header, .items-section > .header) {
-  background: #3a2025 !important;
-  color: #fff7df !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.item .tags, .item .tag, .item .uses, .item .formula, .item .to-hit, .item .damage, .item .quantity) {
-  color: #e2c779 !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.search input, input[type="search"]) {
-  color: var(--dnd-animal-dark-text) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .dnd5e2.compendium-browser .sidebar,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .dnd5e2.compendium-browser .filter,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .dnd5e2.compendium-browser .content {
-  color: var(--dnd-animal-text-body) !important;
-  background: rgba(247, 243, 223, 0.88) !important;
-  border-color: rgba(216, 208, 195, 0.82) !important;
-  border-radius: var(--dnd-animal-radius) !important;
-}
 
 /* Theme config */
 body.dnd-animal-ui-enabled .dnd-animal-ui-theme-config-window,
@@ -1060,9 +911,9 @@ body.dnd-animal-ui-enabled :is(.app, .application, .window-app, .sheet):is(.mini
   overflow: hidden !important;
 }
 
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing),
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .window-app.dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing),
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled .application.dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing),
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .window-app.dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing),
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled .application.dnd5e2.sheet.actor:is(.minimized, .minimizing, .maximizing) {
   min-width: 250px !important;
   min-height: 0 !important;
   overflow: hidden !important;
@@ -1134,20 +985,16 @@ body.dnd-animal-ui-enabled.dnd-animal-ui-folder-softening-enabled #sidebar .dire
 }
 
 /* 0.1.1 - dnd5e sheets keep their own internal controls and geometry. */
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.card, filigree-box, .pills-group) {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.card, filigree-box, .pills-group) {
   transform: none !important;
 }
 
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
   overflow: auto !important;
 }
 
-/* 0.1.3 - keep dnd5e sheets native; only the outer Foundry shell is themed. */
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.sheet-body, nav.tabs, .tabs) {
-  background-image: unset !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled:not(.dnd-animal-ui-dnd5e-animal-background-enabled) :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.window-content, .sheet-header) {
+/* 0.5.0 - cream theme: strip shell texture injections inside dnd5e sheets. */
+body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-cream-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.sheet-body, nav.tabs, .tabs) {
   background-image: unset !important;
 }
 
@@ -1300,35 +1147,3 @@ body.dnd-animal-ui-enabled :is(#module-management, .module-management, .package-
   border-color: rgba(25, 200, 185, 0.34) !important;
 }
 
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) .window-content,
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) .window-content {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(25, 200, 185, 0.12), transparent 34%),
-    linear-gradient(180deg, rgba(239, 232, 207, 0.98), rgba(244, 238, 219, 0.98) 42%, rgba(235, 226, 203, 0.98)),
-    var(--dnd-animal-content-2) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-header, header.sheet-header, .window-content > header) {
-  background:
-    linear-gradient(180deg, rgba(125, 202, 194, 0.48), rgba(239, 232, 207, 0.9) 74%),
-    url("../assets/backgrounds/animalisland_1440_2560.jpg") center 20% / cover no-repeat !important;
-  border-bottom-color: rgba(214, 184, 102, 0.62) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.sheet-body, .main-content, .tab),
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-animal-background-enabled :is(.dnd5e2.sheet.item, .window-app.dnd5e2.sheet.item, .application.dnd5e2.sheet.item) :is(.sheet-body, .main-content, .tab) {
-  background-color: rgba(239, 232, 207, 0.34) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet.actor, .window-app.dnd5e2.sheet.actor, .application.dnd5e2.sheet.actor) :is(.ability-scores, .ability-score, .skills, .saves, filigree-box) {
-  background-color: rgba(48, 52, 60, 0.93) !important;
-  border-color: rgba(247, 205, 103, 0.22) !important;
-  box-shadow:
-    0 8px 18px rgba(61, 52, 40, 0.16),
-    inset 0 1px 0 rgba(255, 253, 242, 0.08) !important;
-}
-
-body.dnd-animal-ui-enabled.dnd-animal-ui-dnd5e-sheet-safety-enabled :is(.dnd5e2.sheet, .window-app.dnd5e2.sheet, .application.dnd5e2.sheet) :is(.items-header, .section-header, .items-section > .header) {
-  background: #4a2f31 !important;
-  border-color: rgba(247, 205, 103, 0.26) !important;
-}

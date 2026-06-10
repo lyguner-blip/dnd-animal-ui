@@ -33,7 +33,8 @@
     }
   ],
   "styles": [
-    "styles/dnd-animal-ui.css"
+    "styles/dnd-animal-ui.css",
+    "styles/dnd-animal-sheets.css"
   ],
   "scripts": [
     "scripts/dnd-animal-ui.js"
